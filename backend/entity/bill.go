@@ -13,12 +13,12 @@ type Bill struct {
 	DormAttenID *uint
 	DormAtten   DormAtten
 
+	RoomAllocateID *uint `gorm:"uniqueIndex"`
+	RoomAllocate   RoomAllocate
+
 	/* รอแก้ไขๆๆๆๆ
 
 
-
-	RoomAllocateID *uint `gorm:"uniqueIndex"`
-	RoomAllocate   RoomAllocate
 
 	MeterRecordID *uint
 	MeterRecord   MeterRecord
@@ -29,5 +29,5 @@ type Bill struct {
 	*/
 
 	PayByCash  bool
-	AmountPaid float32
+	AmountPaid float64
 }
