@@ -15,4 +15,6 @@ type DormAtten struct {
 	Password  string
 
 	Postal_Records []Postal_Record `gorm:"foreignKey:DormAttenID"`
+	RoomAllocate   []RoomAllocate  `gorm:"foreignKey:DormAttenID"`
+	Bills          []Bill          `gorm:"foreignKey:DormAttenID"`
 }
