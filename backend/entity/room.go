@@ -4,6 +4,7 @@ import (
 	"gorm.io/gorm"
 )
 
+//ปรับปรุงครั้งที่ 1
 type Roomtypes struct {
 	gorm.Model
 	Name  string
