@@ -6,6 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
+//ปรับปรุงครั้งที่ 1
 type RoomAllocate struct {
 	gorm.Model
 	EntryTime time.Time
