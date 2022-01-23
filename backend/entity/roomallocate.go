@@ -22,4 +22,7 @@ type RoomAllocate struct {
 	DormTenant           DormTenant
 	DormTenant_FirstName string
 	DormTenant_LastName  string
+
+	Postal_Records []Postal_Record `gorm:"foreignKey:RoomAllocateID"`
+	Bills          []Bill          `gorm:"foreignKey:RoomAllocateID"`
 }
