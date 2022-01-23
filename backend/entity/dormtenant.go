@@ -8,7 +8,7 @@ type DormTenant struct {
 	gorm.Model
 
 	Pid                  string `gorm:"uniqueIndex"`
-	DormTenant_Firstname string
+	DormTenant_FirstName string
 	DormTenant_LastName  string
 	Email                string `gorm:"uniqueIndex"`
 	Gender               string
