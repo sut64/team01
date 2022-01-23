@@ -66,7 +66,8 @@ func CreateBill(c *gin.Context) {
 	b := entity.Bill{
 		BillDateTime: bill.BillDateTime.Local(),
 		DormAtten:    dormatten,
-		RoomAllocate: roomallocate,
+		RoomNumber:   roomallocate.Number,
+		RoomPrice:    roomallocate.Room.Roomtypes.Price,
 		//MeterRecord:     meterrecord,
 		//CleaningRequest: cleaningrequest,
 		PayByCash:  bill.PayByCash,

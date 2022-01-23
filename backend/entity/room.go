@@ -9,7 +9,7 @@ import (
 type Roomtypes struct {
 	gorm.Model
 	Name  string
-	Price int
+	Price float64
 
 	Rooms []Room `gorm:"foreignKey:RoomtypesID"`
 }
