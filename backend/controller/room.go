@@ -22,11 +22,11 @@ func CreateRoom(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": room})
 }
 
-// GET /user/:id
+// GET /room/:id
 func GetRoom(c *gin.Context) {
 	var room entity.Room
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM rooms WHERE id = ?", id).Scan(&room).Error; err != nil {
+	if err := entity.DB().Preload("Roomtypes").Raw("SELECT * FROM rooms WHERE id = ?", id).Find(&room).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -34,13 +34,13 @@ func GetRoom(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": room})
 }
 
-// GET /users
-func ListRooms(c *gin.Context) {
-	var room []entity.Room
-	if err := entity.DB().Raw("SELECT * FROM rooms").Scan(&room).Error; err != nil {
+// GET /rooms
+func ListRoom(c *gin.Context) {
+	var rooms []entity.Room
+	if err := entity.DB().Preload("Roomtypes").Raw("SELECT * FROM rooms ").Find(&rooms).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": room})
+	c.JSON(http.StatusOK, gin.H{"data": rooms})
 }
