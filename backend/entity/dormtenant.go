@@ -10,13 +10,10 @@ type DormTenant struct {
 	Pid                  string `gorm:"uniqueIndex"`
 	DormTenant_Firstname string
 	DormTenant_LastName  string
-	Email                string
+	Email                string `gorm:"uniqueIndex"`
 	Gender               string
 	Age                  uint
 	Tel                  string `gorm:"uniqueIndex"`
-
-	Record_byID *uint
-	Record_by   DormAtten
 
 	RoomAllocate []RoomAllocate `gorm:"foreignKey:DormTenantID"`
 }
