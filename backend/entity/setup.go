@@ -23,7 +23,7 @@ func SetupDatabase() {
 	// Migrate the schema
 	database.AutoMigrate(
 		&RoomAllocate{}, &Carrier{}, &DormAtten{}, &Room{},
-		&DormTenant{}, &Postal{}, &Postal_Record{},
+		&DormTenant{}, &Postal{}, &Postal_Record{}, &Bill{},
 	)
 
 	db = database
@@ -222,5 +222,33 @@ func SetupDatabase() {
 		Number:               room10.Number,
 	}
 	db.Model(&RoomAllocate{}).Create(&roomallocate3)
+
+	//------------Bill-------------------------
+	bill1 := Bill{
+		BillDateTime: time.Now(),
+		DormAtten:    dorm_atten1,
+		RoomNumber:   roomallocate1.Number,
+		RoomPrice:    roomallocate1.Room.Roomtypes.Price,
+		/*
+			CleaningRequest:	,
+			MeterRecord:		,
+		*/
+		PayByCash:  true,
+		AmountPaid: 5340.25, //เดี๋ยวบวกเอา รอก่อนๆ
+	}
+	db.Model(&Bill{}).Create(&bill1)
+	bill2 := Bill{
+		BillDateTime: time.Now(),
+		DormAtten:    dorm_atten1,
+		RoomNumber:   roomallocate3.Number,
+		RoomPrice:    roomallocate3.Room.Roomtypes.Price,
+		/*
+			CleaningRequest:	,
+			MeterRecord:		,
+		*/
+		PayByCash:  true,
+		AmountPaid: 5340.25, //เดี๋ยวบวกเอา รอก่อนๆ
+	}
+	db.Model(&Bill{}).Create(&bill2)
 
 }

@@ -14,7 +14,8 @@ type Bill struct {
 	DormAtten   DormAtten
 
 	RoomAllocateID *uint `gorm:"uniqueIndex"`
-	RoomAllocate   RoomAllocate
+	RoomNumber     string
+	RoomPrice      float64
 
 	/* รอแก้ไขๆๆๆๆ
 
