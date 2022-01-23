@@ -9,37 +9,70 @@ import (
 
 // POST /rooms
 func CreateRoomAllocate(c *gin.Context) {
+
 	var roomallocate entity.RoomAllocate
+	var dormtenant entity.DormTenant
+	var room entity.Room
+	//var roomtypes entity.Roomtypes
+	var dormatten entity.DormAtten
+
+	// ผลลัพธ์ที่ได้จะถูก bind เข้าตัวแปร RoomAllocate
 	if err := c.ShouldBindJSON(&roomallocate); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+	// ค้นหา patient ด้วย id
+	if tx := entity.DB().Where("id = ?", roomallocate.DormTenantID).First(&dormtenant); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "dormtenant not found"})
+		return
+	}
 
-	if err := entity.DB().Create(&roomallocate).Error; err != nil {
+	// ค้นหา room ด้วย id
+	if tx := entity.DB().Where("id = ?", roomallocate.RoomID).First(&room); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "room not found"})
+		return
+	}
+
+	// ค้นหา right_treatment ด้วย id
+	if tx := entity.DB().Where("id = ?", roomallocate.DormAttenID).First(&dormatten); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "dormatten not found"})
+		return
+	}
+
+	// สร้าง admission
+	ad := entity.RoomAllocate{
+		DormAtten:  dormatten,              // โยงความสัมพันธ์กับ Entity DormAtten
+		Room:       room,                   // โยงความสัมพันธ์กับ Entity Room
+		DormTenant: dormtenant,             // โยงความสัมพันธ์กับ Entity DormTenant
+		EntryTime:  roomallocate.EntryTime, // ตั้งค่าฟิลด์ EntryTime
+	}
+
+	// บันทึก
+	if err := entity.DB().Create(&ad).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+	c.JSON(http.StatusOK, gin.H{"data": ad})
+}
+
+// GET /RoomAllocate
+func ListRoomAllocate(c *gin.Context) {
+	var roomallocate []entity.RoomAllocate
+	if err := entity.DB().Preload("Room").Preload("DormTenant").Preload("DormAtten").Raw("SELECT * FROM roomallocates").Find(&roomallocate).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
 	c.JSON(http.StatusOK, gin.H{"data": roomallocate})
 }
 
-// GET /user/:id
+// GET /admission/:id
 func GetRoomAllocate(c *gin.Context) {
 	var roomallocate entity.RoomAllocate
 	id := c.Param("id")
-	if err := entity.DB().Preload("Room").Preload("DormTenant").Raw("SELECT * FROM room_allocates WHERE id = ?", id).Find(&roomallocate).Error; err != nil {
+	if err := entity.DB().Preload("Room").Preload("DormTenant").Preload("DormAtten").Raw("SELECT * FROM roomallocates WHERE id = ?", id).Find(&roomallocate).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": roomallocate})
-}
-
-// GET /users
-func ListRoomAllocates(c *gin.Context) {
-	var roomallocate []entity.RoomAllocate
-	if err := entity.DB().Preload("Room").Preload("DormTenant").Raw("SELECT * FROM room_allocates").Find(&roomallocate).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
 	c.JSON(http.StatusOK, gin.H{"data": roomallocate})
 }
