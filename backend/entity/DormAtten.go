@@ -8,9 +8,9 @@ type DormAtten struct {
 	gorm.Model
 	FirstName string
 	LastName  string
-	Pid       string
-	Age       uint8
-	Tel       string
+	Pid       string `gorm:"uniqueIndex"`
+	Age       uint
+	Tel       string `gorm:"uniqueIndex"`
 	Gender    string
 	Password  string
 
