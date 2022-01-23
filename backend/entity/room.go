@@ -5,6 +5,7 @@ import (
 )
 
 //ปรับปรุงครั้งที่ 1
+//ปรับปรุงครั้งที่ 2 Roomtypes อยู่ใน Room
 type Roomtypes struct {
 	gorm.Model
 	Name  string
