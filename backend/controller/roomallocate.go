@@ -58,7 +58,7 @@ func CreateRoomAllocate(c *gin.Context) {
 // GET /RoomAllocate
 func ListRoomAllocate(c *gin.Context) {
 	var roomallocate []entity.RoomAllocate
-	if err := entity.DB().Preload("Room").Preload("DormTenant").Preload("DormAtten").Raw("SELECT * FROM roomallocates").Find(&roomallocate).Error; err != nil {
+	if err := entity.DB().Preload("Room").Preload("DormTenant").Preload("DormAtten").Raw("SELECT * FROM room_allocates").Find(&roomallocate).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -70,7 +70,7 @@ func ListRoomAllocate(c *gin.Context) {
 func GetRoomAllocate(c *gin.Context) {
 	var roomallocate entity.RoomAllocate
 	id := c.Param("id")
-	if err := entity.DB().Preload("Room").Preload("DormTenant").Preload("DormAtten").Raw("SELECT * FROM roomallocates WHERE id = ?", id).Find(&roomallocate).Error; err != nil {
+	if err := entity.DB().Preload("Room").Preload("DormTenant").Preload("DormAtten").Raw("SELECT * FROM room_allocates WHERE id = ?", id).Find(&roomallocate).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
