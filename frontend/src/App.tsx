@@ -1,26 +1,169 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+/*import React from "react";
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import DormAttens from "./components/DormAttens";
+import DormAttenCreate from "./components/DormAttenCreate";
+import PostalRecords from "./components/PostalRecords";
+import PostalRecordCreate from "./components/PostalRecordCreate";
+ 
+export default function App() {
+ return (
+   <Router>
+     <div>
+       <Navbar />
+       <Routes>
+         <Route path="/waiting1" element={<DormAttens />} />
+         <Route path="/waiting2" element={<DormAttenCreate />} />
+         <Route path="/create" element={<PostalRecordCreate />}/>
+         <Route path="/" element={<PostalRecords />}/>
+       </Routes>
+     </div>
+   </Router>
+ );
+}
 
-function App() {
+//<link rel="preconnect" href="https://fonts.googleapis.com">
+//<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+//<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet"></link> 
+
+// font-family: 'Kanit', sans-serif;*/
+
+import React, { useEffect}  from "react";
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  createStyles,
+  makeStyles,
+  Theme,
+} from "@material-ui/core/styles";
+
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Home from "./components/Home";
+import DormAttens from "./components/DormAttens";
+import PostalRecords from "./components/PostalRecords";
+import PostalRecordCreate from "./components/PostalRecordCreate";
+import SignIn from "./components/SignIn";
+import Navbar from "./components/Navbar";
+
+
+const drawerWidth = 240;
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: "flex",
+    },
+    //nav : {background : "#239B56"},
+    title: {
+      flexGrow: 1,
+    },
+    appBar: {
+      zIndex: theme.zIndex.drawer + 1,
+      transition: theme.transitions.create(["width", "margin"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+    appBarShift: {
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+      transition: theme.transitions.create(["width", "margin"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    menuButton: {
+      marginRight: 36,
+    },
+    hide: {
+      display: "none",
+    },
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0,
+      whiteSpace: "nowrap",
+    },
+    drawerOpen: {
+      width: drawerWidth,
+      transition: theme.transitions.create("width", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    drawerClose: {
+      transition: theme.transitions.create("width", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      overflowX: "hidden",
+      width: theme.spacing(7) + 1,
+      [theme.breakpoints.up("sm")]: {
+        width: theme.spacing(9) + 1,
+      },
+    },
+    toolbar: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-end",
+      padding: theme.spacing(0, 1),
+      // necessary for content to be below app bar
+      ...theme.mixins.toolbar,
+    },
+    content: {
+      flexGrow: 1,
+      padding: theme.spacing(3),
+    },
+    a: {
+      textDecoration: "none",
+      color: "inherit",
+    },
+  })
+);
+
+export default function MiniDrawer() {
+  
+  const classes = useStyles();
+ 
+  const [token, setToken] = React.useState<String>("");
+  
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setToken(token);
+    }
+  }, []);
+
+  if (!token) {
+    return <SignIn />;
+  }
+
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={classes.root}>
+      <Router>
+      
+        <CssBaseline />
+        {token && (
+          <>
+          <Navbar />
+          <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <div>
+           <Routes>
+              <Route path="/" element={<Home/>} />
+              <Route  path="/dormatten" element={<DormAttens/>} />
+              
+              <Route  path="/postal_record" element={<PostalRecords/>} />
+              <Route  path="/postal_record/create" element={<PostalRecordCreate/>}/>
+           </Routes>
+          </div>
+          </main>
+        </>
+        )}
+
+        
+      </Router>
     </div>
   );
 }
-
-export default App;
