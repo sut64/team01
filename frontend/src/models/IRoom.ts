@@ -1,9 +1,9 @@
-import { RoomTypesInterface } from "./IRoomTypes"
+import { RoomTypesInterface } from "./IRoomTypes";
 
 export interface RoomInterface {
-    ID: number,
-    Number: number,
-    Roomtypes: RoomTypesInterface;    
-    
+    ID : string,
+    Number : string,
+
+    RoomtypesID : number,
+	Roomtypes  : RoomTypesInterface
 }
-   
