@@ -27,3 +27,9 @@ require (
 	gorm.io/driver/sqlite v1.2.6 // indirect
 	gorm.io/gorm v1.22.5 // indirect
 )
+
+require (
+	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d // indirect
+	github.com/onsi/gomega v1.18.0 // indirect
+	golang.org/x/net v0.0.0-20211112202133-69e39bad7dc2 // indirect
+)
