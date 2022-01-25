@@ -1,7 +1,5 @@
 export interface RoomTypesInterface {
-   ID: number,
-   Name: string,
-   Price: number
-    
+   ID : string
+   Name : string
+   Price : number
 }
-   
