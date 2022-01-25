@@ -13,6 +13,7 @@ type DormTenant struct {
 	Email                string `gorm:"uniqueIndex"`
 	Gender               string
 	Age                  uint
+	Password             string
 	Tel                  string `gorm:"uniqueIndex"`
 
 	RoomAllocate []RoomAllocate `gorm:"foreignKey:DormTenantID"`
