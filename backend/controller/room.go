@@ -35,7 +35,7 @@ func GetRoom(c *gin.Context) {
 }
 
 // GET /rooms
-func ListRoom(c *gin.Context) {
+func ListRooms(c *gin.Context) {
 	var rooms []entity.Room
 	if err := entity.DB().Preload("Roomtypes").Raw("SELECT * FROM rooms ").Find(&rooms).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

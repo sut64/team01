@@ -41,10 +41,14 @@ func CreateRoomAllocate(c *gin.Context) {
 
 	// สร้าง admission
 	ad := entity.RoomAllocate{
-		DormAtten:  dormatten,              // โยงความสัมพันธ์กับ Entity DormAtten
-		Room:       room,                   // โยงความสัมพันธ์กับ Entity Room
-		DormTenant: dormtenant,             // โยงความสัมพันธ์กับ Entity DormTenant
-		EntryTime:  roomallocate.EntryTime, // ตั้งค่าฟิลด์ EntryTime
+		DormAtten:  dormatten,  // โยงความสัมพันธ์กับ Entity DormAtten
+		Room:       room,       // โยงความสัมพันธ์กับ Entity Room
+		DormTenant: dormtenant, // โยงความสัมพันธ์กับ Entity DormTenant
+		Number:     room.Number,
+
+		DormTenant_FirstName: dormtenant.DormTenant_FirstName,
+		DormTenant_LastName:  dormtenant.DormTenant_LastName,
+		EntryTime:            roomallocate.EntryTime, // ตั้งค่าฟิลด์ EntryTime
 	}
 
 	// บันทึก
@@ -58,7 +62,7 @@ func CreateRoomAllocate(c *gin.Context) {
 // GET /RoomAllocate
 func ListRoomAllocate(c *gin.Context) {
 	var roomallocate []entity.RoomAllocate
-	if err := entity.DB().Preload("Room").Preload("DormTenant").Preload("DormAtten").Raw("SELECT * FROM room_allocates").Find(&roomallocate).Error; err != nil {
+	if err := entity.DB().Preload("Room").Preload("Room.Roomtypes").Preload("DormTenant").Preload("DormAtten").Raw("SELECT * FROM room_allocates").Find(&roomallocate).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -70,7 +74,7 @@ func ListRoomAllocate(c *gin.Context) {
 func GetRoomAllocate(c *gin.Context) {
 	var roomallocate entity.RoomAllocate
 	id := c.Param("id")
-	if err := entity.DB().Preload("Room").Preload("DormTenant").Preload("DormAtten").Raw("SELECT * FROM room_allocates WHERE id = ?", id).Find(&roomallocate).Error; err != nil {
+	if err := entity.DB().Preload("Room").Preload("Room.Roomtypes").Preload("DormTenant").Preload("DormAtten").Raw("SELECT * FROM room_allocates WHERE id = ?", id).Find(&roomallocate).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

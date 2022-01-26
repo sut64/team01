@@ -47,7 +47,7 @@ func main() {
 			protected.GET("/route/GetRoomType/:id", controller.GetRoomtype)
 			protected.POST("/route/CreateRoomType", controller.CreateRoomtype)
 			//  Room Routes
-			protected.GET("/route/ListRooms", controller.ListRoom)
+			protected.GET("/route/ListRooms", controller.ListRooms)
 			protected.GET("/route/GetRoom/:id", controller.GetRoom)
 			protected.POST("/route/CreateRoom", controller.CreateRoom)
 			//  Postal_Record Routes
