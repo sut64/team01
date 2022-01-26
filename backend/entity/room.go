@@ -16,7 +16,7 @@ type Roomtypes struct {
 
 type Room struct {
 	gorm.Model
-	Number string
+	Number string `gorm:"uniqueIndex"`
 
 	RoomtypesID *uint
 	Roomtypes   Roomtypes

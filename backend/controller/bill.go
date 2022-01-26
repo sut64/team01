@@ -3,6 +3,8 @@ package controller
 import (
 	"net/http"
 
+	"github.com/asaskevich/govalidator"
+
 	"github.com/gin-gonic/gin"
 	"github.com/sut64/team01/entity"
 )
@@ -67,11 +69,17 @@ func CreateBill(c *gin.Context) {
 		BillDateTime: bill.BillDateTime.Local(),
 		DormAtten:    dormatten,
 		RoomNumber:   roomallocate.Number,
-		RoomPrice:    roomallocate.Room.Roomtypes.Price,
+		RoomAllocate: roomallocate,
 		//MeterRecord:     meterrecord,
 		//CleaningRequest: cleaningrequest,
 		PayByCash:  bill.PayByCash,
 		AmountPaid: calculate,
+	}
+
+	//แทรกการ Validate ไว้ช่วงนี้ของ controller
+	if _, err := govalidator.ValidateStruct(bill); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	// 13: บันทึก

@@ -224,16 +224,17 @@ func SetupDatabase() {
 	db.Model(&RoomAllocate{}).Create(&roomallocate3)
 
 	//------------Bill-------------------------
+	v := true
 	bill1 := Bill{
 		BillDateTime: time.Now(),
 		DormAtten:    dorm_atten1,
 		RoomNumber:   roomallocate1.Number,
-		RoomPrice:    roomallocate1.Room.Roomtypes.Price,
+		RoomAllocate: roomallocate1,
 		/*
 			CleaningRequest:	,
 			MeterRecord:		,
 		*/
-		PayByCash:  true,
+		PayByCash:  &v,
 		AmountPaid: 5340.25, //เดี๋ยวบวกเอา รอก่อนๆ
 	}
 	db.Model(&Bill{}).Create(&bill1)
@@ -241,12 +242,12 @@ func SetupDatabase() {
 		BillDateTime: time.Now(),
 		DormAtten:    dorm_atten1,
 		RoomNumber:   roomallocate3.Number,
-		RoomPrice:    roomallocate3.Room.Roomtypes.Price,
+		RoomAllocate: roomallocate3,
 		/*
 			CleaningRequest:	,
 			MeterRecord:		,
 		*/
-		PayByCash:  true,
+		PayByCash:  &v,
 		AmountPaid: 5340.25, //เดี๋ยวบวกเอา รอก่อนๆ
 	}
 	db.Model(&Bill{}).Create(&bill2)
