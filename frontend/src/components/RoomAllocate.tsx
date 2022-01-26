@@ -119,7 +119,7 @@ function RoomAllocate() {
                   <TableCell align="center">{item.Room.Roomtypes.Name}</TableCell>
                   <TableCell align="center">{item.Room.Roomtypes.Price}</TableCell>
                   <TableCell align="center">{item.DormTenant.DormTenant_FirstName}</TableCell>
-                  <TableCell align="center">{item.DormAtten.DormAtten_Firstname}</TableCell>
+                  <TableCell align="center">{item.DormAtten.FirstName}</TableCell>
                   <TableCell align="center">{format((new Date(item.EntryTime)), 'dd MMMM yyyy hh:mm a')}</TableCell>
                 </TableRow>
               ))}
