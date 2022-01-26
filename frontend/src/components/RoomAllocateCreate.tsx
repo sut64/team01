@@ -257,7 +257,7 @@ function RoomAllocateCreate() {
                 </option>
                 {dormattens.map((item: DormAttenInterface) => (
                   <option value={dormattens?.ID} key={dormattens?.ID}>
-                    {dormattens?.DormAtten_Firstname}
+                    {dormattens?.FirstName}{dormattens?.LastName}
                   </option>
                 ))}
               </Select>
