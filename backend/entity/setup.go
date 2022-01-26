@@ -29,7 +29,7 @@ func SetupDatabase() {
 	db = database
 
 	password, err := bcrypt.GenerateFromPassword([]byte("123456"), 14)
-
+	//------------DormAtten-------------------------
 	dorm_atten1 := DormAtten{
 		Model:     gorm.Model{},
 		FirstName: "Somchai",
@@ -65,7 +65,7 @@ func SetupDatabase() {
 		Password:  string(password),
 	}
 	db.Model(&DormAtten{}).Create(&dorm_atten3)
-
+	//------------Carrier-------------------------
 	carrier1 := Carrier{
 		CarrierName: "Kerry Express",
 		Initials:    "KRY",
@@ -86,7 +86,7 @@ func SetupDatabase() {
 		Initials:    "FL",
 	}
 	db.Model(&Carrier{}).Create(&carrier4)
-
+	//------------DormTenant-------------------------
 	dorm_tenant1 := DormTenant{
 		Pid:                  "1234567890123",
 		DormTenant_FirstName: "John",
@@ -123,7 +123,7 @@ func SetupDatabase() {
 		//Password:      string(password),
 	}
 	db.Model(&DormTenant{}).Create(&dorm_tenant3)
-
+	//------------Postal-------------------------
 	postal1 := Postal{
 		Type: "กล่องขนาดใหญ่",
 	}
@@ -144,7 +144,7 @@ func SetupDatabase() {
 		Type: "ซองเอกสาร",
 	}
 	db.Model(&Postal{}).Create(&postal5)
-
+	//------------Roomtypes-------------------------
 	roomtype1 := Roomtypes{
 		Name:  "ห้องพัดลม+เตียงคู่",
 		Price: 3500,
@@ -166,6 +166,7 @@ func SetupDatabase() {
 	}
 	db.Model(&Roomtypes{}).Create(&roomtype4)
 
+	//------------Room-------------------------
 	room1 := Room{
 		Number:    "A01",
 		Roomtypes: roomtype1,
@@ -173,25 +174,100 @@ func SetupDatabase() {
 	db.Model(&Room{}).Create(&room1)
 	room2 := Room{
 		Number:    "A02",
-		Roomtypes: roomtype2,
+		Roomtypes: roomtype1,
 	}
 	db.Model(&Room{}).Create(&room2)
 	room3 := Room{
+		Number:    "A03",
+		Roomtypes: roomtype1,
+	}
+	db.Model(&Room{}).Create(&room3)
+	room4 := Room{
+		Number:    "A04",
+		Roomtypes: roomtype1,
+	}
+	db.Model(&Room{}).Create(&room4)
+	room5 := Room{
+		Number:    "A05",
+		Roomtypes: roomtype1,
+	}
+	db.Model(&Room{}).Create(&room5)
+	room6 := Room{
+		Number:    "A06",
+		Roomtypes: roomtype2,
+	}
+	db.Model(&Room{}).Create(&room6)
+	room7 := Room{
+		Number:    "A07",
+		Roomtypes: roomtype2,
+	}
+	db.Model(&Room{}).Create(&room7)
+	room8 := Room{
 		Number:    "A08",
 		Roomtypes: roomtype2,
 	}
-	db.Model(&Room{}).Create(&room3)
+	db.Model(&Room{}).Create(&room8)
+	room9 := Room{
+		Number:    "A09",
+		Roomtypes: roomtype2,
+	}
+	db.Model(&Room{}).Create(&room9)
 	room10 := Room{
-		Number:    "B01",
-		Roomtypes: roomtype3,
+		Number:    "A10",
+		Roomtypes: roomtype2,
 	}
 	db.Model(&Room{}).Create(&room10)
 	room11 := Room{
+		Number:    "B01",
+		Roomtypes: roomtype3,
+	}
+	db.Model(&Room{}).Create(&room11)
+	room12 := Room{
+		Number:    "B02",
+		Roomtypes: roomtype3,
+	}
+	db.Model(&Room{}).Create(&room12)
+	room13 := Room{
+		Number:    "B03",
+		Roomtypes: roomtype3,
+	}
+	db.Model(&Room{}).Create(&room13)
+	room14 := Room{
+		Number:    "B04",
+		Roomtypes: roomtype3,
+	}
+	db.Model(&Room{}).Create(&room14)
+	room15 := Room{
+		Number:    "B05",
+		Roomtypes: roomtype3,
+	}
+	db.Model(&Room{}).Create(&room15)
+	room16 := Room{
+		Number:    "B06",
+		Roomtypes: roomtype4,
+	}
+	db.Model(&Room{}).Create(&room16)
+	room17 := Room{
 		Number:    "B07",
 		Roomtypes: roomtype4,
 	}
-	db.Model(&Room{}).Create(&room11)
-
+	db.Model(&Room{}).Create(&room17)
+	room18 := Room{
+		Number:    "B08",
+		Roomtypes: roomtype4,
+	}
+	db.Model(&Room{}).Create(&room18)
+	room19 := Room{
+		Number:    "B09",
+		Roomtypes: roomtype4,
+	}
+	db.Model(&Room{}).Create(&room19)
+	room20 := Room{
+		Number:    "B10",
+		Roomtypes: roomtype4,
+	}
+	db.Model(&Room{}).Create(&room20)
+	//------------RoomAllocate-------------------------
 	roomallocate1 := RoomAllocate{
 		EntryTime:            time.Now(),
 		DormAtten:            dorm_atten1,

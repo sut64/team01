@@ -3,24 +3,40 @@ package entity
 import (
 	"time"
 
+	"github.com/asaskevich/govalidator"
 	"gorm.io/gorm"
 )
 
 type Postal_Record struct {
 	gorm.Model
-	Amount     uint
-	RecordTime time.Time
-	Tracking   string
+	Amount     uint      `valid:"customPositiveNumber,required"`
+	RecordTime time.Time `valid:"past~RecordTime must be in the past"`
+	Tracking   string    `valid:"required~Tracing ID cannot be blank"`
 
 	DormAttenID *uint
-	DormAtten   DormAtten
+	DormAtten   DormAtten `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 
 	RoomAllocateID *uint
-	RoomAllocate   RoomAllocate
+	RoomAllocate   RoomAllocate `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 
 	CarrierID *uint
-	Carrier   Carrier
+	Carrier   Carrier `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 
 	PostalID *uint
-	Postal   Postal
+	Postal   Postal `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
+}
+
+func init() {
+	govalidator.CustomTypeTagMap.Set("customPositiveNumber", func(i interface{}, context interface{}) bool {
+		return i.(uint) > 0
+	})
+	govalidator.CustomTypeTagMap.Set("past", func(i interface{}, context interface{}) bool {
+		t := i.(time.Time)
+		return t.Before(time.Now())
+	})
+
+	govalidator.CustomTypeTagMap.Set("future", func(i interface{}, context interface{}) bool {
+		t := i.(time.Time)
+		return t.After(time.Now())
+	})
 }
