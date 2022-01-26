@@ -93,19 +93,19 @@ function RoomAllocate() {
                 <TableCell align="center" width="10%" className={classes.font}>
                   หมายเลขห้อง
                 </TableCell>
-                <TableCell align="center" width="15%" className={classes.font}>
+                <TableCell align="center" width="12%" className={classes.font}>
                   ประเภทห้อง
                 </TableCell>
-                <TableCell align="center" width="10%" className={classes.font}>
+                <TableCell align="center" width="8%" className={classes.font}>
                   ราคาห้อง
                 </TableCell>
-                <TableCell align="center" width="20%" className={classes.font}>
+                <TableCell align="center" width="15%" className={classes.font}>
                   ชื่อผู้เช่าห้องพัก
                 </TableCell>
-                <TableCell align="center" width="20%" className={classes.font}>
+                <TableCell align="center" width="15%" className={classes.font}>
                   ชื่อผู้ดูแลหอพัก
                 </TableCell>
-                <TableCell align="center" width="20%"className={classes.font}>
+                <TableCell align="center" width="15%"className={classes.font}>
                   วันที่และเวลา
                 </TableCell>
               </TableRow>
