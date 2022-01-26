@@ -54,6 +54,12 @@ func main() {
 			protected.GET("/route/ListRoomAllocates", controller.ListRoomAllocate)
 			protected.GET("/route/GetRoomAllocate/:id", controller.GetRoomAllocate)
 			protected.POST("/route/CreateRoomAllocate", controller.CreateRoomAllocate)
+			//=============== เพิ่มมา =================
+			//  Postal_Record Routes
+			protected.GET("/route/ListBills", controller.ListBill)
+			protected.GET("/route/GetBill/:id", controller.GetBill)
+			protected.POST("/route/CreateBill", controller.CreateBill)
+			//=============== เพิ่มมา =================
 		}
 	}
 	//Actor Route

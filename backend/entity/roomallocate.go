@@ -16,7 +16,7 @@ type RoomAllocate struct {
 
 	RoomID *uint
 	Room   Room
-	Number string
+	Number string `gorm:"uniqueIndex"`
 
 	DormTenantID         *uint
 	DormTenant           DormTenant
