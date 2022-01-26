@@ -15,20 +15,33 @@ func DB() *gorm.DB {
 }
 
 func SetupDatabase() {
-	database, err := gorm.Open(sqlite.Open("postal-record-system.db"), &gorm.Config{})
+	database, err := gorm.Open(sqlite.Open("dorm-system.db"), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
 	}
 
 	// Migrate the schema
 	database.AutoMigrate(
-		&RoomAllocate{}, &Carrier{}, &DormAtten{}, &Room{},
+		&RoomAllocate{}, &Carrier{}, &DormAtten{}, &Room{}, &Role{},
 		&DormTenant{}, &Postal{}, &Postal_Record{}, &Bill{},
 	)
 
 	db = database
 
 	password, err := bcrypt.GenerateFromPassword([]byte("123456"), 14)
+	password2, err := bcrypt.GenerateFromPassword([]byte("654321"), 14)
+	//------------Role-------------------------
+	role1 := Role{
+		Model: gorm.Model{},
+		rol:   "DormAtten",
+	}
+	db.Model(&Role{}).Create(&role1)
+
+	role2 := Role{
+		Model: gorm.Model{},
+		rol:   "DormTenant",
+	}
+	db.Model(&Role{}).Create(&role2)
 	//------------DormAtten-------------------------
 	dorm_atten1 := DormAtten{
 		Model:     gorm.Model{},
@@ -38,6 +51,7 @@ func SetupDatabase() {
 		Age:       39,
 		Tel:       "0912345678",
 		Gender:    "Male",
+		Role:      role1,
 		Password:  string(password),
 	}
 	db.Model(&DormAtten{}).Create(&dorm_atten1)
@@ -50,6 +64,7 @@ func SetupDatabase() {
 		Age:       36,
 		Tel:       "0823314567",
 		Gender:    "Male",
+		Role:      role1,
 		Password:  string(password),
 	}
 	db.Model(&DormAtten{}).Create(&dorm_atten2)
@@ -62,9 +77,11 @@ func SetupDatabase() {
 		Age:       41,
 		Tel:       "0964547878",
 		Gender:    "Male",
+		Role:      role1,
 		Password:  string(password),
 	}
 	db.Model(&DormAtten{}).Create(&dorm_atten3)
+
 	//------------Carrier-------------------------
 	carrier1 := Carrier{
 		CarrierName: "Kerry Express",
@@ -94,9 +111,9 @@ func SetupDatabase() {
 		Email:                "Johnny@gmail.com",
 		Gender:               "Male",
 		Age:                  23,
+		Role:                 role2,
 		Tel:                  "0888888888",
-
-		//Password:      string(password),
+		Password:             string(password2),
 	}
 	db.Model(&DormTenant{}).Create(&dorm_tenant1)
 	dorm_tenant2 := DormTenant{
@@ -106,9 +123,10 @@ func SetupDatabase() {
 		Email:                "Rayyy@gmail.com",
 		Gender:               "Male",
 		Age:                  21,
+		Role:                 role2,
 		Tel:                  "0877777777",
 
-		//Password:      string(password),
+		Password: string(password2),
 	}
 	db.Model(&DormTenant{}).Create(&dorm_tenant2)
 	dorm_tenant3 := DormTenant{
@@ -118,11 +136,25 @@ func SetupDatabase() {
 		Email:                "JamieVardy@gmail.com",
 		Gender:               "Male",
 		Age:                  25,
+		Role:                 role2,
 		Tel:                  "0999999999",
-
-		//Password:      string(password),
+		Password:             string(password2),
 	}
 	db.Model(&DormTenant{}).Create(&dorm_tenant3)
+
+	dorm_tenant4 := DormTenant{
+		Pid:                  "5649231579458",
+		DormTenant_FirstName: "Johan",
+		DormTenant_LastName:  "Cruff",
+		Email:                "Cruff@gmail.com",
+		Gender:               "Male",
+		Age:                  50,
+		Role:                 role2,
+		Tel:                  "0812345678",
+		Password:             string(password2),
+	}
+	db.Model(&DormTenant{}).Create(&dorm_tenant4)
+
 	//------------Postal-------------------------
 	postal1 := Postal{
 		Type: "กล่องขนาดใหญ่",
@@ -288,7 +320,7 @@ func SetupDatabase() {
 		Number:               room2.Number,
 	}
 	db.Model(&RoomAllocate{}).Create(&roomallocate2)
-	roomallocate3 := RoomAllocate{
+	/*roomallocate3 := RoomAllocate{
 		EntryTime:            time.Now(),
 		DormAtten:            dorm_atten2,
 		DormTenant:           dorm_tenant3,
@@ -297,7 +329,7 @@ func SetupDatabase() {
 		Room:                 room10,
 		Number:               room10.Number,
 	}
-	db.Model(&RoomAllocate{}).Create(&roomallocate3)
+	db.Model(&RoomAllocate{}).Create(&roomallocate3)*/
 
 	//------------Bill-------------------------
 	v := true
@@ -317,8 +349,8 @@ func SetupDatabase() {
 	bill2 := Bill{
 		BillDateTime: time.Now(),
 		DormAtten:    dorm_atten1,
-		RoomNumber:   roomallocate3.Number,
-		RoomAllocate: roomallocate3,
+		RoomNumber:   roomallocate2.Number,
+		RoomAllocate: roomallocate2,
 		/*
 			CleaningRequest:	,
 			MeterRecord:		,

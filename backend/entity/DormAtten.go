@@ -14,6 +14,9 @@ type DormAtten struct {
 	Gender    string
 	Password  string
 
+	RoleID *uint
+	Role   Role
+
 	Postal_Records []Postal_Record `gorm:"foreignKey:DormAttenID"`
 	RoomAllocate   []RoomAllocate  `gorm:"foreignKey:DormAttenID"`
 	Bills          []Bill          `gorm:"foreignKey:DormAttenID"`
