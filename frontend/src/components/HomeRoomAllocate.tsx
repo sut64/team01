@@ -16,20 +16,20 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function Home() {
+function HomeRoomAllocate() {
   const classes = useStyles();
 
   return (
     <div>
       <Container className={classes.container} maxWidth="md">
-        <h1 style={{ textAlign: "center" }}>ระบบหอพัก</h1>
-        <h4>Who we are</h4>
+        <h1 style={{ textAlign: "center" }}>ระบบ...</h1>
+        <h4>Requirements</h4>
         <p>
-        &emsp;&emsp;&emsp;Hello this is testing ver 1.0.0 Hello this is testing ver 1.0.0 Hello this is testing ver 1.0.0 Hello this is testing ver 1.0.0 Hello this is testing ver 1.0.0 Hello this is testing ver 1.0.0 Hello this is testing ver 1.0.0 testing long sentence.
+        &emsp;&emsp;&emsp;
         </p>
-        <img src="/img/dorm_system.jpg" width="900px"></img>
+        {/*<img src="/img/postal_record.jpg" width="900px"></img>*/}
       </Container>
     </div>
   );
 }
-export default Home;
+export default HomeRoomAllocate;

@@ -18,15 +18,11 @@ import { format } from 'date-fns'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: {
-      marginTop: theme.spacing(2),
-    },
-    table: {
-      minWidth: 650,
-    },
-    tableSpace: {
-      marginTop: 20,
-    },
+    container: {marginTop: theme.spacing(2),minWidth: 1200},
+   table: { minWidth: 1100 },
+   tableSpace: {marginTop: 20},
+   font: {fontFamily:"kanitlight",color:"black"},
+   fontIn: {fontFamily:"kanitlight",color:"#566573"},
   })
 );
 
@@ -43,7 +39,7 @@ function RoomAllocate() {
   };
 
   const getRoomAllocate = async () => {
-    fetch(`${apiUrl}/route/ListRoomAllocate`, requestOptions)
+    fetch(`${apiUrl}/route/ListRoomAllocates`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         console.log(res.data);
@@ -69,16 +65,19 @@ function RoomAllocate() {
               variant="h6"
               color="primary"
               gutterBottom
+              className={classes.font}
             >
               ข้อมูลการจัดสรรห้องพัก
             </Typography>
           </Box>
           <Box>
             <Button
+              style={{ float: "right" ,backgroundColor:"#f4adfd"}}
               component={RouterLink}
               to="/roomallocate/create"
               variant="contained"
-              color="primary"
+              color="default"
+              className={classes.font}
             >
               สร้างข้อมูล
             </Button>
@@ -88,25 +87,25 @@ function RoomAllocate() {
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell align="center" width="10%">
+                <TableCell align="center" width="5%" className={classes.font}>
                   ลำดับ
                 </TableCell>
-                <TableCell align="center" width="20%">
+                <TableCell align="center" width="10%" className={classes.font}>
                   หมายเลขห้อง
                 </TableCell>
-                <TableCell align="center" width="20%">
+                <TableCell align="center" width="15%" className={classes.font}>
                   ประเภทห้อง
                 </TableCell>
-                <TableCell align="center" width="20%">
+                <TableCell align="center" width="10%" className={classes.font}>
                   ราคาห้อง
                 </TableCell>
-                <TableCell align="center" width="20%">
+                <TableCell align="center" width="20%" className={classes.font}>
                   ชื่อผู้เช่าห้องพัก
                 </TableCell>
-                <TableCell align="center" width="20%">
+                <TableCell align="center" width="20%" className={classes.font}>
                   ชื่อผู้ดูแลหอพัก
                 </TableCell>
-                <TableCell align="center" width="30%">
+                <TableCell align="center" width="20%"className={classes.font}>
                   วันที่และเวลา
                 </TableCell>
               </TableRow>
@@ -114,13 +113,13 @@ function RoomAllocate() {
             <TableBody>
               {roomallocate.map((item: RoomAllocateInterface) => (
                 <TableRow key={item.ID}>
-                  <TableCell align="center">{item.ID}</TableCell>
-                  <TableCell align="center">{item.Room.Number}</TableCell>
-                  <TableCell align="center">{item.Room.Roomtypes.Name}</TableCell>
-                  <TableCell align="center">{item.Room.Roomtypes.Price}</TableCell>
-                  <TableCell align="center">{item.DormTenant.DormTenant_FirstName}</TableCell>
-                  <TableCell align="center">{item.DormAtten.FirstName}</TableCell>
-                  <TableCell align="center">{format((new Date(item.EntryTime)), 'dd MMMM yyyy hh:mm a')}</TableCell>
+                  <TableCell align="center" className={classes.fontIn}>{item.ID}</TableCell>
+                  <TableCell align="center" className={classes.fontIn}>{item.Room.Number}</TableCell>
+                  <TableCell align="center" className={classes.fontIn}>{item.Room.Roomtypes.Name}</TableCell>
+                  <TableCell align="center" className={classes.fontIn}>{item.Room.Roomtypes.Price}</TableCell>
+                  <TableCell align="center" className={classes.fontIn}>{item.DormTenant.DormTenant_FirstName}  {item.DormTenant.DormTenant_LastName}</TableCell>
+                  <TableCell align="center" className={classes.fontIn}>{item.DormAtten.FirstName}  {item.DormAtten.LastName}</TableCell>
+                  <TableCell align="center" className={classes.fontIn}>{format((new Date(item.EntryTime)), 'dd MMMM yyyy hh:mm a')}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
