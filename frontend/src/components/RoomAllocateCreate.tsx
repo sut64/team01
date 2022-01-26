@@ -61,7 +61,6 @@ function RoomAllocateCreate() {
   const [rooms, setRooms] = useState<RoomInterface[]>([]);
   const [roomtypes, setRoomTypes] = useState<RoomTypesInterface[]>([]);
   const [roomallocate, setRoomAllocate] = useState<Partial<RoomAllocateInterface>>(
-
     {}
   );
 
@@ -166,14 +165,15 @@ function RoomAllocateCreate() {
 
   function submit() {
     let data = {
-      DormAttenID: convertType(roomallocate.DormAttenID),
+      DormAttenID: convertType(dormattens?.ID),
       RoomID: convertType(roomallocate.RoomID),
+      //RoomTypesID: rooms.,
       DormTenantID: convertType(roomallocate.DormTenantID),
       EntryTime: selectedDate,
     };
 
     console.log(data)
-
+    const apiUrl = "http://localhost:8080/route/CreateRoomAllocate";
     const requestOptionsPost = {
       method: "POST",
       headers: {
@@ -183,7 +183,7 @@ function RoomAllocateCreate() {
       body: JSON.stringify(data),
     };
 
-    fetch(`${apiUrl}/route/CreatRoomAllocate`, requestOptionsPost)
+    fetch(apiUrl, requestOptionsPost)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
@@ -247,19 +247,23 @@ function RoomAllocateCreate() {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6} className={classes.fontIn}> 
-          <p>ผู้ดูแลหอพัก</p>
-          <Select
-               //className={classes.fontIn}
+          <Grid item xs={6} className={classes.font}>
+           <p>ชื่อผู้บันทึก</p>
+           <FormControl fullWidth variant="outlined">
+              <Select
+                //className={classes.fontIn}
                 native
                 disabled
                 value={roomallocate.DormAttenID}
+                
               >
                 <option aria-label="None" value="">
-                {dormattens?.FirstName} {dormattens?.LastName}
+                  {dormattens?.FirstName} {dormattens?.LastName}
                 </option>
+                
               </Select>
-          </Grid>
+            </FormControl>
+         </Grid>
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined" className={classes.font}>
               <p>ประเภทห้อง</p>
@@ -338,8 +342,8 @@ function RoomAllocateCreate() {
             </Button>
             <Button
               style={{ float: "right" ,backgroundColor:"#f4adfd"}}
-              variant="contained"
               onClick={submit}
+              variant="contained"
               color="default"
               className={classes.font}
             >
