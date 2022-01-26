@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
    paper: {padding: theme.spacing(2),color: theme.palette.text.secondary},
    font:{fontFamily:"kanitlight",color:"black"},
    fontIn:{fontFamily:"kanitlight",fontSize:"14px"},
-   fontHead:{fontFamily:"kanitlight"},
+   
    //fontInSelect:{fontFamily:"kanitlight",fontSize:"14px",color:"#A6ACAF"},
  })
 );
@@ -217,7 +217,7 @@ const convertType = (data: string | number | undefined) => {
              variant="h6"
              color="primary"
              gutterBottom
-             className={classes.fontHead}
+             className={classes.font}
            >
              บันทึกรายการพัสดุ
            </Typography>
@@ -382,16 +382,17 @@ const convertType = (data: string | number | undefined) => {
            </FormControl>
          </Grid>
          <Grid item xs={12}>
-           <Button component={RouterLink} to="/postal_record" variant="contained">
-             Back
+           <Button component={RouterLink} to="/postal_record" variant="contained" className={classes.font}>
+             กลับ
            </Button>
            <Button
-             style={{ float: "right" }}
+             style={{ float: "right" ,backgroundColor:"#f4adfd"}}
              onClick={submit}
              variant="contained"
-             color="primary"
+             color="default"
+             className={classes.font}
            >
-             Submit
+             บันทึกข้อมูล
            </Button>
          </Grid>
        </Grid>

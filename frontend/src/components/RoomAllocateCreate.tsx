@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import {
   makeStyles,
@@ -46,6 +47,8 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
       color: theme.palette.text.secondary,
     },
+    font:{fontFamily:"kanitlight",color:"black"},
+    fontIn:{fontFamily:"kanitlight",fontSize:"14px"},
   })
 );
 
@@ -54,7 +57,7 @@ function RoomAllocateCreate() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
   const [dormtenants, setDormTenants] = useState<DormTenantInterface[]>([]);
-  const [dormattens, setDormAttens] = useState<DormAttenInterface[]>([]);
+  const [dormattens, setDormAttens] = React.useState<DormAttenInterface>();
   const [rooms, setRooms] = useState<RoomInterface[]>([]);
   const [roomtypes, setRoomTypes] = useState<RoomTypesInterface[]>([]);
   const [roomallocate, setRoomAllocate] = useState<Partial<RoomAllocateInterface>>(
@@ -98,7 +101,7 @@ function RoomAllocateCreate() {
   };
 
   const getDormTenants = async () => {
-    fetch(`${apiUrl}/route/ListDormTenant`, requestOptions)
+    fetch(`${apiUrl}/route/ListDormTenants`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
@@ -109,8 +112,9 @@ function RoomAllocateCreate() {
       });
   };
 
-  const getDormAttens = async () => {
-    fetch(`${apiUrl}/route/ListDormAtten`, requestOptions)
+  const getDormAtten = async () => {
+    const uid = Number(localStorage.getItem("uid"));
+    fetch(`${apiUrl}/route/GetDormAtten/${uid}`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
@@ -123,7 +127,7 @@ function RoomAllocateCreate() {
 
   const getRoomtypes = async () => {
     let uid = localStorage.getItem("uid");
-    fetch(`${apiUrl}/route/ListRoomType`, requestOptions)
+    fetch(`${apiUrl}/route/ListRoomTypes`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
@@ -136,7 +140,7 @@ function RoomAllocateCreate() {
 
   const getRooms = async () => {
     let uid = localStorage.getItem("uid");
-    fetch(`${apiUrl}/route/ListRoom`, requestOptions)
+    fetch(`${apiUrl}/route/ListRooms`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         roomallocate.RoomID = res.data.ID
@@ -150,7 +154,7 @@ function RoomAllocateCreate() {
 
   useEffect(() => {
     getDormTenants();
-    getDormAttens();
+    getDormAtten();
     getRooms();
     getRoomtypes();
   }, []);
@@ -204,7 +208,7 @@ function RoomAllocateCreate() {
           บันทึกข้อมูลไม่สำเร็จ
         </Alert>
       </Snackbar>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} >
         <Box display="flex">
           <Box flexGrow={1}>
             <Typography
@@ -212,6 +216,7 @@ function RoomAllocateCreate() {
               variant="h6"
               color="primary"
               gutterBottom
+              className={classes.font}
             >
               บันทึกการจัดสรรห้องพัก
             </Typography>
@@ -220,9 +225,10 @@ function RoomAllocateCreate() {
         <Divider />
         <Grid container spacing={3} className={classes.root}>
           <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
+            <FormControl fullWidth variant="outlined" className={classes.font}>
               <p>ผู้เช่าห้องพัก</p>
               <Select
+                className={classes.fontIn}
                 native
                 value={roomallocate.DormTenantID}
                 onChange={handleChange}
@@ -235,38 +241,30 @@ function RoomAllocateCreate() {
                 </option>
                 {dormtenants.map((item: DormTenantInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.Pid}
+                    {item.DormTenant_FirstName} {item.DormTenant_LastName}
                   </option>
                 ))}
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>ผู้ดูแลหอพัก</p>
-              <Select
+          <Grid item xs={6} className={classes.fontIn}> 
+          <p>ผู้ดูแลหอพัก</p>
+          <Select
+               //className={classes.fontIn}
                 native
+                disabled
                 value={roomallocate.DormAttenID}
-                onChange={handleChange}
-                inputProps={{
-                  name: "DormAttenID",
-                }}
               >
                 <option aria-label="None" value="">
-                  กรุณาเลือกผู้ดูแลหอพัก
+                {dormattens?.FirstName} {dormattens?.LastName}
                 </option>
-                {dormattens.map((item: DormAttenInterface) => (
-                  <option value={dormattens?.ID} key={dormattens?.ID}>
-                    {dormattens?.FirstName}{dormattens?.LastName}
-                  </option>
-                ))}
               </Select>
-            </FormControl>
           </Grid>
           <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
+            <FormControl fullWidth variant="outlined" className={classes.font}>
               <p>ประเภทห้อง</p>
               <Select
+                className={classes.fontIn}
                 native
                 value={roomallocate.RoomtypesID}
                 onChange={handleChange}
@@ -287,9 +285,10 @@ function RoomAllocateCreate() {
             </FormControl>
                 </Grid>
           <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
+            <FormControl fullWidth variant="outlined" className={classes.font}>
             <p>หมายเลขห้อง</p>
               <Select
+                className={classes.fontIn}
                 native
                 value={roomallocate.RoomID}
                 onChange={handleChange}
@@ -309,14 +308,19 @@ function RoomAllocateCreate() {
             </FormControl>
           </Grid>
           <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
+            <FormControl fullWidth variant="outlined" className={classes.font}>
               <p>วันที่และเวลา</p>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDateTimePicker
+                  InputProps={{
+                    classes: {
+                      input: classes.fontIn,
+                    },
+                  }}
                   name="WatchedTime"
                   value={selectedDate}
                   onChange={handleDateChange}
-                  label="กรุณาเลือกวันที่และเวลา"
+                  label=""
                   minDate={new Date("2018-01-01T00:00")}
                   format="yyyy/MM/dd hh:mm a"
                 />
@@ -328,16 +332,18 @@ function RoomAllocateCreate() {
               component={RouterLink}
               to="/roomallocates"
               variant="contained"
+              className={classes.font}
             >
               กลับ
             </Button>
             <Button
-              style={{ float: "right" }}
+              style={{ float: "right" ,backgroundColor:"#f4adfd"}}
               variant="contained"
               onClick={submit}
-              color="primary"
+              color="default"
+              className={classes.font}
             >
-              บันทึก
+              บันทึกข้อมูล
             </Button>
           </Grid>
         </Grid>

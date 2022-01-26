@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
    container: {marginTop: theme.spacing(2),minWidth: 1200},
    table: { minWidth: 1100 },
    tableSpace: {marginTop: 20},
-   font: {fontFamily:"kanitlight"},
+   font: {fontFamily:"kanitlight",color:"black"},
    fontIn: {fontFamily:"kanitlight",color:"#566573"},
   
  })
@@ -75,10 +75,11 @@ function PostalRecords() {
          </Box>
          <Box>
            <Button
+             style={{ float: "right" ,backgroundColor:"#f4adfd"}}
              component={RouterLink}
              to="/postal_record/create"
              variant="contained"
-             color="primary"
+             color="default"
              className={classes.font}
            >
              สร้างบันทึกรายการพัสดุใหม่

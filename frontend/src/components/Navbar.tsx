@@ -71,10 +71,14 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import MarkAsUnreadIcon from '@mui/icons-material/MarkAsUnread';
+import BedroomChildIcon from '@mui/icons-material/BedroomChild';
+import RoomPreferencesIcon from '@mui/icons-material/RoomPreferences';
 
 import Divider from "@material-ui/core/Divider";
 import { List } from "@material-ui/core";
 import { DormAttenInterface } from "../models/IDormAtten";
+import { fontSize } from "@mui/system";
 
 const drawerWidth = 240;
 
@@ -82,13 +86,15 @@ const useStyles = makeStyles((theme: Theme) =>
 
   createStyles({
     font:{fontFamily:"kanitlight"},
+    fontName:{fontFamily:"kanitlight",color:"black"},
     root: {
       display: "flex",
     },
-    //nav : {background : "#626567"},
+    nav : {background : "#f4adfd"},
     title: {
       flexGrow: 1,
-      fontFamily:"kanitlight",
+      fontFamily:"kanitlight",color:"black",
+      fontSize:"10px",
     },
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
@@ -146,9 +152,10 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       padding: theme.spacing(3),
     },
-    a: {
+    menubar: {
       textDecoration: "none",
       color: "inherit",
+      /*fontFamily:"kanitlight"*/
     },
   })
 );
@@ -178,9 +185,13 @@ function Navbar() {
 
   const menu = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/" },
+    { name: "ระบบบันทึกรายการพัสดุ", icon: <MarkAsUnreadIcon />, path: "/home_postal_record" },
     { name: "ผู้ดูแลหอพัก", icon: <AccountCircleIcon />, path: "/dormatten" },
     { name: "บันทึกรายการพัสดุ", icon: <LocalPostOfficeIcon />, path: "/postal_record" },
     { name: "สร้างบันทึกรายการพัสดุ", icon: <NoteAltIcon />, path: "/postal_record/create" },
+    { name: "ระบบการจัดสรรห้องพัก", icon: <RoomPreferencesIcon />, path: "/home_roomallocate" },
+    { name: "บันทึกการจัดสรรหอพัก", icon: <BedroomChildIcon />, path: "/roomallocate" },
+    { name: "สร้างบันทึกการจัดสรรห้องพัก", icon: <NoteAltIcon />, path: "/roomallocate/create" },
   ];
 
   const signout = () => {
@@ -214,7 +225,7 @@ function Navbar() {
     <>
       <AppBar
         position="fixed"
-        className={clsx(classes.appBar/*,classes.nav*/, {
+        className={clsx(classes.appBar,classes.nav, {
           [classes.appBarShift]: open,
         })}
       >
@@ -228,18 +239,18 @@ function Navbar() {
               [classes.hide]: open,
             })}
           >
-            <img src="/img/postal.png" width="50px"></img>
+            <img src="/img/logo_dorm_system.jpg" width="50px"></img>
             {/*<MenuIcon />*/}
           </IconButton>
          {/* <img src="/img/postal.png" width="50px"></img>*/}
           <Typography variant="h6" className={classes.title}>
-          ระบบบันทึกรายการพัสดุ
+          <h1>ระบบหอพัก</h1>
           </Typography>
-          <Typography variant="subtitle1" >
+          <Typography variant="subtitle1" className={classes.fontName}>
             {dormatten?.FirstName} &nbsp;&nbsp;       
           </Typography>
           <Button color="inherit" 
-          style={{fontFamily:"kanitlight"}}
+          style={{fontFamily:"kanitlight",color:"black"}}
           //style={{backgroundColor:"#E5E7E9"}}
           onClick={signout}>
             ออกจากระบบ
@@ -271,7 +282,7 @@ function Navbar() {
         <Divider />
         <List>
           {menu.map((item, index) => (
-            <Link to={item.path} key={item.name} className={classes.a}>
+            <Link to={item.path} key={item.name} className={classes.menubar}>
               <ListItem button>
                 <ListItemIcon>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.name} />

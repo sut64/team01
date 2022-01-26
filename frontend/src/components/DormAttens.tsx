@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
    container: {marginTop: theme.spacing(2)},
    table: { minWidth: 650},
    tableSpace: {marginTop: 20},
-   font: {fontFamily:"kanitlight"},
+   font: {fontFamily:"kanitlight",color:"black"},
    fontIn: {fontFamily:"kanitlight",color:"#566573"},
  })
 );

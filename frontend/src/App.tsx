@@ -45,6 +45,10 @@ import PostalRecords from "./components/PostalRecords";
 import PostalRecordCreate from "./components/PostalRecordCreate";
 import SignIn from "./components/SignIn";
 import Navbar from "./components/Navbar";
+import HomePostalRecord from "./components/HomePostalRecord";
+import RoomAllocate from "./components/RoomAllocate";
+import RoomAllocateCreate from "./components/RoomAllocateCreate";
+import HomeRoomAllocate from "./components/HomeRoomAllocate";
 
 
 const drawerWidth = 240;
@@ -152,10 +156,13 @@ export default function MiniDrawer() {
           <div>
            <Routes>
               <Route path="/" element={<Home/>} />
-              <Route  path="/dormatten" element={<DormAttens/>} />
-              
+              <Route path="/home_postal_record" element={<HomePostalRecord/>} />
+              <Route  path="/dormatten" element={<DormAttens/>} /> 
               <Route  path="/postal_record" element={<PostalRecords/>} />
               <Route  path="/postal_record/create" element={<PostalRecordCreate/>}/>
+              <Route path="/home_roomallocate" element={<HomeRoomAllocate/>} />
+              <Route  path="/roomallocate" element={<RoomAllocate/>}/>
+              <Route  path="/roomallocate/create" element={<RoomAllocateCreate/>}/>
            </Routes>
           </div>
           </main>

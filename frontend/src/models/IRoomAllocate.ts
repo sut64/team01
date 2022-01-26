@@ -8,7 +8,7 @@ export interface RoomAllocateInterface {
     ID : number,
 	EntryTime: Date,
 
-	DormAttentID: number,
+	DormAttenID: number,
 	DormAtten: DormAttenInterface,
 
 	RoomID: number,
