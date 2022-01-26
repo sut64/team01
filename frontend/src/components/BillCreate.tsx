@@ -23,12 +23,13 @@ import { RoomAllocateInterface } from "../models/IRoomAllocate";
 //import { MeterRecordInterface } from "../models/IMeterRecord";
 //import { CleaningRequestInterface } from "../models/ICleaningRequest";
 import { BillInterface } from "../models/IBill";
-
+/*
 import {
   MuiPickersUtilsProvider,
   KeyboardDateTimePicker,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+
 
 const Alert = (props: AlertProps) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -59,7 +60,7 @@ function BillCreate() {
   const [MeterRecords, setMeterRecords] = useState<MeterRecordInterface[]>([]);
   const [CleaningRequests, setCleaningRequests] = useState<CleaningRequestInterface[]>([]);
   
-  */
+  *//*
   const [bill, setBill] = useState<Partial<BillInterface>>(
     {}
   );
@@ -151,7 +152,7 @@ function BillCreate() {
         }
       });
   };  
-  */
+  *//*
   
 
   useEffect(() => {
@@ -160,7 +161,7 @@ function BillCreate() {
     /* 
     getMeterRecords();
     getCleaningRequests();
-    */
+    *//*
   }, []);
 
   const convertType = (data: string | number | undefined) => {
@@ -176,7 +177,7 @@ function BillCreate() {
       /* 
       MeterRecordID: convertType(bill.MeterRecordID),
       CleaningRequestID: convertType(bill.CleaningRequestID),
-      */
+      *//*
       PayByCash: convertType(bill.PayByCash),
       AmountPaid: convertType(bill.AmountPaid),
     };
@@ -292,7 +293,7 @@ function BillCreate() {
                   กรุณาเลือกใบบันทึกห้องพัก(ราคา)
                 </option>
                 {roomallocates.map((item: RoomAllocateInterface) => (
-                  (bill["RoomAllocateID"] == item.ID)?(<option value={item.ID} key={item.ID}>  {/*ผิด แน่ๆ แต่ยังแก้ไม่ได้*/}
+                  (bill["RoomAllocateID"] == item.ID)?(<option value={item.ID} key={item.ID}>  {/*ผิด แน่ๆ แต่ยังแก้ไม่ได้*//*}
                     {item.ID} ({item.Room.Roomtypes.Price})
                   </option>):""
                 ))}
@@ -346,7 +347,7 @@ function BillCreate() {
               </Select>
             </FormControl>
           </Grid>
-          */}
+          *//*}
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
@@ -386,4 +387,4 @@ function BillCreate() {
   );
 }
 
-export default BillCreate;
+export default BillCreate;*/
