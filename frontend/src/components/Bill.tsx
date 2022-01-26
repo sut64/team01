@@ -15,7 +15,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { BillInterface } from "../models/IBill"; //แก้เป็นของตัวเอง
 import { format } from 'date-fns'
 
-
+/*
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
@@ -111,7 +111,7 @@ function Bill() {
                 <TableCell align="center" width="20%">
                   ค่าทำความสะอาด
                 </TableCell>
-                */}
+                *//*}
 
                 <TableCell align="center" width="20%">
                   จ่ายด้วยเงินสดหรือไม่?
@@ -132,7 +132,7 @@ function Bill() {
                   {/* 
                   <TableCell align="center">{item.MeterRecord.Price}</TableCell>
                   <TableCell align="center">{item.CleaningRequest.Price}</TableCell>
-                  */}
+                  *//*}
                   <TableCell align="center">{item.PayByCash}</TableCell>
                   <TableCell align="center">{item.AmountPaid}</TableCell>
                 </TableRow>
@@ -145,6 +145,7 @@ function Bill() {
   );
 }
 
+/*
 export default Bill;
 © 2022 GitHub, Inc.
 Terms
@@ -158,3 +159,4 @@ API
 Training
 Blog
 About
+*/
