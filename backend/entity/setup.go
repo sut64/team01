@@ -23,7 +23,7 @@ func SetupDatabase() {
 	// Migrate the schema
 	database.AutoMigrate(
 		&RoomAllocate{}, &Carrier{}, &DormAtten{}, &Room{}, &Role{},
-		&DormTenant{}, &Postal{}, &Postal_Record{}, &Bill{}, &RepairRequest{},RepairType{},DormInventory{},DormInventoryType{},
+		&DormTenant{}, &Postal{}, &Postal_Record{}, &Bill{}, &RepairRequest{}, RepairType{}, DormInventory{}, DormInventoryType{},
 		&Cleaningtype{}, &Timerequrest{}, &Cleaningrequrest{},
 	)
 
@@ -309,6 +309,8 @@ func SetupDatabase() {
 		DormTenant_LastName:  dorm_tenant1.DormTenant_LastName,
 		Room:                 room1,
 		Number:               room1.Number,
+		People:               1,
+		Note:                 "เลี้ยงแมว",
 	}
 	db.Model(&RoomAllocate{}).Create(&roomallocate1)
 	roomallocate2 := RoomAllocate{
@@ -319,6 +321,8 @@ func SetupDatabase() {
 		DormTenant_LastName:  dorm_tenant2.DormTenant_LastName,
 		Room:                 room2,
 		Number:               room2.Number,
+		People:               2,
+		Note:                 "ขอส่งเสียงดังในช่วงเช้าของวันเสาร์",
 	}
 	db.Model(&RoomAllocate{}).Create(&roomallocate2)
 	/*roomallocate3 := RoomAllocate{
@@ -361,8 +365,6 @@ func SetupDatabase() {
 	}
 	db.Model(&Bill{}).Create(&bill2)
 
-	
-	
 	//----------------- ประเภททำความสะอาด -------------------
 	cleaningtype1 := Cleaningtype{
 		Type:  "กวาดห้อง + ถูห้อง",
