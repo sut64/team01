@@ -415,6 +415,25 @@ func SetupDatabase() {
 	}
 	db.Model(&Timerequrest{}).Create(&timerequrest4)
 
-	//-----------------------------------------------
+	//----------------- ช่วงเวลาทำความสะอาด -------------------
+	Cleaning1 := Cleaningrequrest{
+		RoomAllocate: roomallocate1,
+		Cleaningtype: cleaningtype3,
+		Timerequrest: timerequrest4,
+		Day: time.Now(),
+		Tel: "0817745023",
+		Note: "ห้องน้ำมีคาบที่กระจก",
+	}
+	db.Model(&Timerequrest{}).Create(&Cleaning1)
+
+	Cleaning2 := Cleaningrequrest{
+		RoomAllocate: roomallocate2,
+		Cleaningtype: cleaningtype4,
+		Timerequrest: timerequrest2,
+		Day: time.Now(),
+		Tel: "0932561432",
+		Note: "มีหนูตายหลังตู้เย็น",
+	}
+	db.Model(&Timerequrest{}).Create(&Cleaning2)
 
 }
