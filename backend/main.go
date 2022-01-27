@@ -65,6 +65,17 @@ func main() {
 			protected.GET("/route/GetRepairRequest:id", controller.GetRepairRequest)
 			protected.POST("/route/CreateGetRepairRequest", controller.CreateRepairRequest)
 
+			//route cleaningrequrest/cleaningrequrest--------major
+			protected.GET("/route/GetCleaningrequrest/:id", controller.GetCleaningrequrest)
+			protected.GET("/route/ListCleaningrequrest", controller.ListCleaningrequrests)
+			protected.POST("/route/CreateCleaningrequrest", controller.CreateCleaningrequrest)
+			//route Cleaningtype/Cleaning_System
+			protected.GET("/route/GetCleaningtype/:id", controller.GetCleaningtype)
+			protected.GET("/route/ListCleaningtype", controller.ListCleaningtypes)
+			//route Timerequrest/Cleaning_System
+			protected.GET("/route/GetTimerequrest/:id", controller.GetTimerequrest)
+			protected.GET("/route/ListTimerequrest", controller.ListTimerequrests)
+
 		}
 	}
 	//Actor Route
