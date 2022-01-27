@@ -87,26 +87,32 @@ function RoomAllocate() {
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell align="center" width="5%" className={classes.font}>
+                <TableCell align="center" width="2%" className={classes.font}>
                   ลำดับ
                 </TableCell>
-                <TableCell align="center" width="10%" className={classes.font}>
+                <TableCell align="center" width="5%" className={classes.font}>
                   หมายเลขห้อง
                 </TableCell>
-                <TableCell align="center" width="12%" className={classes.font}>
+                <TableCell align="center" width="10%" className={classes.font}>
                   ประเภทห้อง
                 </TableCell>
-                <TableCell align="center" width="8%" className={classes.font}>
+                <TableCell align="center" width="7%" className={classes.font}>
                   ราคาห้อง
                 </TableCell>
-                <TableCell align="center" width="15%" className={classes.font}>
+                <TableCell align="center" width="8%" className={classes.font}>
+                  จำนวนผู้เข้าพัก
+                </TableCell>
+                <TableCell align="center" width="8%" className={classes.font}>
                   ชื่อผู้เช่าห้องพัก
                 </TableCell>
-                <TableCell align="center" width="15%" className={classes.font}>
+                <TableCell align="center" width="9%" className={classes.font}>
                   ชื่อผู้ดูแลหอพัก
                 </TableCell>
-                <TableCell align="center" width="15%"className={classes.font}>
+                <TableCell align="center" width="12%"className={classes.font}>
                   วันที่และเวลา
+                </TableCell>
+                <TableCell align="center" width="5%" className={classes.font}>
+                  หมายเหตุ
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -117,9 +123,11 @@ function RoomAllocate() {
                   <TableCell align="center" className={classes.fontIn}>{item.Room.Number}</TableCell>
                   <TableCell align="center" className={classes.fontIn}>{item.Room.Roomtypes.Name}</TableCell>
                   <TableCell align="center" className={classes.fontIn}>{item.Room.Roomtypes.Price}</TableCell>
+                  <TableCell align="center" className={classes.fontIn}>{item.People}</TableCell>
                   <TableCell align="center" className={classes.fontIn}>{item.DormTenant.DormTenant_FirstName}  {item.DormTenant.DormTenant_LastName}</TableCell>
                   <TableCell align="center" className={classes.fontIn}>{item.DormAtten.FirstName}  {item.DormAtten.LastName}</TableCell>
                   <TableCell align="center" className={classes.fontIn}>{format((new Date(item.EntryTime)), 'dd MMMM yyyy hh:mm a')}</TableCell>
+                  <TableCell align="center" className={classes.fontIn}>{item.Note}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
