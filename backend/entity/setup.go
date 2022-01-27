@@ -322,10 +322,10 @@ func SetupDatabase() {
 		Room:                 room2,
 		Number:               room2.Number,
 		People:               2,
-		Note:                 "ขอส่งเสียงดังในช่วงเช้าของวันเสาร์",
+		Note:                 "-",
 	}
 	db.Model(&RoomAllocate{}).Create(&roomallocate2)
-	/*roomallocate3 := RoomAllocate{
+	roomallocate3 := RoomAllocate{
 		EntryTime:            time.Now(),
 		DormAtten:            dorm_atten2,
 		DormTenant:           dorm_tenant3,
@@ -333,8 +333,22 @@ func SetupDatabase() {
 		DormTenant_LastName:  dorm_tenant3.DormTenant_LastName,
 		Room:                 room10,
 		Number:               room10.Number,
+		People:               1,
+		Note:                 "-",
 	}
-	db.Model(&RoomAllocate{}).Create(&roomallocate3)*/
+	db.Model(&RoomAllocate{}).Create(&roomallocate3)
+	roomallocate4 := RoomAllocate{
+		EntryTime:            time.Now(),
+		DormAtten:            dorm_atten1,
+		DormTenant:           dorm_tenant4,
+		DormTenant_FirstName: dorm_tenant4.DormTenant_FirstName,
+		DormTenant_LastName:  dorm_tenant4.DormTenant_LastName,
+		Room:                 room9,
+		Number:               room9.Number,
+		People:               3,
+		Note:                 "ขอส่งเสียงดังในตอนเที่ยงของวันจันทร์",
+	}
+	db.Model(&RoomAllocate{}).Create(&roomallocate4)
 
 	//------------Bill-------------------------
 	v := true
@@ -422,20 +436,20 @@ func SetupDatabase() {
 		RoomAllocate: roomallocate1,
 		Cleaningtype: cleaningtype3,
 		Timerequrest: timerequrest4,
-		Day: time.Now(),
-		Tel: "0817745023",
-		Note: "ห้องน้ำมีคาบที่กระจก",
+		Day:          time.Now(),
+		Tel:          "0817745023",
+		Note:         "ห้องน้ำมีคาบที่กระจก",
 	}
-	db.Model(&Timerequrest{}).Create(&Cleaning1)
+	db.Model(&Cleaningrequrest{}).Create(&Cleaning1)
 
 	Cleaning2 := Cleaningrequrest{
 		RoomAllocate: roomallocate2,
 		Cleaningtype: cleaningtype4,
 		Timerequrest: timerequrest2,
-		Day: time.Now(),
-		Tel: "0932561432",
-		Note: "มีหนูตายหลังตู้เย็น",
+		Day:          time.Now(),
+		Tel:          "0932561432",
+		Note:         "มีหนูตายหลังตู้เย็น",
 	}
-	db.Model(&Timerequrest{}).Create(&Cleaning2)
+	db.Model(&Cleaningrequrest{}).Create(&Cleaning2)
 
 }
