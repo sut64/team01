@@ -60,6 +60,11 @@ func main() {
 			protected.GET("/route/GetBill/:id", controller.GetBill)
 			protected.POST("/route/CreateBill", controller.CreateBill)
 			//=============== เพิ่มมา =================
+			// Repair_request Routes
+			protected.GET("/route/ListRepairRequest", controller.ListRepairRequest)
+			protected.GET("/route/GetRepairRequest:id", controller.GetRepairRequest)
+			protected.POST("/route/CreateGetRepairRequest", controller.CreateRepairRequest)
+
 		}
 	}
 	//Actor Route
