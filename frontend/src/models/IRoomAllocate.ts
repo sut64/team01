@@ -7,6 +7,8 @@ import { RoomTypesInterface } from "./IRoomTypes";
 export interface RoomAllocateInterface {
     ID : number,
 	EntryTime: Date,
+	Note:    string,    //`valid:"required~Note can not be blank"`
+	People:   number,    //`valid:"range(1|3)~People must be in 1-3,required~People must be in 1-3"`
 
 	DormAttenID: number,
 	DormAtten: DormAttenInterface,
