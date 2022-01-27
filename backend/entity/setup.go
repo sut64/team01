@@ -24,6 +24,7 @@ func SetupDatabase() {
 	database.AutoMigrate(
 		&RoomAllocate{}, &Carrier{}, &DormAtten{}, &Room{}, &Role{},
 		&DormTenant{}, &Postal{}, &Postal_Record{}, &Bill{}, &RepairRequest{},RepairType{},DormInventory{},DormInventoryType{},
+		&Cleaningtype{}, &Timerequrest{}, &Cleaningrequrest{},
 	)
 
 	db = database
@@ -359,5 +360,61 @@ func SetupDatabase() {
 		AmountPaid: 5340.25, //เดี๋ยวบวกเอา รอก่อนๆ
 	}
 	db.Model(&Bill{}).Create(&bill2)
+
+	
+	
+	//----------------- ประเภททำความสะอาด -------------------
+	cleaningtype1 := Cleaningtype{
+		Type:  "กวาดห้อง + ถูห้อง",
+		Price: 50,
+	}
+	db.Model(&Cleaningtype{}).Create(&cleaningtype1)
+
+	cleaningtype2 := Cleaningtype{
+		Type:  "กวาดห้อง + ถูห้อง + ล้างห้องน้ำ",
+		Price: 100,
+	}
+	db.Model(&Cleaningtype{}).Create(&cleaningtype2)
+
+	cleaningtype3 := Cleaningtype{
+		Type:  "กวาดห้อง + ถูห้อง + ล้างห้องน้ำ + ล้างตู้เย็น",
+		Price: 150,
+	}
+	db.Model(&Cleaningtype{}).Create(&cleaningtype3)
+
+	cleaningtype4 := Cleaningtype{
+		Type:  "กวาดห้อง + ถูห้อง + ล้างห้องน้ำ + ล้างระเบียง",
+		Price: 200,
+	}
+	db.Model(&Cleaningtype{}).Create(&cleaningtype4)
+
+	cleaningtype5 := Cleaningtype{
+		Type:  "กวาดห้อง + ถูห้อง + ล้างห้องน้ำ + ล้างระเบียง + ล้างแอร์",
+		Price: 400,
+	}
+	db.Model(&Cleaningtype{}).Create(&cleaningtype5)
+
+	//----------------- ช่วงเวลาทำความสะอาด -------------------
+	timerequrest1 := Timerequrest{
+		Period: "08:00 - 10:00",
+	}
+	db.Model(&Timerequrest{}).Create(&timerequrest1)
+
+	timerequrest2 := Timerequrest{
+		Period: "10:00 - 12:00",
+	}
+	db.Model(&Timerequrest{}).Create(&timerequrest2)
+
+	timerequrest3 := Timerequrest{
+		Period: "13:00 - 15:00",
+	}
+	db.Model(&Timerequrest{}).Create(&timerequrest3)
+
+	timerequrest4 := Timerequrest{
+		Period: "15:00 - 17:00",
+	}
+	db.Model(&Timerequrest{}).Create(&timerequrest4)
+
+	//-----------------------------------------------
 
 }
