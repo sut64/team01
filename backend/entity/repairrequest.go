@@ -48,16 +48,17 @@ type DormInventory struct {
 
 type RepairRequest struct {
 	gorm.Model
-	RecordDate      time.Time
-	EntryPermission bool     `valid:"required~EntryPermission cannot be blank"`
-	TelNumber       string  `valid:"matches(^[0]\\d{9}$)"`
-	RequestDate     time.Time
+	TelNumber       string     `valid:"matches(^[0]\\d{9}$)"`
+
+	RecordDate      time.Time   `valid:"future~Must be correct"`
+ 	EntryPermission *bool        `valid:"required~Must be correct"`
+	RequestDate     time.Time   `valid:"-"`
 
   	RoomAllocateID *uint
 	RoomAllocate   RoomAllocate `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 
 	DormTenantID *uint
-	DormTenant   DormTenant `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
+	DormTenant   DormTenant     `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 
 	DormInventoryID *uint
 	DormInventory   DormInventory `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
