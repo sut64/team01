@@ -4,7 +4,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// -- ประเภททำความสะอาด --
+// -- ประเภททำความสะอาด ---
 type Cleaningtype struct {
 	gorm.Model
 	Type  string
