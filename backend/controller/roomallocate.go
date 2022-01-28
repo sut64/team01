@@ -42,10 +42,10 @@ func CreateRoomAllocate(c *gin.Context) {
 
 	// สร้าง RoomAllocate
 	ad := entity.RoomAllocate{
-		DormAtten:  dormatten,  // โยงความสัมพันธ์กับ Entity DormAtten
-		Room:       room,       // โยงความสัมพันธ์กับ Entity Room
-		DormTenant: dormtenant, // โยงความสัมพันธ์กับ Entity DormTenant
-		People:     roomallocate.People,
+		DormAtten:  dormatten,           // โยงความสัมพันธ์กับ Entity DormAtten
+		Room:       room,                // โยงความสัมพันธ์กับ Entity Room
+		DormTenant: dormtenant,          // โยงความสัมพันธ์กับ Entity DormTenant
+		People:     roomallocate.People, //มีการ validation
 		Note:       roomallocate.Note,
 
 		DormTenant_FirstName: dormtenant.DormTenant_FirstName,
@@ -53,6 +53,7 @@ func CreateRoomAllocate(c *gin.Context) {
 		EntryTime:            roomallocate.EntryTime, // ตั้งค่าฟิลด์ EntryTime
 	}
 
+	//มีการใช้ validation
 	if _, err := govalidator.ValidateStruct(roomallocate); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
