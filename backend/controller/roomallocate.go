@@ -3,6 +3,7 @@ package controller
 import (
 	"net/http"
 
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"github.com/sut64/team01/entity"
 )
@@ -21,7 +22,7 @@ func CreateRoomAllocate(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	// ค้นหา patient ด้วย id
+	// ค้นหา DormTenant ด้วย id
 	if tx := entity.DB().Where("id = ?", roomallocate.DormTenantID).First(&dormtenant); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "dormtenant not found"})
 		return
@@ -33,13 +34,13 @@ func CreateRoomAllocate(c *gin.Context) {
 		return
 	}
 
-	// ค้นหา right_treatment ด้วย id
+	// ค้นหา DormAtten ด้วย id
 	if tx := entity.DB().Where("id = ?", roomallocate.DormAttenID).First(&dormatten); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "dormatten not found"})
 		return
 	}
 
-	// สร้าง admission
+	// สร้าง RoomAllocate
 	ad := entity.RoomAllocate{
 		DormAtten:  dormatten,  // โยงความสัมพันธ์กับ Entity DormAtten
 		Room:       room,       // โยงความสัมพันธ์กับ Entity Room
@@ -50,6 +51,11 @@ func CreateRoomAllocate(c *gin.Context) {
 		DormTenant_FirstName: dormtenant.DormTenant_FirstName,
 		DormTenant_LastName:  dormtenant.DormTenant_LastName,
 		EntryTime:            roomallocate.EntryTime, // ตั้งค่าฟิลด์ EntryTime
+	}
+
+	if _, err := govalidator.ValidateStruct(roomallocate); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	// บันทึก
@@ -71,7 +77,7 @@ func ListRoomAllocate(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": roomallocate})
 }
 
-// GET /admission/:id
+// GET /roomallocate/:id
 func GetRoomAllocate(c *gin.Context) {
 	var roomallocate entity.RoomAllocate
 	id := c.Param("id")
