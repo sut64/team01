@@ -29,6 +29,7 @@ func TestRoomAllocatePass(t *testing.T) {
 	g.Expect(err).To(BeNil())
 }
 
+//#22
 func TestEntryTimeMustBeFuture(t *testing.T) {
 	g := NewGomegaWithT(t)
 

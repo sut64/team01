@@ -50,7 +50,7 @@ func CreateRoomAllocate(c *gin.Context) {
 
 		DormTenant_FirstName: dormtenant.DormTenant_FirstName,
 		DormTenant_LastName:  dormtenant.DormTenant_LastName,
-		EntryTime:            roomallocate.EntryTime, // ตั้งค่าฟิลด์ EntryTime
+		EntryTime:            roomallocate.EntryTime, // ตั้งค่าฟิลด์ EntryTime //มีการ validation
 	}
 
 	//มีการใช้ validation
