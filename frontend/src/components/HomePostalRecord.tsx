@@ -1,6 +1,6 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
+import NavbarPostalRecs from "./NavbarPostalRecs";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({   
     container: {
@@ -21,6 +21,7 @@ function HomePostalRecord() {
 
   return (
     <div>
+      <NavbarPostalRecs/>
       <Container className={classes.container} maxWidth="md">
         <h1 style={{ textAlign: "center" }}>ระบบบันทึกรายการพัสดุ</h1>
         <h4>Requirements</h4>

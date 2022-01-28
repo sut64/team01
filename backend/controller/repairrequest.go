@@ -16,8 +16,6 @@ func CreateRepairRequest(c *gin.Context) {
 	var dorminventory entity.DormInventory
 	var roomallocate entity.RoomAllocate
 
-
-
 	// ผลลัพธ์ที่ได้จะถูก bind เข้าตัวแปร RoomAllocate
 	if err := c.ShouldBindJSON(&repairrequest); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

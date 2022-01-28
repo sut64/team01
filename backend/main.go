@@ -56,7 +56,7 @@ func main() {
 			protected.POST("/route/CreateRoomAllocate", controller.CreateRoomAllocate)
 			//=============== เพิ่มมา =================
 			//  Postal_Record Routes
-			protected.GET("/route/ListBills", controller.ListBill)
+			protected.GET("/route/ListBills", controller.ListBills)
 			protected.GET("/route/GetBill/:id", controller.GetBill)
 			protected.POST("/route/CreateBill", controller.CreateBill)
 			//=============== เพิ่มมา =================
@@ -73,6 +73,24 @@ func main() {
 			protected.GET("/route/GetDormInventoryType:id", controller.GetDormInventoryType)
 			protected.POST("/route/CreateDormInventoryType", controller.CreateDormInventoryType)
 						
+
+			//route cleaningrequrest/cleaningrequrest--------major
+			protected.GET("/route/GetCleaningrequrest/:id", controller.GetCleaningrequrest)
+			protected.GET("/route/ListCleaningrequrest", controller.ListCleaningrequrests)
+			protected.POST("/route/CreateCleaningrequrest", controller.CreateCleaningrequrest)
+			//route Cleaningtype/Cleaning_System
+			protected.GET("/route/GetCleaningtype/:id", controller.GetCleaningtype)
+			protected.GET("/route/ListCleaningtype", controller.ListCleaningtypes)
+			//route Timerequrest/Cleaning_System
+			protected.GET("/route/GetTimerequrest/:id", controller.GetTimerequrest)
+			protected.GET("/route/ListTimerequrest", controller.ListTimerequrests)
+			//  Unitprice Routes
+			protected.GET("/route/GetUnitprice/:id", controller.GetUnitprice)
+			protected.POST("/route/CreateUnitprice", controller.CreateUnitprice)
+			//  MeterRecord Routes
+			protected.GET("/route/ListMeterRecords", controller.ListMeterRecords)
+			protected.GET("/route/GetMeterRecord/:id", controller.GetMeterRecord)
+			protected.POST("/route/CreateMeterRecord", controller.CreateMeterRecord)
 
 		}
 	}

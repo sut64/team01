@@ -12,29 +12,29 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { Postal_RecordInterface } from "../models/IPostal_Record";
+
+import { CleaningrequrestInterface } from "../models/ICleaningrequrest";
  
 import moment from 'moment';
-import NavbarPostalRecs from "./NavbarPostalRecs";
- 
+import NavbarCleaningRequest from "./NavberCleaningRequest"; 
  
 const useStyles = makeStyles((theme: Theme) =>
  createStyles({
    container: {marginTop: theme.spacing(2),minWidth: 1200},
    table: { minWidth: 1100 },
    tableSpace: {marginTop: 20},
-   font: {fontFamily:"kanitlight",color:"black"},
+   font: {fontFamily:"kanitlight"},
    fontIn: {fontFamily:"kanitlight",color:"#566573"},
   
  })
 );
  
-function PostalRecords() {
+function Cleaningrequrests() {
  const classes = useStyles();
- const [postalrecords, setPostalrecords] = React.useState<Postal_RecordInterface[]>([]);
+ const [cleaningrequrests, setCleaningrequrests] = React.useState<CleaningrequrestInterface[]>([]);
  
- const getPostalRecords = async () => {
-   const apiUrl = "http://localhost:8080/route/ListPostalRecords";
+ const getCleaningrequrests = async () => {
+   const apiUrl = "http://localhost:8080/route/ListCleaningrequrest";
    const requestOptions = {
     method: "GET",
     headers: {
@@ -48,7 +48,7 @@ function PostalRecords() {
      .then((res) => {
        console.log(res.data);
        if (res.data) {
-         setPostalrecords(res.data);
+         setCleaningrequrests(res.data);
        } else {
          console.log("else");
        }
@@ -56,12 +56,12 @@ function PostalRecords() {
  };
  
  useEffect(() => {
-   getPostalRecords();
+   getCleaningrequrests();
  }, []);
  
  return (
    <div>
-     <NavbarPostalRecs/>
+     <NavbarCleaningRequest/>
      <Container className={classes.container} maxWidth="md">
        <Box display="flex">
          <Box flexGrow={1}>
@@ -72,19 +72,19 @@ function PostalRecords() {
              gutterBottom
              className={classes.font}
            >
-             บันทึกรายการพัสดุ
+             ประวัติแจ้งทำความสะอาด
            </Typography>
          </Box>
          <Box>
-           <Button
+         <Button
              style={{ float: "right" ,backgroundColor:"#f4adfd"}}
              component={RouterLink}
-             to="/postal_record/create"
+             to="/cleaningrequrest/create"
              variant="contained"
              color="default"
              className={classes.font}
            >
-             สร้างบันทึกรายการพัสดุใหม่
+             แจ้งทำความสะอาด
            </Button>
          </Box>
        </Box>
@@ -95,43 +95,43 @@ function PostalRecords() {
                <TableCell align="center" width="5%" className={classes.font}>
                  ID
                </TableCell>
+               <TableCell align="center" width="10%" className={classes.font}>
+                 ห้องพัก
+               </TableCell>
                <TableCell align="center" width="20%" className={classes.font}>
-                 ชื่อผู้บันทึก
+                 ประเภททำความสะอาด
+               </TableCell>
+               <TableCell align="center" width="20%" className={classes.font}>
+                 ช่วงเวลาทำความสะอาด
+               </TableCell>
+               <TableCell align="center" width="10%" className={classes.font}>
+                 วันที่ทำความสะอาด
                </TableCell>
                <TableCell align="center" width="15%" className={classes.font}>
-                 Tracking
+                 เบอร์ติดต่อ
                </TableCell>
-               <TableCell align="center" width="15%" className={classes.font}>
-                 ชื่อผู้รับ
-               </TableCell>
-               <TableCell align="center" width="15%" className={classes.font}>
-                 จัดส่งโดย
-               </TableCell>
-               <TableCell align="center" width="12%" className={classes.font}>
-                 ลักษณะพัสดุ
-               </TableCell>
-               <TableCell align="center" width="3%" className={classes.font}>
-                 จำนวน
-               </TableCell>
-               <TableCell align="center" width="15%" className={classes.font}>
-                 วันที่มาส่ง
+               <TableCell align="center" width="10%" className={classes.font}>
+                 หมายเหตุ
+             
                </TableCell>
              </TableRow>
            </TableHead>
            <TableBody>
-             {postalrecords.map((postalrecord: Postal_RecordInterface) => (
-               <TableRow key={postalrecord.ID}>
-                 <TableCell align="center" className={classes.fontIn}>{postalrecord.ID}</TableCell>
+             {cleaningrequrests.map((cleaningrequrest: CleaningrequrestInterface) => (
+               <TableRow key={cleaningrequrest.ID}>
+
+                 <TableCell align="center" className={classes.fontIn}>{cleaningrequrest.ID}</TableCell>
                  <TableCell align="center" size="medium" className={classes.fontIn}>
-                   {postalrecord.DormAtten.FirstName} {postalrecord.DormAtten.LastName}
-                 </TableCell>
-                 <TableCell align="center" className={classes.fontIn}>{postalrecord.Tracking}</TableCell>
-                 <TableCell align="center" className={classes.fontIn}>
-                   {postalrecord.RoomAllocate.Number} {postalrecord.RoomAllocate.DormTenant_FirstName} {postalrecord.RoomAllocate.DormTenant_LastName}</TableCell>
-                 <TableCell align="center" className={classes.fontIn}>{postalrecord.Carrier.CarrierName}</TableCell>
-                 <TableCell align="center" className={classes.fontIn}>{postalrecord.Postal.Type}</TableCell>
-                 <TableCell align="center" className={classes.fontIn}>{postalrecord.Amount}</TableCell>
-                 <TableCell align="center" className={classes.fontIn}>{moment(postalrecord.RecordTime).format("DD/MM/YYYY")}</TableCell>
+                   {cleaningrequrest.RoomAllocate.Number} </TableCell>
+                 <TableCell align="center" className={classes.fontIn}>{cleaningrequrest.Cleaningtype.Type}</TableCell>
+                 <TableCell align="center" className={classes.fontIn}>{cleaningrequrest.Timerequrest.Period}</TableCell>
+
+                 <TableCell align="center" className={classes.fontIn}>{moment(cleaningrequrest.Day).format("DD/MM/YYYY")}</TableCell>
+                 <TableCell align="center" className={classes.fontIn}>{cleaningrequrest.Tel}</TableCell>
+                 <TableCell align="center" className={classes.fontIn}>{cleaningrequrest.Note}</TableCell>
+     
+                 
+
                </TableRow>
              ))}
            </TableBody>
@@ -142,4 +142,4 @@ function PostalRecords() {
  );
 }
  
-export default PostalRecords;
+export default Cleaningrequrests;

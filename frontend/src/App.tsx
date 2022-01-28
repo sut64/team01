@@ -50,6 +50,12 @@ import RoomAllocate from "./components/RoomAllocate";
 import RoomAllocateCreate from "./components/RoomAllocateCreate";
 import HomeRoomAllocate from "./components/HomeRoomAllocate";
 
+import HomeCleaning from "./components/HomeCleaning";
+import Cleaningrequrests from "./components/Cleaningrequrests";
+import CleaningrequrestCreate from "./components/CleaningrequrestCreate";
+import BillCreate from "./components/BillCreate";
+import Bill from "./components/Bill";
+import HomeBill from "./components/HomeBill";
 
 const drawerWidth = 240;
 
@@ -150,7 +156,7 @@ export default function MiniDrawer() {
         <CssBaseline />
         {token && (
           <>
-          <Navbar />
+        
           <main className={classes.content}>
           <div className={classes.toolbar} />
           <div>
@@ -163,6 +169,13 @@ export default function MiniDrawer() {
               <Route path="/home_roomallocate" element={<HomeRoomAllocate/>} />
               <Route  path="/roomallocate" element={<RoomAllocate/>}/>
               <Route  path="/roomallocate/create" element={<RoomAllocateCreate/>}/>
+              <Route path="/homecleang" element={<HomeCleaning/>} />
+              <Route  path="/cleaningrequrest" element={<Cleaningrequrests/>} />
+              <Route  path="/cleaningrequrest/create" element={<CleaningrequrestCreate/>}/>
+              <Route path="/home_bill" element={<HomeBill/>} />
+              <Route  path="/bill" element={<Bill/>}/>
+              <Route  path="/bill/create" element={<BillCreate/>}/>
+           
            </Routes>
           </div>
           </main>

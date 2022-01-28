@@ -13,17 +13,18 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
-import { Postal_RecordInterface } from "../models/IPostal_Record";
+
 import {MuiPickersUtilsProvider,KeyboardDatePicker,} from "@material-ui/pickers";
 import Select from "@material-ui/core/Select";
 import DateFnsUtils from "@date-io/date-fns";
 import "../App.css";
-import { DormAttenInterface } from "../models/IDormAtten";
-import { DormTenantInterface } from "../models/IDormTenant";
-import { CarrierInterface } from "../models/ICarrier";
-import { PostalInterface } from "../models/IPostal";
+
+
+import { CleaningrequrestInterface } from "../models/ICleaningrequrest";
+import { CleaningtypesInterface } from "../models/ICleaningtype";
+import { TimerequrestsInterface } from "../models/ITimerequrest";
 import { RoomAllocateInterface } from "../models/IRoomAllocate";
-import NavbarPostalRecs from "./NavbarPostalRecs";
+import NavbarCleaningRequest from "./NavberCleaningRequest";
  
 function Alert(props: AlertProps) {
  return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -36,20 +37,24 @@ const useStyles = makeStyles((theme: Theme) =>
    paper: {padding: theme.spacing(2),color: theme.palette.text.secondary},
    font:{fontFamily:"kanitlight",color:"black"},
    fontIn:{fontFamily:"kanitlight",fontSize:"14px"},
-   
+   fontHead:{fontFamily:"kanitlight"},
    //fontInSelect:{fontFamily:"kanitlight",fontSize:"14px",color:"#A6ACAF"},
  })
 );
  
-function PostalRecordCreate() {
+//Cleaningrequrest
+//cleaningrequrest
+
+function CleaningrequrestCreate() {
  const classes = useStyles();
  const [selectedDate, setSelectedDate] = React.useState<Date | null>(new Date());
- const [dormattens, setDormAttens] = React.useState<DormAttenInterface>();
- const [dormtenants, setDormTenants] = React.useState<DormTenantInterface[]>([]);
- const [carriers, setCarriers] = React.useState<CarrierInterface[]>([]);
- const [postals, setPostals] = React.useState<PostalInterface[]>([]);
+
+ const [cleaningtypes, setCleaningtypes] = React.useState<CleaningtypesInterface[]>([]);
+ const [timerequrests, setTimerequrests] = React.useState<TimerequrestsInterface[]>([]);
  const [roomallocates, setRoomAllocates] = React.useState<RoomAllocateInterface[]>([]);
- const [postalrecord, setPostalRecord] = React.useState<Partial<Postal_RecordInterface>>({});
+
+ const [cleaningrequrest, setCleaningrequrest] = React.useState<Partial<CleaningrequrestInterface>>({});
+
  const [success, setSuccess] = React.useState(false);
  const [error, setError] = React.useState(false);
  
@@ -64,9 +69,9 @@ function PostalRecordCreate() {
  const handleChange = (
   event: React.ChangeEvent<{ name?: string; value: unknown }>
 ) => {
-  const name = event.target.name as keyof typeof postalrecord;
-  setPostalRecord({
-    ...postalrecord,
+  const name = event.target.name as keyof typeof cleaningrequrest;
+  setCleaningrequrest({
+    ...cleaningrequrest,
     [name]: event.target.value,
   });
 };
@@ -87,56 +92,34 @@ function PostalRecordCreate() {
  const handleInputChange = (
    event: React.ChangeEvent<{ id?: string; value: any }>
  ) => {
-   const id = event.target.id as keyof typeof PostalRecordCreate;
+   const id = event.target.id as keyof typeof CleaningrequrestCreate;
    const { value } = event.target;
-   setPostalRecord({ ...postalrecord, [id]: value });
+   setCleaningrequrest({ ...cleaningrequrest, [id]: value });
  };
 
- const getCarrier = async () => {
-  fetch(`${apiUrl}/route/ListCarriers`, requestOptions)
+ const getCleaningtype = async () => {
+  fetch(`${apiUrl}/route/ListCleaningtype`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {
-        setCarriers(res.data);
+        setCleaningtypes(res.data);
       } else {
         console.log("else");
       }
     });
 };
-const getPostal = async () => {
-  fetch(`${apiUrl}/route/ListPostals`, requestOptions)
+const getTimerequrest = async () => {
+  fetch(`${apiUrl}/route/ListTimerequrest`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {
-        setPostals(res.data);
+        setTimerequrests(res.data);
       } else {
         console.log("else");
       }
     });
 };
-const getDormAtten = async () => {
-  const uid = Number(localStorage.getItem("uid"));
-  fetch(`${apiUrl}/route/GetDormAtten/${uid}`, requestOptions)
-    .then((response) => response.json())
-    .then((res) => {
-      if (res.data) {
-        setDormAttens(res.data);
-      } else {
-        console.log("else");
-      }
-    });
-};
-const getDormTenant = async () => {
-  fetch(`${apiUrl}/route/ListDormTenants`, requestOptions)
-    .then((response) => response.json())
-    .then((res) => {
-      if (res.data) {
-        setDormTenants(res.data);
-      } else {
-        console.log("else");
-      }
-    });
-};
+
 const getRoomAllocate = async () => {
   fetch(`${apiUrl}/route/ListRoomAllocates`, requestOptions)
     .then((response) => response.json())
@@ -150,10 +133,9 @@ const getRoomAllocate = async () => {
 };
 
 useEffect(() => {
-  getDormAtten();
-  getDormTenant();
-  getCarrier();
-  getPostal();
+
+  getCleaningtype();
+  getTimerequrest();
   getRoomAllocate();
 }, []);
 
@@ -165,18 +147,18 @@ const convertType = (data: string | number | undefined) => {
 
  function submit() {
    let data = {
-     DormAttenID: convertType(dormattens?.ID),
-     //DormTenantID: convertType(postalrecord.DormTenantID),
-     RoomAllocateID: convertType(postalrecord.RoomAllocateID),
-     PostalID: convertType(postalrecord.PostalID),
-     CarrierID: convertType(postalrecord.CarrierID),
-     Amount: typeof postalrecord.Amount === "string" ? parseInt(postalrecord.Amount) : 0,
-     Tracking:postalrecord.Tracking ?? "",
+    
+     RoomAllocateID: convertType(cleaningrequrest.RoomAllocateID),
+     CleaningtypeID: convertType(cleaningrequrest.CleaningtypeID),
+     TimerequrestID: convertType(cleaningrequrest.TimerequrestID),
      RecordTime: selectedDate,
+     Tel:cleaningrequrest.Tel ?? "",
+     Note:cleaningrequrest.Note ?? "",
+     
 
    };
  
-   const apiUrl = "http://localhost:8080/route/CreatePostalRecord";
+   const apiUrl = "http://localhost:8080/route/CreateCleaningrequrest";
    const requestOptions = {
     method: "POST",
     headers: {
@@ -199,7 +181,7 @@ const convertType = (data: string | number | undefined) => {
  
  return (
    <Container className={classes.container} maxWidth="md">
-     <NavbarPostalRecs/>
+     <NavbarCleaningRequest/>
      <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
        <Alert onClose={handleClose} severity="success">
          บันทึกข้อมูลสำเร็จ
@@ -218,57 +200,33 @@ const convertType = (data: string | number | undefined) => {
              variant="h6"
              color="primary"
              gutterBottom
-             className={classes.font}
+             className={classes.fontHead}
            >
-             บันทึกรายการพัสดุ
+             ทำการแจ้งทำความสะอาด
            </Typography>
          </Box>
        </Box>
        <Divider />
        <Grid container spacing={3} className={classes.root}>
-         <Grid item xs={12} className={classes.font}>
-           <p>ชื่อผู้บันทึก</p>
-           <FormControl fullWidth variant="outlined">
-              <Select
-                className={classes.fontIn}
-                native
-                disabled
-                value={postalrecord.DormAttenID}
-                /*onChange={handleChange}
-                inputProps={{
-                  name: "DormAttenID",
-                }}*/
-              >
-                <option aria-label="None" value="">
-                  {dormattens?.FirstName} {dormattens?.LastName}
-                </option>
-                {/*
-                {dormattens.map((item: DormAttenInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.FirstName} {item.LastName}
-                  </option>
-                ))}*/}
-              </Select>
-            </FormControl>
-         </Grid>
+        
          <Grid item xs={6} className={classes.font}>
          <FormControl fullWidth variant="outlined" className={classes.font}>
-              <p>ชื่อผู้รับ</p>
+              <p>ห้องพัก</p>
               <Select
                 className={classes.fontIn}
                 native
-                value={postalrecord.RoomAllocateID}
+                value={cleaningrequrest.RoomAllocateID}
                 onChange={handleChange}
                 inputProps={{
                   name: "RoomAllocateID",
                 }}
               >
                 <option aria-label="None" value="">
-                  กรุณาเลือกผู้รับ
+                  กรุณาเลือกห้องพัก
                 </option>
                 {roomallocates.map((item: RoomAllocateInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.Number} {item.DormTenant_FirstName} {item.DormTenant_LastName} 
+                    {item.Number} 
                   </option>
                 ))}
               </Select>
@@ -276,43 +234,20 @@ const convertType = (data: string | number | undefined) => {
          </Grid>
          <Grid item xs={6}>
          <FormControl fullWidth variant="outlined" className={classes.font}>
-              <p>จัดส่งโดย</p>
+              <p>ประเภททำความสะอาด</p>
               <Select
                 className={classes.fontIn}
                 native
-                value={postalrecord.CarrierID}
+                value={cleaningrequrest.CleaningtypeID}
                 onChange={handleChange}
                 inputProps={{
-                  name: "CarrierID",
+                  name: "CleaningtypeID",
                 }}
               >
                 <option aria-label="None" value="">
-                  กรุณาเลือกผู้จัดส่ง
+                  กรุณาเลือกประเภททำความสะอาด
                 </option>
-                {carriers.map((item: CarrierInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.CarrierName}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-         </Grid>
-         <Grid item xs={6}>
-         <FormControl fullWidth variant="outlined" className={classes.font}>
-              <p>ประเภทพัสดุ</p>
-              <Select
-                className={classes.fontIn}
-                native
-                value={postalrecord.PostalID}
-                onChange={handleChange}
-                inputProps={{
-                  name: "PostalID",
-                }}
-              >
-                <option aria-label="None" value="">
-                  กรุณาเลือกประเภทพัสดุ
-                </option>
-                {postals.map((item: PostalInterface) => (
+                {cleaningtypes.map((item: CleaningtypesInterface) => (
                   <option value={item.ID} key={item.ID}>
                     {item.Type}
                   </option>
@@ -321,69 +256,112 @@ const convertType = (data: string | number | undefined) => {
             </FormControl>
          </Grid>
          <Grid item xs={6}>
-          <FormControl fullWidth variant="outlined" className={classes.font}>
-            <p>จำนวน</p>
-            <TextField
-              InputProps={{
-                classes: {
-                  input: classes.fontIn,
-                },
-              }}
-              placeholder="กรุณากรอกจำนวน"
-              id="Amount"
-              name="Amount"
-              variant="outlined"
-              type="uint"
-              size="medium"
-              value={postalrecord.Amount || ""}
-              onChange={handleInputChange}
-            />
-          </FormControl>
-          </Grid>
+         <FormControl fullWidth variant="outlined" className={classes.font}>
+              <p>ช่วงเวลาทำความสะอาด</p>
+              <Select
+                className={classes.fontIn}
+                native
+                value={cleaningrequrest.TimerequrestID}
+                onChange={handleChange}
+                inputProps={{
+                  name: "TimerequrestID",
+                }}
+              >
+                <option aria-label="None" value="">
+                  กรุณาเลือกช่วงเวลาทำความสะอาด
+                </option>
+                {timerequrests.map((item: TimerequrestsInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Period}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+            </Grid>
+
+ {/***************************************************************** */}
+ <Grid item xs={6}>
+   <FormControl fullWidth variant="outlined" className={classes.font}>
+     <p>วันที่ต้องการทำความสะอาด</p>
+     <MuiPickersUtilsProvider utils={DateFnsUtils}>
+       <KeyboardDatePicker
+         InputProps={{
+          classes: {
+            input: classes.fontIn,
+          },
+        }}
+         margin="normal"
+         id="Day"
+         format="yyyy-MM-dd"
+         value={selectedDate}
+         onChange={handleDateChange}
+         KeyboardButtonProps={{
+           "aria-label": "change date",
+         }}
+       />
+     </MuiPickersUtilsProvider>
+   </FormControl>
+   </Grid>
           <Grid item xs={6}>
            <FormControl fullWidth variant="outlined" className={classes.font}>
-             <p>Tracking</p>
+             <p>เบอร์ติดต่อ</p>
              <TextField
                InputProps={{
                 classes: {
                   input: classes.fontIn,
                 },
               }}
-               placeholder="หากไม่ทราบหมายเลขกรุณากรอก ' - '"
-               id="Tracking"
+               placeholder="หมายเลขโทรศัพท์ 10 หมายเลข"
+               id="Tel"
                variant="outlined"
                type="string"
                size="medium"
-               value={postalrecord.Tracking || ""}
+               value={cleaningrequrest.Tel || ""}
                onChange={handleInputChange}
              />
            </FormControl>
-         </Grid>
- 
-         <Grid item xs={6}>
+           </Grid>
+          <Grid item xs={6}>
            <FormControl fullWidth variant="outlined" className={classes.font}>
-             <p>วันที่มาส่ง</p>
-             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-               <KeyboardDatePicker
-                 InputProps={{
-                  classes: {
-                    input: classes.fontIn,
-                  },
-                }}
-                 margin="normal"
-                 id="RecordTime"
-                 format="yyyy-MM-dd"
-                 value={selectedDate}
-                 onChange={handleDateChange}
-                 KeyboardButtonProps={{
-                   "aria-label": "change date",
-                 }}
-               />
-             </MuiPickersUtilsProvider>
+             <p>หมายเหตุ</p>
+             <TextField
+               InputProps={{
+                classes: {
+                  input: classes.fontIn,
+                },
+              }}
+               placeholder="จำเป็นต้องกรอก"
+               id="Note"
+               variant="outlined"
+               type="string"
+               size="medium"
+               value={cleaningrequrest.Note || ""}
+               onChange={handleInputChange}
+             />
            </FormControl>
-         </Grid>
+           </Grid>
+
+<Grid item xs={6}>
+  <FormControl fullWidth variant="outlined">
+
+    <p>ค่าทำความสะอาด</p>
+    <Select
+      native
+      disabled
+>
+      
+      {cleaningtypes.map((item: CleaningtypesInterface) => (
+        (cleaningrequrest["CleaningtypeID"] == item.ID)?(<option value={item.ID} key={item.ID}>
+          {item.Price}
+        </option>):""
+      ))}
+
+    </Select>
+  </FormControl>
+
+  </Grid>
          <Grid item xs={12}>
-           <Button component={RouterLink} to="/postal_record" variant="contained" className={classes.font}>
+           <Button component={RouterLink} to="/cleaningrequrest" variant="contained" className={classes.font}>
              กลับ
            </Button>
            <Button
@@ -401,5 +379,4 @@ const convertType = (data: string | number | undefined) => {
    </Container>
  );
 }
- 
-export default PostalRecordCreate;
+export default CleaningrequrestCreate;

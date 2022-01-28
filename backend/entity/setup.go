@@ -23,7 +23,12 @@ func SetupDatabase() {
 	// Migrate the schema
 	database.AutoMigrate(
 		&RoomAllocate{}, &Carrier{}, &DormAtten{}, &Room{}, &Role{},
-		&DormTenant{}, &Postal{}, &Postal_Record{}, &Bill{}, &RepairRequest{},RepairType{},DormInventory{},DormInventoryType{},
+		&DormTenant{}, &Postal{}, &Postal_Record{}, &Bill{}, &RepairRequest{}, RepairType{}, DormInventory{}, DormInventoryType{},
+ issue-165
+		&Cleaningtype{}, &Timerequrest{}, &Cleaningrequrest{}, &Unitprice{}, &MeterRecord{},
+
+		&Cleaningtype{}, &Timerequrest{}, &Cleaningrequrest{},
+ main
 	)
 
 	db = database
@@ -308,6 +313,8 @@ func SetupDatabase() {
 		DormTenant_LastName:  dorm_tenant1.DormTenant_LastName,
 		Room:                 room1,
 		Number:               room1.Number,
+		People:               1,
+		Note:                 "เลี้ยงแมว",
 	}
 	db.Model(&RoomAllocate{}).Create(&roomallocate1)
 	roomallocate2 := RoomAllocate{
@@ -318,9 +325,11 @@ func SetupDatabase() {
 		DormTenant_LastName:  dorm_tenant2.DormTenant_LastName,
 		Room:                 room2,
 		Number:               room2.Number,
+		People:               2,
+		Note:                 "-",
 	}
 	db.Model(&RoomAllocate{}).Create(&roomallocate2)
-	/*roomallocate3 := RoomAllocate{
+	roomallocate3 := RoomAllocate{
 		EntryTime:            time.Now(),
 		DormAtten:            dorm_atten2,
 		DormTenant:           dorm_tenant3,
@@ -328,8 +337,95 @@ func SetupDatabase() {
 		DormTenant_LastName:  dorm_tenant3.DormTenant_LastName,
 		Room:                 room10,
 		Number:               room10.Number,
+		People:               1,
+		Note:                 "-",
 	}
-	db.Model(&RoomAllocate{}).Create(&roomallocate3)*/
+	db.Model(&RoomAllocate{}).Create(&roomallocate3)
+	roomallocate4 := RoomAllocate{
+		EntryTime:            time.Now(),
+		DormAtten:            dorm_atten1,
+		DormTenant:           dorm_tenant4,
+		DormTenant_FirstName: dorm_tenant4.DormTenant_FirstName,
+		DormTenant_LastName:  dorm_tenant4.DormTenant_LastName,
+		Room:                 room9,
+		Number:               room9.Number,
+		People:               3,
+		Note:                 "ขอส่งเสียงดังในตอนเที่ยงของวันจันทร์",
+	}
+	db.Model(&RoomAllocate{}).Create(&roomallocate4)
+
+	//----------------- ประเภททำความสะอาด -------------------
+	cleaningtype1 := Cleaningtype{
+		Type:  "กวาดห้อง + ถูห้อง",
+		Price: 50,
+	}
+	db.Model(&Cleaningtype{}).Create(&cleaningtype1)
+
+	cleaningtype2 := Cleaningtype{
+		Type:  "กวาดห้อง + ถูห้อง + ล้างห้องน้ำ",
+		Price: 100,
+	}
+	db.Model(&Cleaningtype{}).Create(&cleaningtype2)
+
+	cleaningtype3 := Cleaningtype{
+		Type:  "กวาดห้อง + ถูห้อง + ล้างห้องน้ำ + ล้างตู้เย็น",
+		Price: 150,
+	}
+	db.Model(&Cleaningtype{}).Create(&cleaningtype3)
+
+	cleaningtype4 := Cleaningtype{
+		Type:  "กวาดห้อง + ถูห้อง + ล้างห้องน้ำ + ล้างระเบียง",
+		Price: 200,
+	}
+	db.Model(&Cleaningtype{}).Create(&cleaningtype4)
+
+	cleaningtype5 := Cleaningtype{
+		Type:  "กวาดห้อง + ถูห้อง + ล้างห้องน้ำ + ล้างระเบียง + ล้างแอร์",
+		Price: 400,
+	}
+	db.Model(&Cleaningtype{}).Create(&cleaningtype5)
+
+	//----------------- ช่วงเวลาทำความสะอาด -------------------
+	timerequrest1 := Timerequrest{
+		Period: "08:00 - 10:00",
+	}
+	db.Model(&Timerequrest{}).Create(&timerequrest1)
+
+	timerequrest2 := Timerequrest{
+		Period: "10:00 - 12:00",
+	}
+	db.Model(&Timerequrest{}).Create(&timerequrest2)
+
+	timerequrest3 := Timerequrest{
+		Period: "13:00 - 15:00",
+	}
+	db.Model(&Timerequrest{}).Create(&timerequrest3)
+
+	timerequrest4 := Timerequrest{
+		Period: "15:00 - 17:00",
+	}
+	db.Model(&Timerequrest{}).Create(&timerequrest4)
+
+	//----------------- ช่วงเวลาทำความสะอาด -------------------
+	Cleaning1 := Cleaningrequrest{
+		RoomAllocate: roomallocate1,
+		Cleaningtype: cleaningtype3,
+		Timerequrest: timerequrest4,
+		Day:          time.Now(),
+		Tel:          "0817745023",
+		Note:         "ห้องน้ำมีคาบที่กระจก",
+	}
+	db.Model(&Cleaningrequrest{}).Create(&Cleaning1)
+
+	Cleaning2 := Cleaningrequrest{
+		RoomAllocate: roomallocate2,
+		Cleaningtype: cleaningtype4,
+		Timerequrest: timerequrest2,
+		Day:          time.Now(),
+		Tel:          "0932561432",
+		Note:         "มีหนูตายหลังตู้เย็น",
+	}
+	db.Model(&Cleaningrequrest{}).Create(&Cleaning2)
 
 	//------------Bill-------------------------
 	v := true
@@ -338,12 +434,11 @@ func SetupDatabase() {
 		DormAtten:    dorm_atten1,
 		RoomNumber:   roomallocate1.Number,
 		RoomAllocate: roomallocate1,
-		/*
-			CleaningRequest:	,
-			MeterRecord:		,
-		*/
-		PayByCash:  &v,
-		AmountPaid: 5340.25, //เดี๋ยวบวกเอา รอก่อนๆ
+
+		//MeterRecord:		,
+		Cleaningrequrest: Cleaning1,
+		PayByCash:        &v,
+		AmountPaid:       5340.25, //เดี๋ยวบวกเอา รอก่อนๆ
 	}
 	db.Model(&Bill{}).Create(&bill1)
 	bill2 := Bill{
@@ -351,12 +446,11 @@ func SetupDatabase() {
 		DormAtten:    dorm_atten1,
 		RoomNumber:   roomallocate2.Number,
 		RoomAllocate: roomallocate2,
-		/*
-			CleaningRequest:	,
-			MeterRecord:		,
-		*/
-		PayByCash:  &v,
-		AmountPaid: 5340.25, //เดี๋ยวบวกเอา รอก่อนๆ
+
+		//MeterRecord:		,
+		Cleaningrequrest: Cleaning2,
+		PayByCash:        &v,
+		AmountPaid:       5340.25, //เดี๋ยวบวกเอา รอก่อนๆ
 	}
 	db.Model(&Bill{}).Create(&bill2)
 
