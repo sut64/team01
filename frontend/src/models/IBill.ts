@@ -1,7 +1,7 @@
 import { DormAttenInterface } from "./IDormAtten";
 import { RoomAllocateInterface } from "./IRoomAllocate";
 import { MeterRecordInterface } from "./IMeterRecord";
-
+//bye
 export interface BillInterface {
     ID: number,
     BillDateTime: Date,
