@@ -1,6 +1,6 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
+import NavbarRoomAllocate from "./NavbarRoomAllocate";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({   
     container: {
@@ -21,6 +21,7 @@ function HomeRoomAllocate() {
 
   return (
     <div>
+       <NavbarRoomAllocate/>
       <Container className={classes.container} maxWidth="md">
         <h1 style={{ textAlign: "center" }}>ระบบจัดสรรห้องพัก</h1>
         <h4>Requirements</h4>

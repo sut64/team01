@@ -24,7 +24,7 @@ import { CleaningrequrestInterface } from "../models/ICleaningrequrest";
 import { CleaningtypesInterface } from "../models/ICleaningtype";
 import { TimerequrestsInterface } from "../models/ITimerequrest";
 import { RoomAllocateInterface } from "../models/IRoomAllocate";
-
+import NavbarCleaningRequest from "./NavberCleaningRequest";
  
 function Alert(props: AlertProps) {
  return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -181,6 +181,7 @@ const convertType = (data: string | number | undefined) => {
  
  return (
    <Container className={classes.container} maxWidth="md">
+     <NavbarCleaningRequest/>
      <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
        <Alert onClose={handleClose} severity="success">
          บันทึกข้อมูลสำเร็จ

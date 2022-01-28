@@ -26,7 +26,7 @@ import { CleaningrequrestInterface } from "../models/ICleaningrequrest";
 import { BillInterface } from "../models/IBill";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
-
+import NavbarBill from "./NavbarBill";
 import {
   MuiPickersUtilsProvider,
   KeyboardDateTimePicker,
@@ -223,6 +223,7 @@ function BillCreate() {
  
   return (
     <Container className={classes.container} maxWidth="md">
+      <NavbarBill/>
       <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success">
           บันทึกข้อมูลสำเร็จ

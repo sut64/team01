@@ -75,9 +75,6 @@ import MarkAsUnreadIcon from '@mui/icons-material/MarkAsUnread';
 import BedroomChildIcon from '@mui/icons-material/BedroomChild';
 import RoomPreferencesIcon from '@mui/icons-material/RoomPreferences';
 import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
-import LocalAtmIcon from '@mui/icons-material/LocalAtm';
-import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
-import PaymentsIcon from '@mui/icons-material/Payments';
 
 import Divider from "@material-ui/core/Divider";
 import { List } from "@material-ui/core";
@@ -165,7 +162,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-function Navbar() {
+function NavbarPostalRecs() {
   
   
  const classes = useStyles();
@@ -189,20 +186,16 @@ function Navbar() {
 
   const menu = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/" },
-    { name: "ผู้ดูแลหอพัก", icon: <AccountCircleIcon />, path: "/dormatten" },
     { name: "ระบบบันทึกรายการพัสดุ", icon: <MarkAsUnreadIcon />, path: "/home_postal_record" },
-    /*{ name: "บันทึกรายการพัสดุ", icon: <LocalPostOfficeIcon />, path: "/postal_record" },
-    { name: "สร้างบันทึกรายการพัสดุ", icon: <NoteAltIcon />, path: "/postal_record/create" },*/
-    { name: "ระบบการจัดสรรห้องพัก", icon: <RoomPreferencesIcon />, path: "/home_roomallocate" },
-   /* { name: "บันทึกการจัดสรรหอพัก", icon: <BedroomChildIcon />, path: "/roomallocate" },
-    { name: "สร้างบันทึกการจัดสรรห้องพัก", icon: <NoteAltIcon />, path: "/roomallocate/create" },*/
-    { name: "ระบบแจ้งทำความสะอาดห้องพัก", icon: <HomeIcon />, path: "/homecleang" },
-   /* { name: "บันทึกรายการพัสดุ", icon: <CleaningServicesIcon />, path: "/cleaningrequrest" },
+    /*{ name: "ผู้ดูแลหอพัก", icon: <AccountCircleIcon />, path: "/dormatten" },*/
+    { name: "บันทึกรายการพัสดุ", icon: <LocalPostOfficeIcon />, path: "/postal_record" },
+    { name: "สร้างบันทึกรายการพัสดุ", icon: <NoteAltIcon />, path: "/postal_record/create" },
+    /*{ name: "ระบบการจัดสรรห้องพัก", icon: <RoomPreferencesIcon />, path: "/home_roomallocate" },
+    { name: "บันทึกการจัดสรรหอพัก", icon: <BedroomChildIcon />, path: "/roomallocate" },
+    { name: "สร้างบันทึกการจัดสรรห้องพัก", icon: <NoteAltIcon />, path: "/roomallocate/create" },
+    { name: "ระบบบันทึกรายการพัสดุ", icon: <HomeIcon />, path: "/homecleang" },
+    { name: "บันทึกรายการพัสดุ", icon: <CleaningServicesIcon />, path: "/cleaningrequrest" },
     { name: "สร้างบันทึกรายการพัสดุ", icon: <CleaningServicesIcon />, path: "/cleaningrequrest/create" },*/
-    { name: "ระบบการบันทึกการชำระเงิน", icon: <LocalAtmIcon />, path: "/home_bill" },
-    /*{ name: "บันทึกการชำระเงิน", icon: <PaymentsIcon />, path: "/bill" },
-    { name: "สร้างบันทึกการชำระเงิน", icon: <PointOfSaleIcon />, path: "/bill/create" },*/
-    
   ];
 
   const signout = () => {
@@ -255,7 +248,7 @@ function Navbar() {
           </IconButton>
          {/* <img src="/img/postal.png" width="50px"></img>*/}
           <Typography variant="h6" className={classes.title}>
-          <h1>ระบบหอพัก</h1>
+          <h1>ระบบบันทึกรายการพัสดุ</h1>
           </Typography>
           <Typography variant="subtitle1" className={classes.fontName}>
             {dormatten?.FirstName} &nbsp;&nbsp;       
@@ -307,4 +300,4 @@ function Navbar() {
 
           }
 
-export default Navbar;
+export default NavbarPostalRecs;

@@ -16,7 +16,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { CleaningrequrestInterface } from "../models/ICleaningrequrest";
  
 import moment from 'moment';
- 
+import NavbarCleaningRequest from "./NavberCleaningRequest"; 
  
 const useStyles = makeStyles((theme: Theme) =>
  createStyles({
@@ -61,6 +61,7 @@ function Cleaningrequrests() {
  
  return (
    <div>
+     <NavbarCleaningRequest/>
      <Container className={classes.container} maxWidth="md">
        <Box display="flex">
          <Box flexGrow={1}>

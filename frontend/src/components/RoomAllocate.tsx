@@ -14,7 +14,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { RoomAllocateInterface } from "../models/IRoomAllocate";
 import { format } from 'date-fns'
-
+import NavbarRoomAllocate from "./NavbarRoomAllocate";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,6 +57,7 @@ function RoomAllocate() {
 
   return (
     <div>
+      <NavbarRoomAllocate/>
       <Container className={classes.container} maxWidth="md">
         <Box display="flex">
           <Box flexGrow={1}>

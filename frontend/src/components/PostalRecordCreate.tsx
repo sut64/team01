@@ -23,7 +23,7 @@ import { DormTenantInterface } from "../models/IDormTenant";
 import { CarrierInterface } from "../models/ICarrier";
 import { PostalInterface } from "../models/IPostal";
 import { RoomAllocateInterface } from "../models/IRoomAllocate";
-
+import NavbarPostalRecs from "./NavbarPostalRecs";
  
 function Alert(props: AlertProps) {
  return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -199,6 +199,7 @@ const convertType = (data: string | number | undefined) => {
  
  return (
    <Container className={classes.container} maxWidth="md">
+     <NavbarPostalRecs/>
      <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
        <Alert onClose={handleClose} severity="success">
          บันทึกข้อมูลสำเร็จ

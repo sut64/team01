@@ -13,7 +13,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { DormAttenInterface } from "../models/IDormAtten";
- 
+import NavbarDormAtten from "./์NavbarDormAtten"; 
 import moment from 'moment';
  
  
@@ -57,6 +57,7 @@ function DormAttens() {
  
  return (
    <div>
+     <NavbarDormAtten/>
      <Container className={classes.container} maxWidth="md">
        <Box display="flex">
          <Box flexGrow={1}>

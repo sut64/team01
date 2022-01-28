@@ -25,7 +25,7 @@ import { DormAttenInterface } from "../models/IDormAtten";
 import { RoomTypesInterface } from "../models/IRoomTypes";
 import { RoomInterface } from "../models/IRoom";
 import { RoomAllocateInterface } from "../models/IRoomAllocate";
-
+import NavbarRoomAllocate from "./NavbarRoomAllocate";
 import {
   MuiPickersUtilsProvider,
   KeyboardDateTimePicker,
@@ -209,6 +209,7 @@ function RoomAllocateCreate() {
 
   return (
     <Container className={classes.container} maxWidth="md">
+       <NavbarRoomAllocate/>
       <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success">
           บันทึกข้อมูลสำเร็จ
