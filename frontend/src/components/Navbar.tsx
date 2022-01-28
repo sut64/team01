@@ -202,6 +202,7 @@ function Navbar() {
     { name: "ระบบการบันทึกการชำระเงิน", icon: <LocalAtmIcon />, path: "/home_bill" },
     /*{ name: "บันทึกการชำระเงิน", icon: <PaymentsIcon />, path: "/bill" },
     { name: "สร้างบันทึกการชำระเงิน", icon: <PointOfSaleIcon />, path: "/bill/create" },*/
+    { name: "ระบบแจ้งซ่อม", icon: <LocalAtmIcon />, path: "/home_repairrequest" },
     
   ];
 
