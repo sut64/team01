@@ -18,13 +18,8 @@ type Bill struct {
 	RoomNumber     string       //`gorm:"uniqueIndex"`
 	RoomAllocate   RoomAllocate `gorm:"references:id" valid:"-"`
 
-	/* รอแก้ไขๆๆๆๆ
-	MeterRecordID *uint
+	MeterRecordID *uint `gorm:"uniqueIndex"`
 	MeterRecord   MeterRecord
-	*/
-
-	CleaningrequrestID *uint
-	Cleaningrequrest   Cleaningrequrest //`gorm:"uniqueIndex"`
 
 	PayByCash  *bool
 	AmountPaid float64 //`valid:"customPositiveAmount,required~Amount: non zero vaue required"`
