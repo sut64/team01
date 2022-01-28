@@ -72,6 +72,10 @@ func main() {
 			protected.GET("/route/DormInventoryType", controller.ListDormInventoryType)
 			protected.GET("/route/GetDormInventoryType:id", controller.GetDormInventoryType)
 			protected.POST("/route/CreateDormInventoryType", controller.CreateDormInventoryType)
+			// RepairType
+			protected.GET("/route/Repairtype", controller.ListRepairtype)
+			protected.GET("/route/GetRepairtype:id", controller.GetRepairtype)
+			protected.POST("/route/CreateRepairtype", controller.CreateRepairtype)
 						
 
 			//route cleaningrequrest/cleaningrequrest--------major
