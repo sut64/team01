@@ -20,7 +20,7 @@ import (
 }*/
 
 
-type DormInventory struct {
+/*type DormInventory struct {
 	gorm.Model
 	FurnitureName string
 	Amount        uint16
@@ -30,7 +30,7 @@ type DormInventory struct {
 
 	RepairRequests []RepairRequest `gorm:"foreignKey:DormInventoryID"`
 }
-
+*/
  /* type RoomAllocate struct {
 	gorm.Model
 	FirstName      string
