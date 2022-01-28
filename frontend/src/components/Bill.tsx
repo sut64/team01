@@ -92,7 +92,7 @@ function Bills() {
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell align="center" width="10%" className={classes.font}>
+                <TableCell align="center" width="5%" className={classes.font}>
                   ลำดับ
                 </TableCell>
                 <TableCell align="center" width="20%" className={classes.font}>
@@ -107,14 +107,8 @@ function Bills() {
                 <TableCell align="center" width="10%" className={classes.font}>
                   ค่าเช่าห้อง
                 </TableCell>
-
-                {/*
-                <TableCell align="center" width="20%" className={classes.font}>
+                <TableCell align="center" width="10%" className={classes.font}>
                   ค่าน้ำ-ไฟ
-                </TableCell>
-                */}
-                <TableCell align="center" width="20%" className={classes.font}>
-                  ค่าทำความสะอาด
                 </TableCell>
                 <TableCell align="center" width="15%" className={classes.font}>
                   ช่องทางการชำระ
@@ -132,10 +126,7 @@ function Bills() {
                   <TableCell align="center" className={classes.font}>{item.DormAtten.FirstName} {item.DormAtten.LastName}</TableCell>
                   <TableCell align="center" className={classes.font}>{item.RoomNumber}</TableCell>
                   <TableCell align="center" className={classes.font}>{item.RoomAllocate.Room.Roomtypes.Price}</TableCell>
-                  {/* 
-                  <TableCell align="center" className={classes.font}>{item.MeterRecord.Price}</TableCell>
-                  */}
-                  <TableCell align="center" className={classes.font}>{item.Cleaningrequrest.Cleaningtype.Price}</TableCell>
+                  <TableCell align="center" className={classes.font}>{item.MeterRecord.Sum}</TableCell>
                   <TableCell align="center" className={classes.font}>{item.PayByCash? "เงินสด":"ช่องทางอื่นๆ"}</TableCell>
                   <TableCell align="center" className={classes.font}>{item.AmountPaid}</TableCell>
                 </TableRow>

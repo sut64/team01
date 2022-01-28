@@ -21,12 +21,13 @@ import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 
 import { DormAttenInterface } from "../models/IDormAtten";
 import { RoomAllocateInterface } from "../models/IRoomAllocate";
-//import { MeterRecordInterface } from "../models/IMeterRecord";
-import { CleaningrequrestInterface } from "../models/ICleaningrequrest";
+import { MeterRecordInterface } from "../models/IMeterRecord";
+//import { CleaningrequrestInterface } from "../models/ICleaningrequrest";
 import { BillInterface } from "../models/IBill";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
 import NavbarBill from "./NavbarBill";
+
 import {
   MuiPickersUtilsProvider,
   KeyboardDateTimePicker,
@@ -59,10 +60,8 @@ function BillCreate() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [dormattens, setDormAttens] = React.useState<DormAttenInterface>();
   const [RoomAllocates, setRoomAllocates] = useState<RoomAllocateInterface[]>([]); 
-  //const [MeterRecords, setMeterRecords] = useState<MeterRecordInterface[]>([]);
-  const [Cleaningrequrests, setCleaningrequrests] = useState<CleaningrequrestInterface[]>([]);
-  
-
+  const [MeterRecords, setMeterRecords] = useState<MeterRecordInterface[]>([]);
+  //const [Cleaningrequrests, setCleaningrequrests] = useState<CleaningrequrestInterface[]>([]);
   const [bill, setBill] = useState<Partial<BillInterface>>(
     {}
   );
@@ -144,7 +143,6 @@ function BillCreate() {
       });
   };
 
-  /* 
   const getMeterRecords = async () => {
     let uid = localStorage.getItem("uid");
     fetch(`${apiUrl}/route/ListMeterRecords`, requestOptions)
@@ -157,29 +155,11 @@ function BillCreate() {
         }
       });
   };
-*/
-  const getCleaningrequrests = async () => {
-    let uid = localStorage.getItem("uid");
-    fetch(`${apiUrl}/route/ListCleaningrequrest`, requestOptions)
-      .then((response) => response.json())
-      .then((res) => {
-        if (res.data) {
-          setCleaningrequrests(res.data);
-        } else {
-          console.log("else");
-        }
-      });
-  };  
   
-  
-
   useEffect(() => {
     getDormAtten();
     getRoomAllocates();
-    /* 
     getMeterRecords();
-    */
-    getCleaningrequrests();
   }, []);
 
   const convertType = (data: string | number | undefined | boolean) => {
@@ -192,10 +172,8 @@ function BillCreate() {
       BillDateTime : selectedDate,
       DormAttenID: convertType(dormattens?.ID),
       RoomAllocateID: convertType(bill.RoomAllocateID),
-      /* 
       MeterRecordID: convertType(bill.MeterRecordID),
-      */
-      CleaningrequrestID: convertType(bill.CleaningrequrestID),
+      //CleaningrequrestID: convertType(bill.CleaningrequrestID),
       PayByCash: bill.PayByCash,
       AmountPaid: convertType(bill.AmountPaid),
     };
@@ -323,14 +301,13 @@ function BillCreate() {
               </Select>
             </FormControl>
           </Grid>
-
-          {/* 
-          <Grid item xs={6}>
+          <Grid item xs={6} className={classes.font}>
             <FormControl fullWidth variant="outlined">
             <p>ใบบันทึกน้ำ-ไฟ(ราคา)</p>
               <Select
+                className={classes.fontIn}
                 native
-                value={bill.RoomAllocateID}
+                value={bill.MeterRecordID}
                 onChange={handleChange}
                 inputProps={{
                   name: "MeterRecordID",
@@ -339,45 +316,14 @@ function BillCreate() {
                 <option aria-label="None" value="">
                   กรุณาเลือกใบบันทึกน้ำ-ไฟ(ราคา)
                 </option>
-                {meterrecords.map((item: MeterRecordInterface) => (
-                  (bill["MeterRecordID"] == item.ID)?(<option value={item.ID} key={item.ID}>
-                    {item.ID} ({item.Price})
+                {MeterRecords.map((item: MeterRecordInterface) => (
+                  (bill["RoomAllocateID"] == item.RoomAllocateID)?(<option value={item.ID} key={item.ID}>
+                    {item.ID} ({item.Sum})
                   </option>):""
                 ))}
               </Select>
             </FormControl>
           </Grid>
-
-          */}
-          
-
-
-          <Grid item xs={6} className={classes.font}>
-            <FormControl fullWidth variant="outlined">
-            <p>ใบบันทึกทำความสะอาด(ราคา)</p>
-              <Select
-                className={classes.fontIn}
-                native
-                value={bill.CleaningrequrestID}
-                onChange={handleChange}
-                inputProps={{
-                  name: "CleaningrequrestID",
-                }}
-              >
-                <option aria-label="None" value="">
-                  กรุณาเลือกใบบันทึกทำความสะอาด(ราคา)
-                </option>
-                {Cleaningrequrests.map((item: CleaningrequrestInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.ID} ({item.Cleaningtype.Price})
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          
-
-          
           <Grid item xs={3} className={classes.font}>
             <p>จ่ายด้วยเงินสดหรือไม่</p>
           </Grid>
@@ -407,7 +353,7 @@ function BillCreate() {
                       input: classes.fontIn,
                     },
                   }}
-                  name="WatchedTime"
+                  name="BillDateTime"
                   value={selectedDate}
                   onChange={handleDateChange}
                   label=""
