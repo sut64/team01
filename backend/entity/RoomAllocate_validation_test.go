@@ -52,6 +52,7 @@ func TestEntryTimeMustBeFuture(t *testing.T) {
 	g.Expect(err.Error()).To(Equal("EntryTime must be in the future"))
 }
 
+//#41
 func TestNoteCannotBeBlank(t *testing.T) {
 	g := NewGomegaWithT(t)
 

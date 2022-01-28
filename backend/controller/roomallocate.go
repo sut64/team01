@@ -46,7 +46,7 @@ func CreateRoomAllocate(c *gin.Context) {
 		Room:       room,                // โยงความสัมพันธ์กับ Entity Room
 		DormTenant: dormtenant,          // โยงความสัมพันธ์กับ Entity DormTenant
 		People:     roomallocate.People, //มีการ validation
-		Note:       roomallocate.Note,
+		Note:       roomallocate.Note,   //มีการ validation
 
 		DormTenant_FirstName: dormtenant.DormTenant_FirstName,
 		DormTenant_LastName:  dormtenant.DormTenant_LastName,

@@ -10,8 +10,8 @@ import (
 //ปรับปรุงครั้งที่ 1
 type RoomAllocate struct {
 	gorm.Model
-	EntryTime time.Time `valid:"future~EntryTime must be in the future"` //มีการ validation
-	Note      string    `valid:"required~Note can not be blank"`
+	EntryTime time.Time `valid:"future~EntryTime must be in the future"`                          //มีการ validation
+	Note      string    `valid:"required~Note can not be blank"`                                  //มีการ validation
 	People    int       `valid:"range(1|3)~People must be in 1-3,required~People must be in 1-3"` //มีการ validation
 
 	DormAttenID *uint
