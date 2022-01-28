@@ -1,12 +1,13 @@
 import { DormAttenInterface } from "./IDormAtten";
 import { RoomAllocateInterface } from "./IRoomAllocate";
 //import { MeterRecordInterface } from "./IMeterRecord";
-//import { CleaningRequestInterface } from "./ICleaningRequest";
+import { CleaningrequrestInterface } from "./ICleaningrequrest";
 
 export interface BillInterface {
+    ID: number,
     BillDateTime: Date,
 
-	DormAttentID: number,
+	DormAttenID: number,
 	DormAtten: DormAttenInterface,
 
     RoomAllocateID: number,
@@ -16,11 +17,10 @@ export interface BillInterface {
     /* รอแก้ไข
     MeterRecordID: number,
 	MeterRecord:   MeterRecordInterface,
-
-	CleaningRequestID: number,
-	CleaningRequest:   CleaningRequestInterface,
     */
+    CleaningrequrestID: number,
+	Cleaningrequrest:   CleaningrequrestInterface,
 
-    PayByCash:  Boolean,
-	AmountPaid: Float64Array,
+    PayByCash:  boolean,
+	AmountPaid: number,
 }

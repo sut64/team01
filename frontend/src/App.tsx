@@ -53,7 +53,9 @@ import HomeRoomAllocate from "./components/HomeRoomAllocate";
 import HomeCleaning from "./components/HomeCleaning";
 import Cleaningrequrests from "./components/Cleaningrequrests";
 import CleaningrequrestCreate from "./components/CleaningrequrestCreate";
-
+import BillCreate from "./components/BillCreate";
+import Bill from "./components/Bill";
+import HomeBill from "./components/HomeBill";
 
 const drawerWidth = 240;
 
@@ -170,7 +172,10 @@ export default function MiniDrawer() {
               <Route path="/homecleang" element={<HomeCleaning/>} />
               <Route  path="/cleaningrequrest" element={<Cleaningrequrests/>} />
               <Route  path="/cleaningrequrest/create" element={<CleaningrequrestCreate/>}/>
-
+              <Route path="/home_bill" element={<HomeBill/>} />
+              <Route  path="/bill" element={<Bill/>}/>
+              <Route  path="/bill/create" element={<BillCreate/>}/>
+           
            </Routes>
           </div>
           </main>

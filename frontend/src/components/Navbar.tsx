@@ -75,6 +75,9 @@ import MarkAsUnreadIcon from '@mui/icons-material/MarkAsUnread';
 import BedroomChildIcon from '@mui/icons-material/BedroomChild';
 import RoomPreferencesIcon from '@mui/icons-material/RoomPreferences';
 import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
+import LocalAtmIcon from '@mui/icons-material/LocalAtm';
+import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
+import PaymentsIcon from '@mui/icons-material/Payments';
 
 import Divider from "@material-ui/core/Divider";
 import { List } from "@material-ui/core";
@@ -196,6 +199,10 @@ function Navbar() {
     { name: "ระบบบันทึกรายการพัสดุ", icon: <HomeIcon />, path: "/homecleang" },
     { name: "บันทึกรายการพัสดุ", icon: <CleaningServicesIcon />, path: "/cleaningrequrest" },
     { name: "สร้างบันทึกรายการพัสดุ", icon: <CleaningServicesIcon />, path: "/cleaningrequrest/create" },
+    { name: "ระบบการบันทึกการชำระเงิน", icon: <LocalAtmIcon />, path: "/home_bill" },
+    { name: "บันทึกการชำระเงิน", icon: <PaymentsIcon />, path: "/bill" },
+    { name: "สร้างบันทึกการชำระเงิน", icon: <PointOfSaleIcon />, path: "/bill/create" },
+    
   ];
 
   const signout = () => {
