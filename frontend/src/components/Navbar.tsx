@@ -78,7 +78,7 @@ import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import PaymentsIcon from '@mui/icons-material/Payments';
-
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import Divider from "@material-ui/core/Divider";
 import { List } from "@material-ui/core";
 import { DormAttenInterface } from "../models/IDormAtten";
