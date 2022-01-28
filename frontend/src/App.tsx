@@ -175,6 +175,8 @@ export default function MiniDrawer() {
               <Route path="/home_bill" element={<HomeBill/>} />
               <Route  path="/bill" element={<Bill/>}/>
               <Route  path="/bill/create" element={<BillCreate/>}/>
+              <Route  path="/meterrecord/create" element = {<MeterRecordCreate/>}/>
+              <Route  path="/meterrecord" element = {<MeterRecord/>}/>
            
            </Routes>
           </div>
