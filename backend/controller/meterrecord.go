@@ -75,6 +75,6 @@ func ListMeterRecords(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
+	//update
 	c.JSON(http.StatusOK, gin.H{"data": meterrecord})
 }

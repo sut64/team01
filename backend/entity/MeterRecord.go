@@ -19,5 +19,5 @@ type MeterRecord struct {
 	RoomAllocateID *uint
 	RoomAllocate   RoomAllocate
 
-	Bills []Bill `gorm:"foreignKey:MeterRecordID"`
+	Bills []Bill `gorm:"foreignKey:MeterRecordID"` //update
 }
