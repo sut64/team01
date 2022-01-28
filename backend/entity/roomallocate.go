@@ -12,7 +12,7 @@ type RoomAllocate struct {
 	gorm.Model
 	EntryTime time.Time `valid:"future~EntryTime must be in the future"`
 	Note      string    `valid:"required~Note can not be blank"`
-	People    int       `valid:"range(1|3)~People must be in 1-3,required~People must be in 1-3"`
+	People    int       `valid:"range(1|3)~People must be in 1-3,required~People must be in 1-3"` //มีการ validation
 
 	DormAttenID *uint
 	DormAtten   DormAtten `gorm:"references:id" valid:"-"`
@@ -26,11 +26,12 @@ type RoomAllocate struct {
 	DormTenant_FirstName string
 	DormTenant_LastName  string
 
-	Postal_Records []Postal_Record `gorm:"foreignKey:RoomAllocateID"`
-	Bills          []Bill          `gorm:"foreignKey:RoomAllocateID"`
+	Postal_Records   []Postal_Record    `gorm:"foreignKey:RoomAllocateID"`
+	Bills            []Bill             `gorm:"foreignKey:RoomAllocateID"`
 	FurnitureRequest []FurnitureRequest `gorm:"foreignKey:RoomAllocateID"`
 }
 
+//ฟังก์ชันที่จะใช่ในการ validation EntryTime
 func init() {
 	govalidator.CustomTypeTagMap.Set("past", func(i interface{}, context interface{}) bool {
 		t := i.(time.Time)

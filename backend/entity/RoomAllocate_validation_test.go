@@ -9,6 +9,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
+//การ test validation
 func TestRoomAllocatePass(t *testing.T) {
 	g := NewGomegaWithT(t)
 
@@ -72,6 +73,7 @@ func TestNoteCannotBeBlank(t *testing.T) {
 	g.Expect(err.Error()).To(Equal("Note can not be blank"))
 }
 
+//#21
 func TestPeopleMustBeInRange(t *testing.T) {
 	g := NewGomegaWithT(t)
 
