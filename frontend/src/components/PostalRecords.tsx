@@ -15,6 +15,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { Postal_RecordInterface } from "../models/IPostal_Record";
  
 import moment from 'moment';
+import NavbarPostalRecs from "./NavbarPostalRecs";
  
  
 const useStyles = makeStyles((theme: Theme) =>
@@ -60,6 +61,7 @@ function PostalRecords() {
  
  return (
    <div>
+     <NavbarPostalRecs/>
      <Container className={classes.container} maxWidth="md">
        <Box display="flex">
          <Box flexGrow={1}>

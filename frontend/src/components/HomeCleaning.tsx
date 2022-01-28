@@ -1,6 +1,6 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
+import NavbarCleaningRequest from "./NavberCleaningRequest";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({   
     container: {
@@ -21,6 +21,7 @@ function HomeCleaning() {
 
   return (
     <div>
+       <NavbarCleaningRequest/>
       <Container className={classes.container} maxWidth="md">
         <h1 style={{ textAlign: "center" }}>ระบบแจ้งทำความสะอาดห้องพัก</h1>
         <h4>Requirements</h4>

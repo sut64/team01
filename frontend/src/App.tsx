@@ -156,7 +156,7 @@ export default function MiniDrawer() {
         <CssBaseline />
         {token && (
           <>
-          <Navbar />
+        
           <main className={classes.content}>
           <div className={classes.toolbar} />
           <div>

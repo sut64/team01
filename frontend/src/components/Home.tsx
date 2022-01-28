@@ -1,6 +1,6 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
+import Navbar from "./Navbar";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({   
     container: {
@@ -21,6 +21,7 @@ function Home() {
 
   return (
     <div>
+      <Navbar />
       <Container className={classes.container} maxWidth="md">
         <h1 style={{ textAlign: "center" }}>ระบบหอพัก</h1>
         <h4>Who we are</h4>

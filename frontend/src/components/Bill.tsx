@@ -16,7 +16,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { format } from 'date-fns'
 
 import { BillInterface } from "../models/IBill";
- 
+import NavbarBill from "./NavbarBill"; 
  
 const useStyles = makeStyles((theme: Theme) =>
  createStyles({
@@ -61,6 +61,7 @@ function Bills() {
 
   return (
     <div>
+      <NavbarBill/>
       <Container className={classes.container} maxWidth="md">
         <Box display="flex">
           <Box flexGrow={1}>
