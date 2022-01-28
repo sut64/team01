@@ -24,7 +24,11 @@ func SetupDatabase() {
 	database.AutoMigrate(
 		&RoomAllocate{}, &Carrier{}, &DormAtten{}, &Room{}, &Role{},
 		&DormTenant{}, &Postal{}, &Postal_Record{}, &Bill{}, &RepairRequest{}, RepairType{}, DormInventory{}, DormInventoryType{},
+ issue-165
+		&Cleaningtype{}, &Timerequrest{}, &Cleaningrequrest{}, &Unitprice{}, &MeterRecord{},
+
 		&Cleaningtype{}, &Timerequrest{}, &Cleaningrequrest{},
+ main
 	)
 
 	db = database
