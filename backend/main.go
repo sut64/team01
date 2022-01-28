@@ -64,6 +64,15 @@ func main() {
 			protected.GET("/route/ListRepairRequest", controller.ListRepairRequest)
 			protected.GET("/route/GetRepairRequest:id", controller.GetRepairRequest)
 			protected.POST("/route/CreateGetRepairRequest", controller.CreateRepairRequest)
+			// DormInventoryType
+			protected.GET("/route/DormInventoryType", controller.ListDormInventoryType)
+			protected.GET("/route/GetDormInventoryType:id", controller.GetDormInventoryType)
+			protected.POST("/route/CreateDormInventoryType", controller.CreateDormInventoryType)
+			// DormInventoryType
+			protected.GET("/route/DormInventoryType", controller.ListDormInventoryType)
+			protected.GET("/route/GetDormInventoryType:id", controller.GetDormInventoryType)
+			protected.POST("/route/CreateDormInventoryType", controller.CreateDormInventoryType)
+						
 
 		}
 	}
