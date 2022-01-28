@@ -372,7 +372,7 @@ function RoomAllocateCreate() {
                       input: classes.fontIn,
                     },
                   }}
-                  name="WatchedTime"
+                  name="EntryTime"
                   value={selectedDate}
                   onChange={handleDateChange}
                   label=""
@@ -385,7 +385,7 @@ function RoomAllocateCreate() {
           <Grid item xs={12}>
             <Button
               component={RouterLink}
-              to="/roomallocates"
+              to="/roomallocate"
               variant="contained"
               className={classes.font}
             >
