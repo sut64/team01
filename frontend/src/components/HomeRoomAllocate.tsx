@@ -22,12 +22,12 @@ function HomeRoomAllocate() {
   return (
     <div>
       <Container className={classes.container} maxWidth="md">
-        <h1 style={{ textAlign: "center" }}>ระบบ...</h1>
+        <h1 style={{ textAlign: "center" }}>ระบบจัดสรรห้องพัก</h1>
         <h4>Requirements</h4>
         <p>
-        &emsp;&emsp;&emsp;
+        &emsp;&emsp;&emsp;ระบบจัดสรรห้องพักเป็นระบบหนึ่งในระบบหอพักที่ช่วยอำนวยความสะดวกของผู้ดูแลหอพัก ในเรื่องการเลือกหรือดูห้องว่างให้ผู้ที่ต้องการเช่าหอพัก โดยหากมีผู้ที่ต้องการเช่าหอพักจะเข้ามาเช่า จะทำการสอบถามว่าต้องการอยู่ห้องประเภทไหนโดยจะมีประเภทห้องให้เลือก และอยู่ชั้นไหน ห้องหมายเลขไหน และผู้ดูแลหอพักจะทำการบันทึกเข้าระบบให้ 
         </p>
-        {/*<img src="/img/postal_record.jpg" width="900px"></img>*/}
+        {<img src="/img/roomallocate.jpg" width="900px"></img>}
       </Container>
     </div>
   );

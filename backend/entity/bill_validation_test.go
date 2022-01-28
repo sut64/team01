@@ -64,6 +64,7 @@ func CheckBool(t *bool) (bool, error) {
 	}
 }
 
+/*
 // ตรวจสอบค่าจ่ายด้วยเงินสดเป็น Null ต้องเจอ Error
 // จ่ายด้วยเงินสดต้องไม่เป็น Null
 func TestBillPayByCashNotNull(t *testing.T) {
@@ -86,7 +87,7 @@ func TestBillPayByCashNotNull(t *testing.T) {
 	// err.Error ต้องมี error message แสดงออกมา
 	g.Expect(err.Error()).To(Equal("PayByCash: cannot be blank"))
 }
-
+*/
 // ตรวจสอบค่าใช้จ่ายรวม น้อยกว่าหรือเท่ากับศูนย์ ต้องเจอ Error
 // ค่าใช้จ่ายรวมต้องไม่น้อยกว่าหรือเท่ากับศูนย์
 func TestBillAmountPaidNotLessThanEqualZero(t *testing.T) {

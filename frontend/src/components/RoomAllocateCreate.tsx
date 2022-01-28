@@ -18,6 +18,7 @@ import Divider from "@material-ui/core/Divider";
 import Snackbar from "@material-ui/core/Snackbar";
 import Select from "@material-ui/core/Select";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+import TextField from "@material-ui/core/TextField";
 
 import { DormTenantInterface } from "../models/IDormTenant";
 import { DormAttenInterface } from "../models/IDormAtten";
@@ -99,6 +100,14 @@ function RoomAllocateCreate() {
     setSelectedDate(date);
   };
 
+  const handleInputChange = (
+    event: React.ChangeEvent<{ id?: string; value: any }>
+  ) => {
+    const id = event.target.id as keyof typeof RoomAllocateCreate;
+    const { value } = event.target;
+    setRoomAllocate({ ...roomallocate, [id]: value });
+  };
+
   const getDormTenants = async () => {
     fetch(`${apiUrl}/route/ListDormTenants`, requestOptions)
       .then((response) => response.json())
@@ -168,6 +177,8 @@ function RoomAllocateCreate() {
       DormAttenID: convertType(dormattens?.ID),
       RoomID: convertType(roomallocate.RoomID),
       //RoomTypesID: rooms.,
+      People: typeof roomallocate.People === "string" ? parseInt(roomallocate.People) : 0,
+      Note:roomallocate.Note ?? "",
       DormTenantID: convertType(roomallocate.DormTenantID),
       EntryTime: selectedDate,
     };
@@ -311,6 +322,45 @@ function RoomAllocateCreate() {
               </Select>
             </FormControl>
           </Grid>
+          <Grid item xs={6}>
+          <FormControl fullWidth variant="outlined" className={classes.font}>
+            <p>จำนวนผู้เข้าพัก</p>
+            <TextField
+              InputProps={{
+                classes: {
+                  input: classes.fontIn,
+                },
+              }}
+              placeholder="กรุณากรอกจำนวนผู้เข้าพัก"
+              id="People"
+              name="People"
+              variant="outlined"
+              type="uint"
+              size="medium"
+              value={roomallocate.People || ""}
+              onChange={handleInputChange}
+            />
+          </FormControl>
+          </Grid>
+          <Grid item xs={6}>
+           <FormControl fullWidth variant="outlined" className={classes.font}>
+             <p>หมายเหตุ</p>
+             <TextField
+               InputProps={{
+                classes: {
+                  input: classes.fontIn,
+                },
+              }}
+               placeholder="หากไม่มีหมายเหตุกรุณากรอก ' - '"
+               id="Note"
+               variant="outlined"
+               type="string"
+               size="medium"
+               value={roomallocate.Note || ""}
+               onChange={handleInputChange}
+             />
+           </FormControl>
+         </Grid>
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined" className={classes.font}>
               <p>วันที่และเวลา</p>
