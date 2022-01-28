@@ -427,17 +427,78 @@ func SetupDatabase() {
 	db.Model(&Cleaningrequrest{}).Create(&Cleaning2)
 
 	//------------Bill-------------------------
+
+	Unitprice1 := Unitprice{
+		Unitname: "test",
+		Uperbath: 8.45,
+	}
+	db.Model(&Unitprice{}).Create(&Unitprice1)
+
+	MeterRecord1 := MeterRecord{
+		Uele:         8.39,
+		Uwat:         12.14,
+		Sum:          145.64,
+		Date:         time.Now(),
+		Unitprice:    Unitprice1,
+		DormAtten:    dorm_atten1,
+		RoomAllocate: roomallocate1,
+	}
+	db.Model(&MeterRecord{}).Create(&MeterRecord1)
+
+	MeterRecord2 := MeterRecord{
+		Uele:         8.39,
+		Uwat:         12.14,
+		Sum:          245.64,
+		Date:         time.Now(),
+		Unitprice:    Unitprice1,
+		DormAtten:    dorm_atten1,
+		RoomAllocate: roomallocate2,
+	}
+	db.Model(&MeterRecord{}).Create(&MeterRecord2)
+
+	MeterRecord3 := MeterRecord{
+		Uele:         8.39,
+		Uwat:         12.14,
+		Sum:          345.64,
+		Date:         time.Now(),
+		Unitprice:    Unitprice1,
+		DormAtten:    dorm_atten1,
+		RoomAllocate: roomallocate3,
+	}
+	db.Model(&MeterRecord{}).Create(&MeterRecord3)
+
+	MeterRecord4 := MeterRecord{
+		Uele:         8.39,
+		Uwat:         12.14,
+		Sum:          445.64,
+		Date:         time.Now(),
+		Unitprice:    Unitprice1,
+		DormAtten:    dorm_atten1,
+		RoomAllocate: roomallocate4,
+	}
+	db.Model(&MeterRecord{}).Create(&MeterRecord4)
+
+	MeterRecord5 := MeterRecord{
+		Uele:         8.39,
+		Uwat:         12.14,
+		Sum:          545.64,
+		Date:         time.Now(),
+		Unitprice:    Unitprice1,
+		DormAtten:    dorm_atten1,
+		RoomAllocate: roomallocate1,
+	}
+	db.Model(&MeterRecord{}).Create(&MeterRecord5)
+
+	//------------Bill-------------------------
 	v := true
 	bill1 := Bill{
 		BillDateTime: time.Now(),
 		DormAtten:    dorm_atten1,
 		RoomNumber:   roomallocate1.Number,
 		RoomAllocate: roomallocate1,
-
-		//MeterRecord:		,
-		Cleaningrequrest: Cleaning1,
-		PayByCash:        &v,
-		AmountPaid:       5340.25, //เดี๋ยวบวกเอา รอก่อนๆ
+		MeterRecord:  MeterRecord1,
+		PayByCash:    &v,
+		AmountPaid:   roomallocate1.Room.Roomtypes.Price + MeterRecord1.Sum,
 	}
 	db.Model(&Bill{}).Create(&bill1)
 	bill2 := Bill{
@@ -445,11 +506,9 @@ func SetupDatabase() {
 		DormAtten:    dorm_atten1,
 		RoomNumber:   roomallocate2.Number,
 		RoomAllocate: roomallocate2,
-
-		//MeterRecord:		,
-		Cleaningrequrest: Cleaning2,
-		PayByCash:        &v,
-		AmountPaid:       5340.25, //เดี๋ยวบวกเอา รอก่อนๆ
+		MeterRecord:  MeterRecord2,
+		PayByCash:    &v,
+		AmountPaid:   roomallocate2.Room.Roomtypes.Price + MeterRecord2.Sum,
 	}
 	db.Model(&Bill{}).Create(&bill2)
 
