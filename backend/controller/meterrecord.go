@@ -61,7 +61,7 @@ func CreateMeterRecord(c *gin.Context) {
 func GetMeterRecord(c *gin.Context) {
 	var meterrecord entity.MeterRecord
 	id := c.Param("id")
-	if err := entity.DB().Preload("Unitprice").Preload("RoomAllocate").Preload("DormAtten").Preload("MeterRecord").Raw("SELECT * FROM meterrecords WHERE id = ?", id).Find(&meterrecord).Error; err != nil {
+	if err := entity.DB().Preload("Unitprice").Preload("RoomAllocate").Preload("DormAtten"). /*.Preload("MeterRecord")*/ Raw("SELECT * FROM meter_records WHERE id = ?", id).Find(&meterrecord).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -71,7 +71,7 @@ func GetMeterRecord(c *gin.Context) {
 // GET /meterrecords
 func ListMeterRecords(c *gin.Context) {
 	var meterrecord []entity.MeterRecord
-	if err := entity.DB().Preload("Unitprice").Preload("RoomAllocate").Preload("DormAtten").Preload("MeterRecord").Raw("SELECT * FROM meterrecords").Find(&meterrecord).Error; err != nil {
+	if err := entity.DB().Preload("Unitprice").Preload("RoomAllocate").Preload("DormAtten"). /*.Preload("MeterRecord")*/ Raw("SELECT * FROM meter_records").Find(&meterrecord).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
