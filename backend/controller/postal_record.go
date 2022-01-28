@@ -8,7 +8,7 @@ import (
 	"github.com/sut64/team01/entity"
 )
 
-// POST /medication_records
+// POST /postal_records
 func CreatePostalRecord(c *gin.Context) {
 
 	var postalrecord entity.Postal_Record
@@ -17,46 +17,45 @@ func CreatePostalRecord(c *gin.Context) {
 	var dormatten entity.DormAtten
 	var postal entity.Postal
 
-	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 8 จะถูก bind เข้าตัวแปร medicationrecord
+	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 9 จะถูก bind เข้าตัวแปร postalrecord
 	if err := c.ShouldBindJSON(&postalrecord); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	// 9: ค้นหา pharmacist ด้วย id
-	if tx := entity.DB().Where("id = ?", postalrecord.RoomAllocateID).First(&roomallocate); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "roomallocate not found"})
-		return
-	}
-
-	// 10: ค้นหา treatmentrecord ด้วย id
-	if tx := entity.DB().Where("id = ?", postalrecord.CarrierID).First(&carrier); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "carrier record not found"})
-		return
-	}
-
-	// 11: ค้นหา medicine ด้วย id
+	// 10: ค้นหา dormatten ด้วย id
 	if tx := entity.DB().Where("id = ?", postalrecord.DormAttenID).First(&dormatten); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "dorm atten not found"})
 		return
 	}
 
-	// 12: ค้นหา medicine ด้วย id
+	// 11: ค้นหา roomallocate ด้วย id
+	if tx := entity.DB().Where("id = ?", postalrecord.RoomAllocateID).First(&roomallocate); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "roomallocate not found"})
+		return
+	}
+
+	// 12: ค้นหา carrier ด้วย id
+	if tx := entity.DB().Where("id = ?", postalrecord.CarrierID).First(&carrier); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "carrier record not found"})
+		return
+	}
+
+	// 13: ค้นหา postal ด้วย id
 	if tx := entity.DB().Where("id = ?", postalrecord.PostalID).First(&postal); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "postal not found"})
 		return
 	}
 
-	// 12: สร้าง MedicationRecord
+	// 14: สร้าง Postal_Record
 	pr := entity.Postal_Record{
-		DormAtten: dormatten, // โยงความสัมพันธ์กับ Entity Pharmacist
-		Carrier:   carrier,   // โยงความสัมพันธ์กับ Entity Medicine
-		//DormTenant:   dormtenant, // โยงความสัมพันธ์กับ Entity TreatmentRecord
-		Postal:       postal,
-		Amount:       postalrecord.Amount, // ตั้งค่า Amount
-		Tracking:     postalrecord.Tracking,
+		DormAtten:    dormatten,                       // โยงความสัมพันธ์กับ Entity DormAtten
+		Carrier:      carrier,                         // โยงความสัมพันธ์กับ Entity Carrier
+		Postal:       postal,                          // โยงความสัมพันธ์กับ Entity Postal
+		Amount:       postalrecord.Amount,             // ตั้งค่า Amount
+		Tracking:     postalrecord.Tracking,           // ตั้งค่า Tracking ID
 		RecordTime:   postalrecord.RecordTime.Local(), // ตั้งค่า RecordTime
-		RoomAllocate: roomallocate,
+		RoomAllocate: roomallocate,                    // โยงความสัมพันธ์กับ Entity RoomAllocate
 	}
 
 	//แทรกการ validate ไว้ช่วงนี้ของ controller
@@ -65,7 +64,7 @@ func CreatePostalRecord(c *gin.Context) {
 		return
 	}
 
-	// 13: บันทึก
+	// 15: บันทึก
 	if err := entity.DB().Create(&pr).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -73,7 +72,7 @@ func CreatePostalRecord(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": pr})
 }
 
-// GET /medication_record/:id
+// GET /postalrecord/:id
 func GetPostalRecord(c *gin.Context) {
 	var postalrecord entity.Postal_Record
 	id := c.Param("id")
@@ -84,7 +83,7 @@ func GetPostalRecord(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": postalrecord})
 }
 
-// GET /medication_records
+// GET /postalrecords
 func ListPostalRecords(c *gin.Context) {
 	var postalrecord []entity.Postal_Record
 	if err := entity.DB().Preload("RoomAllocate").Preload("Carrier").Preload("DormAtten").Preload("Postal").Raw("SELECT * FROM postal_records").Find(&postalrecord).Error; err != nil {
