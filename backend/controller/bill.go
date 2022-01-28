@@ -3,8 +3,7 @@ package controller
 import (
 	"net/http"
 
-	"github.com/asaskevich/govalidator"
-
+	//"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"github.com/sut64/team01/entity"
 )
@@ -14,10 +13,8 @@ func CreateBill(c *gin.Context) {
 	var bill entity.Bill
 	var dormatten entity.DormAtten
 	var roomallocate entity.RoomAllocate
-	/*
-		var meterrecord entity.MeterRecord
-		var cleaningrequest entity.CleaningRequest
-	*/
+	//var meterrecord entity.MeterRecord
+	var cleaningrequrest entity.Cleaningrequrest
 
 	// ผลลัพธ์จะถูก bind เข้าตัวแปร bill
 	if err := c.ShouldBindJSON(&bill); err != nil {
@@ -37,32 +34,31 @@ func CreateBill(c *gin.Context) {
 		return
 	}
 
+	// ค้นหา Cleaningrequrest ด้วย id
+	if tx := entity.DB().Where("id = ?", bill.CleaningrequrestID).First(&cleaningrequrest); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "cleaningrequrest not found"})
+		return
+	}
+
 	/*
 		// ค้นหา MeterRecord ด้วย id
 		if tx := entity.DB().Where("id = ?", bill.MeterRecordID).First(&meterrecord); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "roomallocate not found"})
 			return
 		}
-
-		// ค้นหา CleaningRequest ด้วย id
-		if tx := entity.DB().Where("id = ?", bill.CleaningRequestID).First(&cleaningrequest); tx.RowsAffected == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "roomallocate not found"})
-			return
-		}
 	*/
 
-	calculate := 0.00
-	//calculate = RoomAllocate.Room.RoomType.Cost + MeterRecord.Cost + CleaningRequest.Cost รอแก้ไขๆๆๆๆๆๆ
+	calculate := 0.12
+	//calculate = RoomAllocate.Room.RoomType.Cost + MeterRecord.Cost + Cleaningrequrest.Cost รอแก้ไขๆๆๆๆๆๆ
 
-	/* เผื่อใช้ เก็บไว้ก่อน
-	if RightTreatment.RightTreatmentName == "บัตร30" {
-		calculate = 30
-	} else if TreatmentRecord.Cost > (-RightTreatment.Price) {
-		calculate = TreatmentRecord.Cost + RightTreatment.Price
+	// เผื่อใช้ เก็บไว้ก่อน
+	if roomallocate.Number == "A01" || roomallocate.Number == "A02" || roomallocate.Number == "A03" || roomallocate.Number == "A04" ||
+		roomallocate.Number == "A05" || roomallocate.Number == "A06" || roomallocate.Number == "A07" || roomallocate.Number == "A08" ||
+		roomallocate.Number == "A09" || roomallocate.Number == "A10" {
+		calculate = calculate + 3500.00
 	} else {
-		calculate = 0
+		calculate = calculate + 4500.00
 	}
-	*/
 
 	// 12: สร้าง bill
 	b := entity.Bill{
@@ -71,16 +67,17 @@ func CreateBill(c *gin.Context) {
 		RoomNumber:   roomallocate.Number,
 		RoomAllocate: roomallocate,
 		//MeterRecord:     meterrecord,
-		//CleaningRequest: cleaningrequest,
-		PayByCash:  bill.PayByCash,
-		AmountPaid: calculate,
+		Cleaningrequrest: cleaningrequrest,
+		PayByCash:        bill.PayByCash,
+		AmountPaid:       calculate,
 	}
 
-	//แทรกการ Validate ไว้ช่วงนี้ของ controller
-	if _, err := govalidator.ValidateStruct(bill); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+	//แทรกการ validate ไว้ช่วงนี้ของ controller
+	/*
+		if _, err := govalidator.ValidateStruct(bill); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}*/
 
 	// 13: บันทึก
 	if err := entity.DB().Create(&b).Error; err != nil {
@@ -92,9 +89,9 @@ func CreateBill(c *gin.Context) {
 
 // GET /Bill
 // List all Bill
-func ListBill(c *gin.Context) {
+func ListBills(c *gin.Context) {
 	var bill []entity.Bill
-	if err := entity.DB().Preload("DormAtten").Preload("CleaningRequest").Preload("MeterRecord").Preload("RoomAllocate").Preload("RoomAllocate.Room.RoomType").Raw("SELECT * FROM bills").Find(&bill).Error; err != nil {
+	if err := entity.DB().Preload("DormAtten").Preload("Cleaningrequrest").Preload("Cleaningrequrest.Cleaningtype"). /*.Preload("MeterRecord")*/ Preload("RoomAllocate").Preload("RoomAllocate.Room.Roomtypes").Raw("SELECT * FROM bills").Find(&bill).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -107,7 +104,7 @@ func ListBill(c *gin.Context) {
 func GetBill(c *gin.Context) {
 	var bill entity.Bill
 	id := c.Param("id")
-	if err := entity.DB().Preload("DormAtten").Preload("CleaningRequest").Preload("MeterRecord").Preload("RoomAllocate").Raw("SELECT * FROM bills WHERE id = ?", id).Find(&bill).Error; err != nil {
+	if err := entity.DB().Preload("DormAtten").Preload("Cleaningrequrest"). /*.Preload("MeterRecord")*/ Preload("RoomAllocate").Raw("SELECT * FROM bills WHERE id = ?", id).Find(&bill).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

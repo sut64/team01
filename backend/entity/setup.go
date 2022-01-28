@@ -350,35 +350,6 @@ func SetupDatabase() {
 	}
 	db.Model(&RoomAllocate{}).Create(&roomallocate4)
 
-	//------------Bill-------------------------
-	v := true
-	bill1 := Bill{
-		BillDateTime: time.Now(),
-		DormAtten:    dorm_atten1,
-		RoomNumber:   roomallocate1.Number,
-		RoomAllocate: roomallocate1,
-		/*
-			CleaningRequest:	,
-			MeterRecord:		,
-		*/
-		PayByCash:  &v,
-		AmountPaid: 5340.25, //เดี๋ยวบวกเอา รอก่อนๆ
-	}
-	db.Model(&Bill{}).Create(&bill1)
-	bill2 := Bill{
-		BillDateTime: time.Now(),
-		DormAtten:    dorm_atten1,
-		RoomNumber:   roomallocate2.Number,
-		RoomAllocate: roomallocate2,
-		/*
-			CleaningRequest:	,
-			MeterRecord:		,
-		*/
-		PayByCash:  &v,
-		AmountPaid: 5340.25, //เดี๋ยวบวกเอา รอก่อนๆ
-	}
-	db.Model(&Bill{}).Create(&bill2)
-
 	//----------------- ประเภททำความสะอาด -------------------
 	cleaningtype1 := Cleaningtype{
 		Type:  "กวาดห้อง + ถูห้อง",
@@ -451,5 +422,32 @@ func SetupDatabase() {
 		Note:         "มีหนูตายหลังตู้เย็น",
 	}
 	db.Model(&Cleaningrequrest{}).Create(&Cleaning2)
+
+	//------------Bill-------------------------
+	v := true
+	bill1 := Bill{
+		BillDateTime: time.Now(),
+		DormAtten:    dorm_atten1,
+		RoomNumber:   roomallocate1.Number,
+		RoomAllocate: roomallocate1,
+
+		//MeterRecord:		,
+		Cleaningrequrest: Cleaning1,
+		PayByCash:        &v,
+		AmountPaid:       5340.25, //เดี๋ยวบวกเอา รอก่อนๆ
+	}
+	db.Model(&Bill{}).Create(&bill1)
+	bill2 := Bill{
+		BillDateTime: time.Now(),
+		DormAtten:    dorm_atten1,
+		RoomNumber:   roomallocate2.Number,
+		RoomAllocate: roomallocate2,
+
+		//MeterRecord:		,
+		Cleaningrequrest: Cleaning2,
+		PayByCash:        &v,
+		AmountPaid:       5340.25, //เดี๋ยวบวกเอา รอก่อนๆ
+	}
+	db.Model(&Bill{}).Create(&bill2)
 
 }
