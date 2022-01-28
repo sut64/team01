@@ -56,6 +56,10 @@ import CleaningrequrestCreate from "./components/CleaningrequrestCreate";
 import BillCreate from "./components/BillCreate";
 import Bill from "./components/Bill";
 import HomeBill from "./components/HomeBill";
+import MeterRecord from "./components/MeterRecord";
+import MeterRecordCreate from "./components/MeterRecordCreate";
+import FurnitureRequest from "./components/FurnitureRequest";
+import FurnitureRequestCreate from "./components/FurnitureRequestCreate";
 
 const drawerWidth = 240;
 
@@ -177,6 +181,8 @@ export default function MiniDrawer() {
               <Route  path="/bill/create" element={<BillCreate/>}/>
               <Route  path="/meterrecord/create" element = {<MeterRecordCreate/>}/>
               <Route  path="/meterrecord" element = {<MeterRecord/>}/>
+              <Route  path="/furniturerequest" element={<FurnitureRequest/>} />
+              <Route  path="/furniturerequest/create" element={<FurnitureRequestCreate/>}/>
            
            </Routes>
           </div>
