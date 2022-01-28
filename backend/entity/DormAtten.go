@@ -20,4 +20,5 @@ type DormAtten struct {
 	Postal_Records []Postal_Record `gorm:"foreignKey:DormAttenID"`
 	RoomAllocate   []RoomAllocate  `gorm:"foreignKey:DormAttenID"`
 	Bills          []Bill          `gorm:"foreignKey:DormAttenID"`
+	FurnitureRequests []FurnitureRequest `gorm:"foreignKey:DormAttenID"`
 }
