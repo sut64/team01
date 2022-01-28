@@ -19,5 +19,6 @@ type DormTenant struct {
 	RoleID *uint
 	Role   Role
 
+	RepairRequests []RepairRequest `gorm:"foreignKey:DormTenantID"`
 	RoomAllocate []RoomAllocate `gorm:"foreignKey:DormTenantID"`
 }
