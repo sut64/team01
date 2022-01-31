@@ -107,6 +107,11 @@ func SetupDatabase() {
 		Initials:    "FL",
 	}
 	db.Model(&Carrier{}).Create(&carrier4)
+	carrier5 := Carrier{
+		CarrierName: "อื่นๆ",
+		Initials:    "etc",
+	}
+	db.Model(&Carrier{}).Create(&carrier5)
 	//------------DormTenant-------------------------
 	dorm_tenant1 := DormTenant{
 		Pid:                  "1234567890123",
@@ -180,6 +185,10 @@ func SetupDatabase() {
 		Type: "ซองเอกสาร",
 	}
 	db.Model(&Postal{}).Create(&postal5)
+	postal6 := Postal{
+		Type: "อื่นๆ",
+	}
+	db.Model(&Postal{}).Create(&postal6)
 	//------------Roomtypes-------------------------
 	roomtype1 := Roomtypes{
 		Name:  "ห้องพัดลม+เตียงคู่",
