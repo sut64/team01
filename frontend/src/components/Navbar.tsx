@@ -43,7 +43,7 @@ function Navbar() {
  );
 }
 export default Navbar;*/
-
+import "../App.css";
 import React,{useState,useEffect} from "react";
 import {
   createStyles,
@@ -82,7 +82,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import Divider from "@material-ui/core/Divider";
 import { List } from "@material-ui/core";
 import { DormAttenInterface } from "../models/IDormAtten";
-import { fontSize } from "@mui/system";
+import { fontFamily, fontSize } from "@mui/system";
 
 const drawerWidth = 240;
 
@@ -159,7 +159,7 @@ const useStyles = makeStyles((theme: Theme) =>
     menubar: {
       textDecoration: "none",
       color: "inherit",
-      /*fontFamily:"kanitlight"*/
+      fontFamily:"kanitlight"
     },
   })
 );
@@ -186,9 +186,8 @@ function Navbar() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
   const menu = [
-    { name: "หน้าแรก", icon: <HomeIcon />, path: "/" },
+    { name: "หน้าแรก", icon: <HomeIcon />, path: "/"},
     { name: "ผู้ดูแลหอพัก", icon: <AccountCircleIcon />, path: "/dormatten" },
     { name: "ระบบบันทึกรายการพัสดุ", icon: <MarkAsUnreadIcon />, path: "/home_postal_record" },
     /*{ name: "บันทึกรายการพัสดุ", icon: <LocalPostOfficeIcon />, path: "/postal_record" },
