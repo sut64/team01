@@ -512,4 +512,37 @@ func SetupDatabase() {
 	}
 	db.Model(&Bill{}).Create(&bill2)
 
+	//------------DormInventoryType-------------------------
+	InventType1 := DormInventoryType{
+		InvenType: "เครื่องใช้ไฟฟ้า",
+	}
+	db.Model(&DormInventoryType{}).Create(&InventType1)
+	InventType2 := DormInventoryType{
+		InvenType: "ระบบน้ำ",
+	}
+	db.Model(&DormInventoryType{}).Create(&InventType2)
+	InventType3 := DormInventoryType{
+		InvenType: "เฟอร์นิเจอร์",
+	}
+	db.Model(&DormInventoryType{}).Create(&InventType3)
+	//------------DormInventory-------------------------
+	DormInventory1 := DormInventory{
+		FurnitureName:     "พัดลม",
+		Amount:            100,
+		DormInventoryType: InventType1,
+	}
+	db.Model(&DormInventoryType{}).Create(&DormInventory1)
+	DormInventory2 := DormInventory{
+		FurnitureName:     "โต๊ะ",
+		Amount:            150,
+		DormInventoryType: InventType3,
+	}
+	db.Model(&DormInventoryType{}).Create(&DormInventory2)
+	DormInventory3 := DormInventory{
+		FurnitureName:     "ก๊อกน้ำ",
+		Amount:            100,
+		DormInventoryType: InventType2,
+	}
+	db.Model(&DormInventoryType{}).Create(&DormInventory3)
+
 }
