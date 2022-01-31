@@ -540,18 +540,18 @@ func SetupDatabase() {
 		Amount:            100,
 		DormInventoryType: InventType1,
 	}
-	db.Model(&DormInventoryType{}).Create(&DormInventory1)
+	db.Model(&DormInventory{}).Create(&DormInventory1)
 	DormInventory2 := DormInventory{
 		FurnitureName:     "โต๊ะ",
 		Amount:            150,
 		DormInventoryType: InventType3,
 	}
-	db.Model(&DormInventoryType{}).Create(&DormInventory2)
+	db.Model(&DormInventory{}).Create(&DormInventory2)
 	DormInventory3 := DormInventory{
 		FurnitureName:     "ก๊อกน้ำ",
 		Amount:            100,
 		DormInventoryType: InventType2,
 	}
-	db.Model(&DormInventoryType{}).Create(&DormInventory3)
+	db.Model(&DormInventory{}).Create(&DormInventory3)
 
 }
