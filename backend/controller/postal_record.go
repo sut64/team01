@@ -25,19 +25,19 @@ func CreatePostalRecord(c *gin.Context) {
 
 	// 10: ค้นหา dormatten ด้วย id
 	if tx := entity.DB().Where("id = ?", postalrecord.DormAttenID).First(&dormatten); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "dorm atten not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "dorm attendant not found"})
 		return
 	}
 
 	// 11: ค้นหา roomallocate ด้วย id
 	if tx := entity.DB().Where("id = ?", postalrecord.RoomAllocateID).First(&roomallocate); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "roomallocate not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "room allocate not found"})
 		return
 	}
 
 	// 12: ค้นหา carrier ด้วย id
 	if tx := entity.DB().Where("id = ?", postalrecord.CarrierID).First(&carrier); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "carrier record not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "carrier not found"})
 		return
 	}
 
@@ -59,7 +59,7 @@ func CreatePostalRecord(c *gin.Context) {
 	}
 
 	//แทรกการ validate ไว้ช่วงนี้ของ controller
-	if _, err := govalidator.ValidateStruct(postalrecord); err != nil {
+	if _, err := govalidator.ValidateStruct(pr); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

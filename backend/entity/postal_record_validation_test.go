@@ -46,7 +46,7 @@ func TestAmountMustBePositiveIntegerAndNotBeZero(t *testing.T) {
 	g.Expect(err).ToNot(BeNil())
 
 	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("Amount: non zero value required"))
+	g.Expect(err.Error()).To(Equal("Amount must none zero and not a negative number"))
 }
 
 func TestTrackingNotBlank(t *testing.T) {
