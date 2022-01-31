@@ -9,9 +9,9 @@ import (
 
 type Postal_Record struct {
 	gorm.Model
-	Amount     uint      `valid:"customPositiveNumber,required"`
+	Amount     uint      `valid:"customPositiveNumber,required~Amount must none zero and not a negative number"`
 	RecordTime time.Time `valid:"past~RecordTime must be in the past"`
-	Tracking   string    `valid:"required~Tracing ID cannot be blank"`
+	Tracking   string    `valid:"required~Tracking ID cannot be blank"`
 
 	DormAttenID *uint
 	DormAtten   DormAtten `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
