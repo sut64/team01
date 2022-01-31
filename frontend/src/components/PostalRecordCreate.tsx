@@ -52,6 +52,7 @@ function PostalRecordCreate() {
  const [postalrecord, setPostalRecord] = React.useState<Partial<Postal_RecordInterface>>({});
  const [success, setSuccess] = React.useState(false);
  const [error, setError] = React.useState(false);
+ const [errorMessage, setErrorMessage] = React.useState("");
  
  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
    if (reason === "clickaway") {
@@ -190,9 +191,12 @@ const convertType = (data: string | number | undefined) => {
      .then((response) => response.json())
      .then((res) => {
        if (res.data) {
+         console.log("บันทึกได้")
          setSuccess(true);
        } else {
+         console.log("บันทึกไม่ได้")
          setError(true);
+         setErrorMessage(res.error)
        }
      });
  }
@@ -207,7 +211,7 @@ const convertType = (data: string | number | undefined) => {
      </Snackbar>
      <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
        <Alert onClose={handleClose} severity="error">
-         บันทึกข้อมูลไม่สำเร็จ
+         บันทึกข้อมูลไม่สำเร็จ: {errorMessage}
        </Alert>
      </Snackbar>
      <Paper className={classes.paper}>
