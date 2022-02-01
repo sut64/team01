@@ -43,7 +43,7 @@ function Navbar() {
  );
 }
 export default Navbar;*/
-import "../App.css";
+
 import React,{useState,useEffect} from "react";
 import {
   createStyles,
@@ -82,7 +82,8 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import Divider from "@material-ui/core/Divider";
 import { List } from "@material-ui/core";
 import { DormAttenInterface } from "../models/IDormAtten";
-import { fontFamily, fontSize } from "@mui/system";
+import { fontSize } from "@mui/system";
+import CarpenterIcon from '@mui/icons-material/Carpenter';
 
 const drawerWidth = 240;
 
@@ -159,7 +160,7 @@ const useStyles = makeStyles((theme: Theme) =>
     menubar: {
       textDecoration: "none",
       color: "inherit",
-      fontFamily:"kanitlight"
+      /*fontFamily:"kanitlight"*/
     },
   })
 );
@@ -186,8 +187,9 @@ function Navbar() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
   const menu = [
-    { name: "หน้าแรก", icon: <HomeIcon />, path: "/"},
+    { name: "หน้าแรก", icon: <HomeIcon />, path: "/" },
     { name: "ผู้ดูแลหอพัก", icon: <AccountCircleIcon />, path: "/dormatten" },
     { name: "ระบบบันทึกรายการพัสดุ", icon: <MarkAsUnreadIcon />, path: "/home_postal_record" },
     /*{ name: "บันทึกรายการพัสดุ", icon: <LocalPostOfficeIcon />, path: "/postal_record" },
@@ -201,7 +203,7 @@ function Navbar() {
     { name: "ระบบการบันทึกการชำระเงิน", icon: <LocalAtmIcon />, path: "/home_bill" },
     /*{ name: "บันทึกการชำระเงิน", icon: <PaymentsIcon />, path: "/bill" },
     { name: "สร้างบันทึกการชำระเงิน", icon: <PointOfSaleIcon />, path: "/bill/create" },*/
-    { name: "ระบบแจ้งซ่อม", icon: <LocalAtmIcon />, path: "/home_repairrequest" },
+    { name: "ระบบแจ้งซ่อม", icon: < CarpenterIcon />, path: "/home_repairrequest" },
     
   ];
 
@@ -296,7 +298,7 @@ function Navbar() {
             <Link to={item.path} key={item.name} className={classes.menubar}>
               <ListItem button>
                 <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText disableTypography style={{fontFamily:"kanitlight"}} primary={item.name} />
+                <ListItemText primary={item.name} />
               </ListItem>
             </Link>
           ))}

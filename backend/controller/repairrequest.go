@@ -77,7 +77,7 @@ func GetRepairRequest(c *gin.Context) {
 // GET /repair_requests
 func ListRepairRequest(c *gin.Context) {
 	var repairrequest []entity.RepairRequest
-	if err := entity.DB().Preload("RoomAllocate").Preload("DormTenant").Preload("DormInventory").Preload("RepairType").Raw("SELECT * FROM repair_requests").Find(&repairrequest).Error; err != nil {
+	if err := entity.DB().Preload("RoomAllocate").Preload("DormTenant").Preload("DormInventory").Preload("DormInventory.DormInventoryType").Preload("RepairType").Raw("SELECT * FROM repair_requests").Find(&repairrequest).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

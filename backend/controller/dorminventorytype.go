@@ -26,7 +26,7 @@ func CreateDormInventoryType(c *gin.Context) {
 func GetDormInventoryType(c *gin.Context) {
 	var dorminventorytype entity.DormInventoryType
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM dorm_inventory_types WHERE id = ?", id).Scan(&dorminventorytype).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM dorm_inventory_types WHERE id = ?", id).Find(&dorminventorytype).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -37,7 +37,7 @@ func GetDormInventoryType(c *gin.Context) {
 // GET /dorm_inventory_types
 func ListDormInventoryType(c *gin.Context) {
 	var dorminventorytype []entity.DormInventoryType
-	if err := entity.DB().Raw("SELECT * FROM dorm_inventory_types").Scan(&dorminventorytype).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM dorm_inventory_types").Find(&dorminventorytype).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
