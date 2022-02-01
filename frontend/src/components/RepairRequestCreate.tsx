@@ -33,7 +33,7 @@ import DateFnsUtils from "@date-io/date-fns";
 //import DormTenants from "./DormTenants";
 import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
+import NavbarRepairRequest from "./NavbarRepairRequest";
 const Alert = (props: AlertProps) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 };
@@ -73,7 +73,7 @@ function RepairRequestCreate() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [state, setState] = useState({
-    PermitToEntry: true,
+    EntryPermission: true,
   });
 
 
@@ -140,7 +140,7 @@ function RepairRequestCreate() {
   //------------ รับค่าประเภทสิ่งของ 
   const getDormInventorytypes = async () => {
     let uid = localStorage.getItem("uid");
-    fetch(`${apiUrl}/route/ListRoomTypes`, requestOptions) //ยังไม่ได้แก้ api
+    fetch(`${apiUrl}/route/ListDormInventoryType`, requestOptions) //ยังไม่ได้แก้ api
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
@@ -155,7 +155,7 @@ function RepairRequestCreate() {
 
   const getDormInventory = async () => {
     let uid = localStorage.getItem("uid");
-    fetch(`${apiUrl}/route/ListRooms`, requestOptions) //ยังไม่ได้แก้ api
+    fetch(`${apiUrl}/route/ListDormInventory`, requestOptions) 
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
@@ -170,7 +170,7 @@ function RepairRequestCreate() {
 
      const getRepairType = async () => {
         let uid = localStorage.getItem("uid");
-        fetch(`${apiUrl}/route/ListRooms`, requestOptions) //ยังไม่ได้แก้ api
+        fetch(`${apiUrl}/route/ListRepairtype`, requestOptions) 
           .then((response) => response.json())
           .then((res) => {
             if (res.data) {
@@ -184,7 +184,7 @@ function RepairRequestCreate() {
     //-------------- รับค่าห้องพัก
     const getRoomAllocate = async () => {
         let uid = localStorage.getItem("uid");
-        fetch(`${apiUrl}/route/ListRooms`, requestOptions) //ยังไม่ได้แก้ api
+        fetch(`${apiUrl}/route/ListRoomAllocates`, requestOptions) 
           .then((response) => response.json())
           .then((res) => {
             if (res.data) {
@@ -197,7 +197,7 @@ function RepairRequestCreate() {
   useEffect(() => {
     getDormTenants();
     getDormInventory();
-    getDormInventorytypes();
+   // getDormInventorytypes();
     getRepairType();
     getRoomAllocate();
 
@@ -213,11 +213,11 @@ function RepairRequestCreate() {
       DormTenantID: convertType(dormtenants?.ID),
       RoomAllocateID: convertType(repairrequest.RoomAllocateID),
       DormInventory: convertType(repairrequest.DormInventoryID),
-      //DormInventorytype: convertType(repairrequest.DormInventoryTypeID),
+      //DormInventorytype: convertType(inventorytypes.ID),
       RepairType: convertType(repairrequest.RepairTypeID),
       RecordDate: selectedDate,
       RequestDate: selectedDate,
-      EntryPermission : Checkbox,
+      EntryPermission : repairrequest.EntryPermission,
 
 
     };
@@ -249,6 +249,7 @@ function RepairRequestCreate() {
 
   return (
     <Container className={classes.container} maxWidth="md">
+       <NavbarRepairRequest/>
       <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success">
           บันทึกข้อมูลสำเร็จ
@@ -344,6 +345,7 @@ function RepairRequestCreate() {
               <p>ห้องพักที่แจ้งซ่อม</p>
               <Select
                 native
+                className={classes.fontIn}
                 value={repairrequest.RoomAllocateID}
                 onChange={handleChange}
                 inputProps={{
@@ -356,7 +358,7 @@ function RepairRequestCreate() {
                
                 {roomallocate.map((item: RoomAllocateInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.ID}     {item.RoomID}
+                     {item.Number}
                   </option> 
                 ))}
               </Select>
@@ -372,18 +374,42 @@ function RepairRequestCreate() {
                 value={repairrequest.DormInventoryID}
                 onChange={handleChange}
                 inputProps={{
-                  name: "DormInventoryTypeID",
+                  name: "DormInventoryID",
                 }}
               >
                 <option aria-label="None" value="">
                   กรุณาเลือกประเภทงานซ่อม 
                 </option>
-                {inventorytypes.map((item: DormInventoryTypeInterface) => (
+                {inventorys.map((item: DormInventoryInterface) => (
                   <option value={item.ID} key={item.ID}>
-                   {item.InvenType}
+                 {item.ID} {item.DormInventoryType.InvenType} 
                   </option>
                 ))}
                 
+                <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <p>ห้องพักที่แจ้งซ่อม</p>
+              <Select
+                native
+                value={repairrequest.RoomAllocateID}
+                onChange={handleChange}
+                inputProps={{
+                  name: "RoomAllocateID",
+                }}
+              >
+                <option aria-label="None" value="">
+                  ห้องพักที่แจ้ง
+                </option>
+               
+                {roomallocate.map((item: RoomAllocateInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                     {item.Number}
+                  </option> 
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
               </Select>
             </FormControl>
                 </Grid>
@@ -442,14 +468,14 @@ function RepairRequestCreate() {
           <Grid item xs={3} >
           <FormControlLabel
               
-              control={<Checkbox checked={state.PermitToEntry} 
-              id="EntryPermissin"
+              control={<Checkbox checked={state.EntryPermission} 
+              id="EntryPermission"
               onChange={handleCheckboxChange}
               
               inputProps={{ 
-              name : 'EntryPermissin'}}
-              
-              name="EntryPermissin" />}
+              name : 'EntryPermission'}}
+
+              name="EntryPermission" />}
               label="Yes!"/> 
 
           </Grid>

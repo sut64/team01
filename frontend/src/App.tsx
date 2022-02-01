@@ -60,7 +60,9 @@ import MeterRecord from "./components/MeterRecord";
 import MeterRecordCreate from "./components/MeterRecordCreate";
 import FurnitureRequest from "./components/FurnitureRequest";
 import FurnitureRequestCreate from "./components/FurnitureRequestCreate";
-
+import RepairRequestCreate from "./components/RepairRequestCreate";
+import RepairRequest from "./components/RepairRequest";
+import HomeRepair from "./components/HomeRepair";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -183,6 +185,13 @@ export default function MiniDrawer() {
               <Route  path="/meterrecord" element = {<MeterRecord/>}/>
               <Route  path="/furniturerequest" element={<FurnitureRequest/>} />
               <Route  path="/furniturerequest/create" element={<FurnitureRequestCreate/>}/>
+              <Route path="/home_repairrequest" element={<HomeRepair/>} />
+              <Route  path="/repairrequest" element={<RepairRequest/>}/>
+              <Route  path="/repairrequest/create" element={<RepairRequestCreate/>}/>
+
+              
+              
+              
            
            </Routes>
           </div>
