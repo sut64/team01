@@ -1,51 +1,5 @@
 
 
-/*import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import { Link } from "react-router-dom";
-import "../App.css";
-
- 
-const useStyles = makeStyles((theme) => ({
- root: {flexGrow: 1},
- menuButton: {marginRight: theme.spacing(2)},
- title: {flexGrow: 1,fontFamily : "kanitlight"} ,
- navlink: {color: "white",textDecoration: "none"},
- font:{fontFamily:"kanitlight"},
- 
-}));
- 
-function Navbar() {
- const classes = useStyles();
- return (
-   <div className={classes.root} >
-     <AppBar position="static">
-       <Toolbar>
-         <IconButton
-           edge="start"
-           className={classes.menuButton}
-           color="inherit"
-           aria-label="menu"
-         >
-           <MenuIcon />
-         </IconButton>
-         <Link className={classes.navlink} to="/">
-           <Typography variant="h6" className={classes.title}>
-             ระบบบันทึกรายการพัสดุ
-           </Typography>
-         </Link>
-       </Toolbar>
-     </AppBar>
-   </div>
- );
-}
-export default Navbar;*/
-
 import React,{useState,useEffect} from "react";
 import {
   createStyles,
@@ -77,7 +31,7 @@ import MarkAsUnreadIcon from '@mui/icons-material/MarkAsUnread';
 import BedroomChildIcon from '@mui/icons-material/BedroomChild';
 import RoomPreferencesIcon from '@mui/icons-material/RoomPreferences';
 import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
-
+import CarpenterIcon from '@mui/icons-material/Carpenter';
 import Divider from "@material-ui/core/Divider";
 import { List } from "@material-ui/core";
 import { DormAttenInterface } from "../models/IDormAtten";
@@ -198,9 +152,9 @@ function NavbarRepairRequest() {
     /*{ name: "ระบบแจ้งทำความสะอาด", icon: <HomeIcon />, path: "/homecleang" },
     { name: "แจ้งทำความสะอาด", icon: <CleaningServicesIcon />, path: "/cleaningrequrest" },
     { name: "สร้างการแจ้งทำความสะอาด", icon: <CleaningServicesIcon />, path: "/cleaningrequrest/create" },*/
-    { name: "ระบบแจ้งซ่อม", icon: <HomeIcon />, path: "/homerepair" },
-    { name: "แจ้งซ่อม", icon: <CleaningServicesIcon />, path: "/repairrequrest" },
-    { name: "สร้างการแจ้งซ่อม", icon: <CleaningServicesIcon />, path: "/repairrequrest/create" },
+    { name: "ระบบแจ้งซ่อม", icon: <HomeIcon />, path: "/home_repairrequest" },
+    { name: "แจ้งซ่อม", icon: <CarpenterIcon />, path: "/repairrequest" },
+    { name: "สร้างการแจ้งซ่อม", icon: <CarpenterIcon />, path: "/repairrequest/create" },
   ]
 
   const signout = () => {

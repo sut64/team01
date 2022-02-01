@@ -60,6 +60,9 @@ import MeterRecord from "./components/MeterRecord";
 import MeterRecordCreate from "./components/MeterRecordCreate";
 import FurnitureRequest from "./components/FurnitureRequest";
 import FurnitureRequestCreate from "./components/FurnitureRequestCreate";
+import HomeRepair from "./components/HomeRepair";
+import RepairRequest from "./components/RepairRequest";
+import RepairRequestCreate from "./components/RepairRequestCreate";
 
 const drawerWidth = 240;
 
@@ -165,24 +168,28 @@ export default function MiniDrawer() {
           <div className={classes.toolbar} />
           <div>
            <Routes>
-              <Route path="/" element={<Home/>} />
-              <Route path="/home_postal_record" element={<HomePostalRecord/>} />
+              <Route  path="/" element={<Home/>} />
+              <Route  path="/home_postal_record" element={<HomePostalRecord/>} />
               <Route  path="/dormatten" element={<DormAttens/>} /> 
               <Route  path="/postal_record" element={<PostalRecords/>} />
               <Route  path="/postal_record/create" element={<PostalRecordCreate/>}/>
-              <Route path="/home_roomallocate" element={<HomeRoomAllocate/>} />
+              <Route  path="/home_roomallocate" element={<HomeRoomAllocate/>} />
               <Route  path="/roomallocate" element={<RoomAllocate/>}/>
               <Route  path="/roomallocate/create" element={<RoomAllocateCreate/>}/>
-              <Route path="/homecleang" element={<HomeCleaning/>} />
+              <Route  path="/homecleang" element={<HomeCleaning/>} />
               <Route  path="/cleaningrequrest" element={<Cleaningrequrests/>} />
               <Route  path="/cleaningrequrest/create" element={<CleaningrequrestCreate/>}/>
-              <Route path="/home_bill" element={<HomeBill/>} />
+              <Route  path="/home_bill" element={<HomeBill/>} />
               <Route  path="/bill" element={<Bill/>}/>
               <Route  path="/bill/create" element={<BillCreate/>}/>
               <Route  path="/meterrecord/create" element = {<MeterRecordCreate/>}/>
               <Route  path="/meterrecord" element = {<MeterRecord/>}/>
               <Route  path="/furniturerequest" element={<FurnitureRequest/>} />
               <Route  path="/furniturerequest/create" element={<FurnitureRequestCreate/>}/>
+              <Route  path="/home_repairrequest" element={<HomeRepair/>} />
+              <Route  path="/repairrequest/create" element={<RepairRequestCreate/>} />
+              <Route  path="/repairrequest" element={<RepairRequest/>} />
+              
            
            </Routes>
           </div>

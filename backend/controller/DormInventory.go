@@ -26,7 +26,7 @@ func CreateDormInventory(c *gin.Context) {
 func GetDormInventory(c *gin.Context) {
 	var dorminventory entity.DormInventory
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM dorminventories WHERE id = ?", id).Scan(&dorminventory).Error; err != nil {
+	if err := entity.DB().Preload("DormInventoryType").Raw("SELECT * FROM dorm_inventories WHERE id = ?", id).Find(&dorminventory).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -37,7 +37,7 @@ func GetDormInventory(c *gin.Context) {
 // GET /dorminventories
 func ListDormInventory(c *gin.Context) {
 	var dorminventory []entity.DormInventory
-	if err := entity.DB().Raw("SELECT * FROM dorminventories").Scan(&dorminventory).Error; err != nil {
+	if err := entity.DB().Preload("DormInventoryType").Raw("SELECT * FROM dorm_inventories").Find(&dorminventory).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

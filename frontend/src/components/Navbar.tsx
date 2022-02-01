@@ -83,6 +83,7 @@ import Divider from "@material-ui/core/Divider";
 import { List } from "@material-ui/core";
 import { DormAttenInterface } from "../models/IDormAtten";
 import { fontSize } from "@mui/system";
+import CarpenterIcon from '@mui/icons-material/Carpenter';
 
 const drawerWidth = 240;
 
@@ -202,7 +203,7 @@ function Navbar() {
     { name: "ระบบการบันทึกการชำระเงิน", icon: <LocalAtmIcon />, path: "/home_bill" },
     /*{ name: "บันทึกการชำระเงิน", icon: <PaymentsIcon />, path: "/bill" },
     { name: "สร้างบันทึกการชำระเงิน", icon: <PointOfSaleIcon />, path: "/bill/create" },*/
-    { name: "ระบบแจ้งซ่อม", icon: <LocalAtmIcon />, path: "/home_repairrequest" },
+    { name: "ระบบแจ้งซ่อม", icon: < CarpenterIcon />, path: "/home_repairrequest" },
     
   ];
 

@@ -64,8 +64,14 @@ func main() {
 			protected.GET("/route/ListRepairRequest", controller.ListRepairRequest)
 			protected.GET("/route/GetRepairRequest:id", controller.GetRepairRequest)
 			protected.POST("/route/CreateGetRepairRequest", controller.CreateRepairRequest)
+
+			// RepairType ประเภทการแจ้งซ่อม อย่าลบอีกนะ			
+			protected.GET("/route/ListRepairtype", controller.ListRepairtype)
+			protected.GET("/route/GetRepairtype:id", controller.GetRepairtype)
+			protected.POST("/route/CreateRepairtype", controller.CreateRepairtype)
+
 			// DormInventoryType
-			protected.GET("/route/DormInventoryType", controller.ListDormInventoryType)
+			protected.GET("/route/ListDormInventoryType", controller.ListDormInventoryType)
 			protected.GET("/route/GetDormInventoryType:id", controller.GetDormInventoryType)
 			protected.POST("/route/CreateDormInventoryType", controller.CreateDormInventoryType)
 

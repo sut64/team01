@@ -7,6 +7,7 @@ type DormInventory struct {
 	gorm.Model
 	FurnitureName string
 	Amount        uint16
+	InvenType     string
 
 	DormInventoryTypeID *uint
 	DormInventoryType   DormInventoryType `gorm:"references:id"`

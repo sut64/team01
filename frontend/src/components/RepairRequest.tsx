@@ -14,7 +14,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { RepairRequestinterface } from "../models/IRepairRequest";
 import { format } from 'date-fns'
-
+import NavbarRepairRequest from "./NavbarRepairRequest";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,6 +58,7 @@ function RepairRequest() {
   return (
     <div>
       <Container className={classes.container} maxWidth="md">
+      <NavbarRepairRequest/>
         <Box display="flex">
           <Box flexGrow={1}>
             <Typography
