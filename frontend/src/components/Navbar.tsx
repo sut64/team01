@@ -296,7 +296,7 @@ function Navbar() {
             <Link to={item.path} key={item.name} className={classes.menubar}>
               <ListItem button>
                 <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.name} />
+                <ListItemText disableTypography style={{fontFamily:"kanitlight"}} primary={item.name} />
               </ListItem>
             </Link>
           ))}
