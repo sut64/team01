@@ -75,6 +75,8 @@ import MarkAsUnreadIcon from '@mui/icons-material/MarkAsUnread';
 import BedroomChildIcon from '@mui/icons-material/BedroomChild';
 import RoomPreferencesIcon from '@mui/icons-material/RoomPreferences';
 import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
+import EventNoteIcon from '@mui/icons-material/EventNote';
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 
 import Divider from "@material-ui/core/Divider";
 import { List } from "@material-ui/core";
@@ -193,9 +195,9 @@ function NavbarCleaningRequest() {
     { name: "ระบบการจัดสรรห้องพัก", icon: <RoomPreferencesIcon />, path: "/home_roomallocate" },
     { name: "บันทึกการจัดสรรหอพัก", icon: <BedroomChildIcon />, path: "/roomallocate" },
     { name: "สร้างบันทึกการจัดสรรห้องพัก", icon: <NoteAltIcon />, path: "/roomallocate/create" },*/
-    { name: "ระบบแจ้งทำความสะอาด", icon: <HomeIcon />, path: "/homecleang" },
-    { name: "แจ้งทำความสะอาด", icon: <CleaningServicesIcon />, path: "/cleaningrequrest" },
-    { name: "สร้างการแจ้งทำความสะอาด", icon: <CleaningServicesIcon />, path: "/cleaningrequrest/create" },
+    { name: "ระบบแจ้งทำความสะอาด", icon: <CleaningServicesIcon />, path: "/homecleang" },
+    { name: "แจ้งทำความสะอาด", icon: <EventNoteIcon />, path: "/cleaningrequrest" },
+    { name: "สร้างการแจ้งทำความสะอาด", icon: <AddBusinessIcon />, path: "/cleaningrequrest/create" },
   ]
 
   const signout = () => {
