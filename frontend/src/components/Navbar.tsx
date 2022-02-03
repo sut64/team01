@@ -198,7 +198,7 @@ function Navbar() {
     { name: "ระบบการจัดสรรห้องพัก", icon: <RoomPreferencesIcon />, path: "/home_roomallocate" },
    /* { name: "บันทึกการจัดสรรหอพัก", icon: <BedroomChildIcon />, path: "/roomallocate" },
     { name: "สร้างบันทึกการจัดสรรห้องพัก", icon: <NoteAltIcon />, path: "/roomallocate/create" },*/
-    { name: "ระบบแจ้งทำความสะอาดห้องพัก", icon: <HomeIcon />, path: "/homecleang" },
+    { name: "ระบบแจ้งทำความสะอาดห้องพัก", icon: <CleaningServicesIcon />, path: "/homecleang" },
    /* { name: "บันทึกรายการพัสดุ", icon: <CleaningServicesIcon />, path: "/cleaningrequrest" },
     { name: "สร้างบันทึกรายการพัสดุ", icon: <CleaningServicesIcon />, path: "/cleaningrequrest/create" },*/
     { name: "ระบบการบันทึกการชำระเงิน", icon: <LocalAtmIcon />, path: "/home_bill" },
