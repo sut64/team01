@@ -60,6 +60,7 @@ import MeterRecord from "./components/MeterRecord";
 import MeterRecordCreate from "./components/MeterRecordCreate";
 import FurnitureRequest from "./components/FurnitureRequest";
 import FurnitureRequestCreate from "./components/FurnitureRequestCreate";
+import HomeFurnitureRequest from "./components/HomeFurnitureRequest";
 import RepairRequestCreate from "./components/RepairRequestCreate";
 import RepairRequest from "./components/RepairRequest";
 import HomeRepair from "./components/HomeRepair";
@@ -183,6 +184,7 @@ export default function MiniDrawer() {
               <Route  path="/bill/create" element={<BillCreate/>}/>
               <Route  path="/meterrecord/create" element = {<MeterRecordCreate/>}/>
               <Route  path="/meterrecord" element = {<MeterRecord/>}/>
+              <Route path="/home_furniturerequest" element={<HomeFurnitureRequest/>} />
               <Route  path="/furniturerequest" element={<FurnitureRequest/>} />
               <Route  path="/furniturerequest/create" element={<FurnitureRequestCreate/>}/>
               <Route path="/home_repairrequest" element={<HomeRepair/>} />

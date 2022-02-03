@@ -13,6 +13,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { FurnitureRequestInterface } from "../models/IFurnitureRequest";
+import NavbarFurnitureRequest from "./NavbarFurnitureRequest";
  
 import moment from 'moment';
  
@@ -54,6 +55,7 @@ function FurnitureRequest() {
  
  return (
    <div>
+     <NavbarFurnitureRequest/>
      <Container className={classes.container} maxWidth="md">
        <Box display="flex">
          <Box flexGrow={1}>

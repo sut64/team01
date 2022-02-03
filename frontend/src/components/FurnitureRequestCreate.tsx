@@ -14,6 +14,7 @@ import Divider from "@material-ui/core/Divider";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 
+
 import {MuiPickersUtilsProvider,KeyboardDatePicker,} from "@material-ui/pickers";
 import Select from "@material-ui/core/Select";
 import DateFnsUtils from "@date-io/date-fns";
@@ -24,7 +25,7 @@ import { DormAttenInterface } from "../models/IDormAtten";
 import { DormInventoryInterface } from "../models/IDormInventory";
 import { RoomAllocateInterface } from "../models/IRoomAllocate";
 import { FurnitureRequestInterface } from "../models/IFurnitureRequest";
-
+import NavbarFurnitureRequest from "./NavbarFurnitureRequest";
  
 function Alert(props: AlertProps) {
  return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -102,6 +103,7 @@ function FurnitureRequestCreate() {
     fetch(`${apiUrl}/route/GetDormAtten/${uid}`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
+        furniturerequest.DormAttenID = res.data.ID
         if (res.data) {
         setDormAttens(res.data);
         } else {
@@ -134,7 +136,6 @@ const getRoomAllocate = async () => {
 };
 
 useEffect(() => {
-
     getDormAtten();
     getDormInventory();
     getRoomAllocate();
@@ -148,8 +149,7 @@ const convertType = (data: string | number | undefined) => {
 
  function submit() {
    let data = {
-    
-     DormAttenID: convertType(furniturerequest.DormAttenID),
+     DormAttenID: convertType(dormattens?.ID),
      DormInventoryID: convertType(furniturerequest.DormInventoryID),
      FurAmount:   convertType(furniturerequest.FurAmount),
      RoomAllocateID: convertType(furniturerequest.RoomAllocateID),
@@ -180,6 +180,8 @@ const convertType = (data: string | number | undefined) => {
  }
  
  return (
+  <div>
+    <NavbarFurnitureRequest/>
    <Container className={classes.container} maxWidth="md">
      <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
        <Alert onClose={handleClose} severity="success">
@@ -207,20 +209,24 @@ const convertType = (data: string | number | undefined) => {
        </Box>
        <Divider />
        <Grid container spacing={3} className={classes.root}>
-         <Grid item xs={6} className={classes.font}>
-         <p>ชื่อผู้บันทึก</p>
+         <Grid item xs={12} className={classes.font}>
+           <p>ชื่อผู้บันทึก</p>
            <FormControl fullWidth variant="outlined">
               <Select
-                //className={classes.fontIn}
+                className={classes.fontIn}
                 native
                 disabled
                 value={furniturerequest.DormAttenID}
-                
               >
                 <option aria-label="None" value="">
                   {dormattens?.FirstName} {dormattens?.LastName}
                 </option>
-                
+                {/*
+                {dormattens.map((item: DormAttenInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.FirstName} {item.LastName}
+                  </option>
+                ))}*/}
               </Select>
             </FormControl>
          </Grid>
@@ -264,25 +270,29 @@ const convertType = (data: string | number | undefined) => {
         </Grid>
         <Grid item xs={6} className={classes.font}>
          <p>ชื่อผู้พักอาศัยที่ยืมครุภัณฑ์</p>
-           <FormControl fullWidth variant="outlined">
+         <FormControl fullWidth variant="outlined" className={classes.font}>
               <Select
+                className={classes.fontIn}
+                native
                 value={furniturerequest.RoomAllocateID}
-                
+                onChange={handleChange}
+                inputProps={{
+                  name: "RoomAllocateID",
+                }}
               >
                 <option aria-label="None" value="">
-                  
-                  {roomallocates.map((item: RoomAllocateInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Number} {item.DormTenant_FirstName} {item.DormTenant_LastName} 
-                  </option>
-                    ))}
+                  กรุณาเลือกผู้รับ
                 </option>
-                
+                {roomallocates.map((item: RoomAllocateInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.DormTenant_FirstName} {item.DormTenant_LastName} 
+                  </option>
+                ))}
               </Select>
             </FormControl>
          </Grid>
          <Grid item xs={6}>
-           <FormControl fullWidth variant="outlined" className={classes.font}>
+         <FormControl fullWidth variant="outlined" className={classes.font}>
              <p>เบอร์ติดต่อ</p>
              <TextField
                InputProps={{
@@ -290,8 +300,8 @@ const convertType = (data: string | number | undefined) => {
                   input: classes.fontIn,
                 },
               }}
-               placeholder="กรุณากรอกเบอร์โทรศัพท์ 10 หลัก"
-               id="Tel"
+               placeholder="หมายเลขโทรศัพท์ 10 หมายเลข"
+               id="PhoneNo"
                variant="outlined"
                type="string"
                size="medium"
@@ -323,7 +333,7 @@ const convertType = (data: string | number | undefined) => {
                 </FormControl>
              </Grid>
             <Grid item xs={12}>
-                <Button component={RouterLink} to="/cleaningrequrest" variant="contained" className={classes.font}>
+                <Button component={RouterLink} to="/furniturerequest" variant="contained" className={classes.font}>
                 กลับ
                 </Button>
                 <Button
@@ -339,6 +349,7 @@ const convertType = (data: string | number | undefined) => {
         </Grid>
      </Paper>
    </Container>
+   </div>
  );
 }
 export default FurnitureRequestCreate;

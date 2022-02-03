@@ -84,7 +84,7 @@ import { List } from "@material-ui/core";
 import { DormAttenInterface } from "../models/IDormAtten";
 import { fontSize } from "@mui/system";
 import CarpenterIcon from '@mui/icons-material/Carpenter';
-
+import ChairIcon from '@mui/icons-material/Chair';
 
 const drawerWidth = 240;
 
@@ -198,13 +198,17 @@ function Navbar() {
     { name: "ระบบการจัดสรรห้องพัก", icon: <RoomPreferencesIcon />, path: "/home_roomallocate" },
    /* { name: "บันทึกการจัดสรรหอพัก", icon: <BedroomChildIcon />, path: "/roomallocate" },
     { name: "สร้างบันทึกการจัดสรรห้องพัก", icon: <NoteAltIcon />, path: "/roomallocate/create" },*/
-    { name: "ระบบแจ้งทำความสะอาดห้องพัก", icon: <CleaningServicesIcon />, path: "/homecleang" },
+    { name: "ระบบแจ้งทำความสะอาดห้องพัก", icon: <HomeIcon />, path: "/homecleang" },
    /* { name: "บันทึกรายการพัสดุ", icon: <CleaningServicesIcon />, path: "/cleaningrequrest" },
     { name: "สร้างบันทึกรายการพัสดุ", icon: <CleaningServicesIcon />, path: "/cleaningrequrest/create" },*/
     { name: "ระบบการบันทึกการชำระเงิน", icon: <LocalAtmIcon />, path: "/home_bill" },
     /*{ name: "บันทึกการชำระเงิน", icon: <PaymentsIcon />, path: "/bill" },
     { name: "สร้างบันทึกการชำระเงิน", icon: <PointOfSaleIcon />, path: "/bill/create" },*/
     { name: "ระบบแจ้งซ่อม", icon: < CarpenterIcon />, path: "/home_repairrequest" },
+    /*{ name: "บันทึกการยืมครุภัณฑ์", icon: <PaymentsIcon />, path: "/bill" },
+    { name: "สร้างบันทึกการยืมครุภัณฑ์", icon: <PointOfSaleIcon />, path: "/bill/create" },*/
+    { name: "ระบบยืมครุภัณฑ์", icon: < ChairIcon />, path: "/home_furniturerequest" },
+
     
   ];
 

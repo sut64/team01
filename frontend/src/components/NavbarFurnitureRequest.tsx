@@ -27,6 +27,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
 import ChairIcon from '@mui/icons-material/Chair';
+import ChairAltIcon from '@mui/icons-material/ChairAlt';
 
 import Divider from "@material-ui/core/Divider";
 import { List } from "@material-ui/core";
@@ -148,6 +149,7 @@ function NavbarFurnitureRequest() {
     { name: "ระบบแจ้งทำความสะอาด", icon: <HomeIcon />, path: "/homecleang" },
     { name: "แจ้งทำความสะอาด", icon: <CleaningServicesIcon />, path: "/cleaningrequrest" },
     { name: "สร้างการแจ้งทำความสะอาด", icon: <CleaningServicesIcon />, path: "/cleaningrequrest/create" },*/
+    { name: "ระบบยืมครุภัณฑ์", icon: < ChairAltIcon />, path: "/home_furniturerequest" },
     { name: "บันทึกการยืมครุภัณฑ์", icon: <ChairIcon />, path: "/furniturerequest" },
     { name: "สร้างบันทึกการยืมครุภัณฑ์", icon: <ChairIcon />, path: "/furniturerequest/create" },
   ]
