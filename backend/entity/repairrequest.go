@@ -48,10 +48,10 @@ import (
 
 type RepairRequest struct {
 	gorm.Model
-	TelNumber       string     `valid:"matches(^[0]\\d{9}$)"`
+	TelNumber       string      `valid:"matches(^[0]\\d{9}$)"`
 
-	RecordDate      time.Time   `valid:"future~Must be correct"`
- 	EntryPermission *bool        `valid:"required~Must be correct"`
+	RecordDate      time.Time   `valid:"future~Must be correct" ` 
+ 	EntryPermission *bool       `valid:"required~entry"`
 	RequestDate     time.Time   `valid:"-"`
 
   	RoomAllocateID *uint

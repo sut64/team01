@@ -7,6 +7,6 @@ import (
 type RepairType struct {
 	gorm.Model
 	TypeName       string
-	Cost           int
+	Cost           float64
 	RepairRequests []RepairRequest `gorm:"foreignKey:RepairTypeID"`
 }
