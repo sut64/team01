@@ -554,4 +554,45 @@ func SetupDatabase() {
 	}
 	db.Model(&DormInventory{}).Create(&DormInventory3)
 
+
+	//---------repairType--------------------
+
+	Normal := RepairType{
+		TypeName: "ปกติ",
+		Cost: 250.00,
+	}
+	db.Model(&RepairType{}).Create(&Normal)
+
+	Urgen := RepairType{
+		TypeName: "ด่วน",
+		Cost: 500.00,
+	}
+	db.Model(&RepairType{}).Create(&Urgen)
+
+
+	//--------RepairRequest-------------------
+
+	repair1 := RepairRequest{
+		DormTenant: dorm_tenant1,
+		RecordDate: time.Now(),
+		EntryPermission:  &v,
+		RequestDate: time.Now(),
+		TelNumber: "0879456123" ,
+		RepairType: Urgen,
+		DormInventory: DormInventory2,
+		RoomAllocate: roomallocate1,
+	}
+	db.Model(&RepairRequest{}).Create(&repair1)
+
+	repair2 := RepairRequest{
+		DormTenant: dorm_tenant2,
+		RecordDate: time.Now(),
+		EntryPermission:  &v,
+		RequestDate: time.Now(),
+		TelNumber: "0879456123" ,
+		RepairType: Normal,
+		DormInventory: DormInventory1,
+		RoomAllocate: roomallocate2,
+	}
+	db.Model(&RepairRequest{}).Create(&repair2)
 }

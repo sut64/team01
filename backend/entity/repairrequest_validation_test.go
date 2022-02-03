@@ -51,8 +51,8 @@ func TestRecordDateMustBeFuture(t *testing.T) {
 	g := NewGomegaWithT(t)
 	ff := false
 	rr :=RepairRequest{
-		RecordDate: time.Now().Add( 24 - time.Hour),
-	EntryPermission:  &ff,
+		RecordDate: time.Now().Add( 24-  time.Hour),
+		EntryPermission:  &ff,
 		TelNumber:       "0800485123",
 
 	}
@@ -97,5 +97,5 @@ func TestEntryPermissionNotBlank(t *testing.T) {
 	g.Expect(err).ToNot(BeNil())
 
 	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("Must be correct"))
+	g.Expect(err.Error()).To(Equal("entry"))
 } 
