@@ -21,8 +21,10 @@ import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 
 import { DormAttenInterface } from "../models/IDormAtten";
 import { RoomAllocateInterface } from "../models/IRoomAllocate";
+import { RoomInterface } from "../models/IRoom";
 import { MeterRecordInterface } from "../models/IMeterRecord";
-//import { CleaningrequrestInterface } from "../models/ICleaningrequrest";
+import { RepairRequestinterface } from "../models/IRepairRequest";
+import { CleaningrequrestInterface } from "../models/ICleaningrequrest";
 import { BillInterface } from "../models/IBill";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
@@ -33,6 +35,7 @@ import {
   KeyboardDateTimePicker,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import { ListItemIcon } from "@material-ui/core";
 
 const Alert = (props: AlertProps) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -60,17 +63,21 @@ function BillCreate() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [dormattens, setDormAttens] = React.useState<DormAttenInterface>();
   const [RoomAllocates, setRoomAllocates] = useState<RoomAllocateInterface[]>([]); 
+  const [rooms, setRooms] = useState<RoomInterface[]>([]);
   const [MeterRecords, setMeterRecords] = useState<MeterRecordInterface[]>([]);
-  //const [Cleaningrequrests, setCleaningrequrests] = useState<CleaningrequrestInterface[]>([]);
+  const [RepairRequests, setRepairRequests] = useState<RepairRequestinterface[]>([]);
+  const [Cleaningrequrests, setCleaningrequrests] = useState<CleaningrequrestInterface[]>([]);
+  const [Bills, setBills] = useState<BillInterface[]>([]);
   const [bill, setBill] = useState<Partial<BillInterface>>(
     {}
   );
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   
   const [state, setState] = useState({
-    PayByCash: true,
+    PayByCash: false,
   });
 
   const apiUrl = "http://localhost:8080";
@@ -117,6 +124,19 @@ function BillCreate() {
   };
 
   // get ต่างๆ ======================================================
+  const getBills = async () => {
+    const uid = Number(localStorage.getItem("uid"));
+    fetch(`${apiUrl}/route/ListBills`, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.data) {
+          setBills(res.data);
+        } else {
+          console.log("else");
+        }
+      });
+  };
+
   const getDormAtten = async () => {
     const uid = Number(localStorage.getItem("uid"));
     fetch(`${apiUrl}/route/GetDormAtten/${uid}`, requestOptions)
@@ -143,6 +163,20 @@ function BillCreate() {
       });
   };
 
+  const getRooms = async () => {
+    let uid = localStorage.getItem("uid");
+    fetch(`${apiUrl}/route/ListRooms`, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        bill.RoomID = res.data.ID
+        if (res.data) {
+          setRooms(res.data);
+        } else {
+          console.log("else");
+        }
+      });
+  };
+
   const getMeterRecords = async () => {
     let uid = localStorage.getItem("uid");
     fetch(`${apiUrl}/route/ListMeterRecords`, requestOptions)
@@ -155,11 +189,41 @@ function BillCreate() {
         }
       });
   };
+
+  const getRepairRequests = async () => {
+    let uid = localStorage.getItem("uid");
+    fetch(`${apiUrl}/route/ListRepairRequest`, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.data) {
+          setRepairRequests(res.data);
+        } else {
+          console.log("else");
+        }
+      });
+  };
+
+  const getCleaningrequrests = async () => {
+    let uid = localStorage.getItem("uid");
+    fetch(`${apiUrl}/route/ListCleaningrequrest`, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.data) {
+          setCleaningrequrests(res.data);
+        } else {
+          console.log("else");
+        }
+      });
+  };
   
   useEffect(() => {
     getDormAtten();
     getRoomAllocates();
+    getRooms();
     getMeterRecords();
+    getRepairRequests();
+    getCleaningrequrests();
+    getBills();
   }, []);
 
   const convertType = (data: string | number | undefined | boolean) => {
@@ -172,8 +236,10 @@ function BillCreate() {
       BillDateTime : selectedDate,
       DormAttenID: convertType(dormattens?.ID),
       RoomAllocateID: convertType(bill.RoomAllocateID),
+      RoomID: convertType(bill.RoomID),
       MeterRecordID: convertType(bill.MeterRecordID),
-      //CleaningrequrestID: convertType(bill.CleaningrequrestID),
+      RepairRequestID: convertType(bill.RepairRequestID),
+      CleaningrequrestID: convertType(bill.CleaningrequrestID),
       PayByCash: bill.PayByCash,
       AmountPaid: convertType(bill.AmountPaid),
     };
@@ -192,9 +258,13 @@ function BillCreate() {
      .then((response) => response.json())
      .then((res) => {
        if (res.data) {
+         console.log("บันทึกได้")
          setSuccess(true);
+         setErrorMessage("")
        } else {
+         console.log("บันทึกไม่ได้")
          setError(true);
+         setErrorMessage(res.error)
        }
      });
  }
@@ -209,7 +279,7 @@ function BillCreate() {
       </Snackbar>
       <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">
-          บันทึกข้อมูลไม่สำเร็จ
+          บันทึกข้อมูลไม่สำเร็จ: {errorMessage}
         </Alert>
       </Snackbar>
       <Paper className={classes.paper}>
@@ -227,8 +297,9 @@ function BillCreate() {
           </Box>
         </Box>
         <Divider />
+
         <Grid container spacing={3} className={classes.root}>
-          <Grid item xs={12} className={classes.font}>
+          <Grid item xs={6} className={classes.font}>
            <p>ชื่อผู้บันทึก</p>
            <FormControl fullWidth variant="outlined">
               <Select
@@ -236,23 +307,14 @@ function BillCreate() {
                 native
                 disabled
                 value={bill.DormAttenID}
-                /*onChange={handleChange}
-                inputProps={{
-                  name: "DormAttenID",
-                }}*/
               >
                 <option aria-label="None" value="">
                   {dormattens?.FirstName} {dormattens?.LastName}
                 </option>
-                {/*
-                {dormattens.map((item: DormAttenInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.FirstName} {item.LastName}
-                  </option>
-                ))}*/}
               </Select>
             </FormControl>
           </Grid>
+
           <Grid item xs={6} className={classes.font}>
             <FormControl fullWidth variant="outlined">
               <p>หมายเลขห้อง</p>
@@ -269,9 +331,9 @@ function BillCreate() {
                   กรุณาเลือกหมายเลขห้อง
                 </option>
                 {RoomAllocates.map((item: RoomAllocateInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                   {item.Number}
-                  </option>
+                  (6 != item.ID)?(<option value={item.ID} key={item.ID}>
+                    {item.Number}
+                  </option>):""
                 ))}
               </Select>
             </FormControl>
@@ -280,27 +342,29 @@ function BillCreate() {
 
           <Grid item xs={6} className={classes.font}>
             <FormControl fullWidth variant="outlined">
-            <p>ใบบันทึกห้องพัก(ราคา)</p>
+            <p>ห้อง(ราคา)</p>
               <Select
                 className={classes.fontIn}
                 native
-                value={bill.RoomAllocateID}
+                value={bill.RoomID}
                 onChange={handleChange}
                 inputProps={{
-                  name: "RoomAllocateID",
+                  name: "RoomID",
                 }}
               >
                 <option aria-label="None" value="">
-                  กรุณาเลือกใบบันทึกห้องพัก(ราคา)
+                  กรุณาเลือกห้อง(ราคา)
                 </option>
-                {RoomAllocates.map((item: RoomAllocateInterface) => (
-                  (bill["RoomAllocateID"] == item.ID)?(<option value={item.ID} key={item.ID}>  {/*ผิด แน่ๆ แต่ยังแก้ไม่ได้*/}
-                    {item.ID} ({item.Room.Roomtypes.Price})
+                {rooms.map((item: RoomInterface) => (
+                  (RoomAllocates[(bill.RoomAllocateID == undefined ? 1 : bill.RoomAllocateID)-1].RoomID  == item.ID && bill.RoomAllocateID != undefined) || 21 == item.ID?
+                (<option value={item.ID} key={item.ID}>
+                    {item.ID} ({item.Roomtypes.Price})
                   </option>):""
                 ))}
               </Select>
             </FormControl>
           </Grid>
+
           <Grid item xs={6} className={classes.font}>
             <FormControl fullWidth variant="outlined">
             <p>ใบบันทึกน้ำ-ไฟ(ราคา)</p>
@@ -317,13 +381,62 @@ function BillCreate() {
                   กรุณาเลือกใบบันทึกน้ำ-ไฟ(ราคา)
                 </option>
                 {MeterRecords.map((item: MeterRecordInterface) => (
-                  (bill["RoomAllocateID"] == item.RoomAllocateID)?(<option value={item.ID} key={item.ID}>
+                  (bill["RoomAllocateID"] == item.RoomAllocateID && !Bills.find(({MeterRecordID})=>(MeterRecordID == item.ID)) || 1 == item.ID)?(<option value={item.ID} key={item.ID}>
                     {item.ID} ({item.Sum})
                   </option>):""
                 ))}
               </Select>
             </FormControl>
           </Grid>
+
+          <Grid item xs={6} className={classes.font}>
+            <FormControl fullWidth variant="outlined">
+            <p>ใบบันทึกซ่อมบำรุง(ราคา)</p>
+              <Select
+                className={classes.fontIn}
+                native
+                value={bill.RepairRequestID}
+                onChange={handleChange}
+                inputProps={{
+                  name: "RepairRequestID",
+                }}
+              >
+                <option aria-label="None" value="">
+                  กรุณาเลือกใบบันทึกซ่อมบำรุง(ราคา)
+                </option>
+                {RepairRequests.map((item: RepairRequestinterface) => (
+                  (bill["RoomAllocateID"] == item.RoomAllocateID && !Bills.find(({RepairRequestID})=>(RepairRequestID == item.ID)) || 1 == item.ID)?(<option value={item.ID} key={item.ID}>
+                    {item.ID} ({item.RepairType.Cost})
+                  </option>):""
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={6} className={classes.font}>
+            <FormControl fullWidth variant="outlined">
+            <p>ใบบันทึกทำความสะอาด(ราคา)</p>
+              <Select
+                className={classes.fontIn}
+                native
+                value={bill.CleaningrequrestID}
+                onChange={handleChange}
+                inputProps={{
+                  name: "CleaningrequrestID",
+                }}
+              >
+                <option aria-label="None" value="">
+                  กรุณาเลือกใบบันทึกทำความสะอาด(ราคา)
+                </option>
+                {Cleaningrequrests.map((item: CleaningrequrestInterface) => (
+                  (bill["RoomAllocateID"] == item.RoomAllocateID && !Bills.find(({CleaningrequrestID})=>(CleaningrequrestID == item.ID)) || 1 == item.ID)?(<option value={item.ID} key={item.ID}>
+                    {item.ID} ({item.Cleaningtype.Price})
+                  </option>):""
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          
           <Grid item xs={3} className={classes.font}>
             <p>จ่ายด้วยเงินสดหรือไม่</p>
           </Grid>

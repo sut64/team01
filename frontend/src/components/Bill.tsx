@@ -110,6 +110,12 @@ function Bills() {
                 <TableCell align="center" width="10%" className={classes.font}>
                   ค่าน้ำ-ไฟ
                 </TableCell>
+                <TableCell align="center" width="10%" className={classes.font}>
+                  ค่าซ่อมบำรุง
+                </TableCell>
+                <TableCell align="center" width="10%" className={classes.font}>
+                  ค่าทำความสะอาด
+                </TableCell>
                 <TableCell align="center" width="15%" className={classes.font}>
                   ช่องทางการชำระ
                 </TableCell>
@@ -124,9 +130,11 @@ function Bills() {
                   <TableCell align="center" className={classes.font}>{item.ID}</TableCell>
                   <TableCell align="center" className={classes.font}>{format((new Date(item.BillDateTime)), 'dd MMMM yyyy hh:mm a')}</TableCell>
                   <TableCell align="center" className={classes.font}>{item.DormAtten.FirstName} {item.DormAtten.LastName}</TableCell>
-                  <TableCell align="center" className={classes.font}>{item.RoomNumber}</TableCell>
-                  <TableCell align="center" className={classes.font}>{item.RoomAllocate.Room.Roomtypes.Price}</TableCell>
+                  <TableCell align="center" className={classes.font}>{item.RoomAllocate.Number}</TableCell>
+                  <TableCell align="center" className={classes.font}>{item.Room.Roomtypes.Price}</TableCell>
                   <TableCell align="center" className={classes.font}>{item.MeterRecord.Sum}</TableCell>
+                  <TableCell align="center" className={classes.font}>{item.RepairRequest.RepairType.Cost}</TableCell>
+                  <TableCell align="center" className={classes.font}>{item.Cleaningrequrest.Cleaningtype.Price}</TableCell>
                   <TableCell align="center" className={classes.font}>{item.PayByCash? "เงินสด":"ช่องทางอื่นๆ"}</TableCell>
                   <TableCell align="center" className={classes.font}>{item.AmountPaid}</TableCell>
                 </TableRow>
