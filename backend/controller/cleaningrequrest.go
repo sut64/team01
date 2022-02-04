@@ -9,7 +9,7 @@ import (
 	"github.com/sut64/team01/entity"
 )
 
-// POST /cleaningrequrest
+// POST /cleaningrequrest 01
 func CreateCleaningrequrest(c *gin.Context) {
 
 	var cleaningrequrest entity.Cleaningrequrest
