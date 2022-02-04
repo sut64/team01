@@ -1,5 +1,5 @@
 export interface RoomTypesInterface {
-   ID : string
+   ID : number
    Name : string
    Price : number
 }
