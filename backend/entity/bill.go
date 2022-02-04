@@ -9,20 +9,27 @@ import (
 
 type Bill struct {
 	gorm.Model
-	BillDateTime time.Time //`valid:"past~BillDateTime: does not validate as past"`
+	BillDateTime time.Time `valid:"past~BillDateTime: must be in the past"` //มีการ validation
+	PayByCash    *bool     //`valid:"required~PayByCash: cannot be blank"`    //มีการ validation
+	AmountPaid   float64   //`valid:"customPositiveAmountPaid"`               //มีการ validation
 
 	DormAttenID *uint
 	DormAtten   DormAtten `gorm:"references:id" valid:"-"`
 
 	RoomAllocateID *uint
-	RoomNumber     string       //`gorm:"uniqueIndex"`
 	RoomAllocate   RoomAllocate `gorm:"references:id" valid:"-"`
 
-	MeterRecordID *uint `gorm:"uniqueIndex"`
-	MeterRecord   MeterRecord
+	RoomID *uint
+	Room   Room `gorm:"references:id" valid:"-"`
 
-	PayByCash  *bool
-	AmountPaid float64 //`valid:"customPositiveAmount,required~Amount: non zero vaue required"`
+	MeterRecordID *uint
+	MeterRecord   MeterRecord `gorm:"references:id" valid:"-"`
+
+	RepairRequestID *uint
+	RepairRequest   RepairRequest `gorm:"references:id" valid:"-"`
+
+	CleaningrequrestID *uint
+	Cleaningrequrest   Cleaningrequrest `gorm:"references:id" valid:"-"`
 }
 
 func init() {
@@ -31,8 +38,8 @@ func init() {
 		return t.Before(time.Now())
 	})
 
-	govalidator.CustomTypeTagMap.Set("customPositiveAmount", func(i interface{}, context interface{}) bool {
-		return i.(float64) > 0
+	govalidator.CustomTypeTagMap.Set("customPositiveAmountPaid", func(i interface{}, context interface{}) bool {
+		return i.(float64) >= 0.00
 	})
 
 }
