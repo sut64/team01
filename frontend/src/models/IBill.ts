@@ -1,7 +1,10 @@
 import { DormAttenInterface } from "./IDormAtten";
 import { RoomAllocateInterface } from "./IRoomAllocate";
+import { RoomInterface } from "./IRoom";
 import { MeterRecordInterface } from "./IMeterRecord";
-//bye
+import { RepairRequestinterface } from "./IRepairRequest";
+import { CleaningrequrestInterface } from "./ICleaningrequrest";
+
 export interface BillInterface {
     ID: number,
     BillDateTime: Date,
@@ -11,10 +14,18 @@ export interface BillInterface {
 
     RoomAllocateID: number,
     RoomAllocate:   RoomAllocateInterface,
-    RoomNumber:     string,
+
+    RoomID: number,
+	Room: RoomInterface,
 
     MeterRecordID: number,
 	MeterRecord:   MeterRecordInterface,
+
+    RepairRequestID: number,
+	RepairRequest:   RepairRequestinterface,
+
+    CleaningrequrestID: number,
+	Cleaningrequrest:   CleaningrequrestInterface,
 
     PayByCash:  boolean,
 	AmountPaid: number,
