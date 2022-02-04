@@ -3,11 +3,13 @@ package controller
 import (
 	"net/http"
 
+	"github.com/asaskevich/govalidator"
+
 	"github.com/gin-gonic/gin"
 	"github.com/sut64/team01/entity"
 )
 
-// POST /cleaningrequrest
+// POST /cleaningrequrest 01
 func CreateCleaningrequrest(c *gin.Context) {
 
 	var cleaningrequrest entity.Cleaningrequrest
@@ -48,6 +50,12 @@ func CreateCleaningrequrest(c *gin.Context) {
 		Day:  cleaningrequrest.Day.Local(),
 		Tel:  cleaningrequrest.Tel,
 		Note: cleaningrequrest.Note,
+	}
+
+	// แทรกการ validate ไว้ช่วงนี้ของ controller
+	if _, err := govalidator.ValidateStruct(cr); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	// 13: บันทึก
