@@ -8,7 +8,7 @@ import (
 type Cleaningtype struct {
 	gorm.Model
 	Type  string
-	Price float32
+	Price float64
 
 	Cleaningrequrests []Cleaningrequrest `gorm:"foreignKey:CleaningtypeID"`
 }

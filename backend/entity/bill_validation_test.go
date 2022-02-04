@@ -53,7 +53,7 @@ func TestBillDateTimeMustBePast(t *testing.T) {
 	g.Expect(err).ToNot(BeNil())
 
 	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("BillDateTime: does not validate as past"))
+	g.Expect(err.Error()).To(Equal("BillDateTime: must be in the past"))
 }
 
 func CheckBool(t *bool) (bool, error) {
@@ -64,9 +64,9 @@ func CheckBool(t *bool) (bool, error) {
 	}
 }
 
-/*
 // ตรวจสอบค่าจ่ายด้วยเงินสดเป็น Null ต้องเจอ Error
 // จ่ายด้วยเงินสดต้องไม่เป็น Null
+/*
 func TestBillPayByCashNotNull(t *testing.T) {
 	g := NewGomegaWithT(t)
 
@@ -87,28 +87,36 @@ func TestBillPayByCashNotNull(t *testing.T) {
 	// err.Error ต้องมี error message แสดงออกมา
 	g.Expect(err.Error()).To(Equal("PayByCash: cannot be blank"))
 }
-*/
+
 // ตรวจสอบค่าใช้จ่ายรวม น้อยกว่าหรือเท่ากับศูนย์ ต้องเจอ Error
 // ค่าใช้จ่ายรวมต้องไม่น้อยกว่าหรือเท่ากับศูนย์
 func TestBillAmountPaidNotLessThanEqualZero(t *testing.T) {
 	g := NewGomegaWithT(t)
 
-	v := true
-
-	bill := Bill{
-		BillDateTime: time.Now().Add(-24 * time.Hour),
-		PayByCash:    &v,
-		AmountPaid:   0.00, //ผิด
+	fixtures := []float64{
+		-100,
+		-200.00,
 	}
 
-	ok, err := govalidator.ValidateStruct(bill)
+	v := true
 
-	// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
-	g.Expect(ok).ToNot(BeTrue())
+	for _, fixture := range fixtures {
+		bill := Bill{
+			BillDateTime: time.Now().Add(-24 * time.Hour),
+			PayByCash:    &v,
+			AmountPaid:   fixture, //ผิด
+		}
+		ok, err := govalidator.ValidateStruct(bill)
 
-	// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
-	g.Expect(err).ToNot(BeNil())
+		// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
+		g.Expect(ok).ToNot(BeTrue())
 
-	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal(fmt.Sprintf("Amount: non zero vaue required")))
-}
+		// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
+		g.Expect(err).ToNot(BeNil())
+
+		// err.Error ต้องมี error message แสดงออกมา
+		result := fmt.Sprintf("AmountPaid: %v does not validate as customPositiveAmountPaid", fixture)
+		g.Expect(err.Error()).To(Equal(result))
+
+	}
+}*/

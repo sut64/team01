@@ -2,6 +2,7 @@ package entity
 
 import (
 	"time"
+
 	"github.com/asaskevich/govalidator"
 	"gorm.io/gorm"
 )
@@ -19,7 +20,6 @@ import (
 
 }*/
 
-
 /*type DormInventory struct {
 	gorm.Model
 	FurnitureName string
@@ -31,7 +31,7 @@ import (
 	RepairRequests []RepairRequest `gorm:"foreignKey:DormInventoryID"`
 }
 */
- /* type RoomAllocate struct {
+/* type RoomAllocate struct {
 	gorm.Model
 	FirstName      string
 	LastName       string
@@ -45,26 +45,27 @@ import (
 	DormTenant   DormTenant `gorm:"references:id"`
 } */
 
-
 type RepairRequest struct {
 	gorm.Model
-	TelNumber       string      `valid:"matches(^[0]\\d{9}$)"`
+	TelNumber string `valid:"matches(^[0]\\d{9}$)"`
 
-	RecordDate      time.Time   `valid:"future~Must be correct" ` 
- 	EntryPermission *bool       `valid:"required~entry"`
-	RequestDate     time.Time   `valid:"-"`
+	RecordDate      time.Time //`valid:"future~Must be correct"`
+	EntryPermission *bool     //`valid:"required~entry"`
+	RequestDate     time.Time //`valid:"-"`
 
-  	RoomAllocateID *uint
+	RoomAllocateID *uint
 	RoomAllocate   RoomAllocate `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 
 	DormTenantID *uint
-	DormTenant   DormTenant     `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
+	DormTenant   DormTenant `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 
 	DormInventoryID *uint
 	DormInventory   DormInventory `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 
 	RepairTypeID *uint
 	RepairType   RepairType `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
+
+	Bills []Bill `gorm:"foreignKey:RepairRequestID"`
 }
 
 func init() {
@@ -78,4 +79,3 @@ func init() {
 		return t.After(time.Now())
 	})
 }
-
