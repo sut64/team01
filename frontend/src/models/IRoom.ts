@@ -1,7 +1,7 @@
 import { RoomTypesInterface } from "./IRoomTypes";
 
 export interface RoomInterface {
-    ID : string,
+    ID : number,
     Number : string,
 
     RoomtypesID : number,
