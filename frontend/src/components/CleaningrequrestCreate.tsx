@@ -14,7 +14,7 @@ import Divider from "@material-ui/core/Divider";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 
-import {MuiPickersUtilsProvider,KeyboardDatePicker,} from "@material-ui/pickers";
+import {MuiPickersUtilsProvider,KeyboardDatePicker, KeyboardDateTimePicker,} from "@material-ui/pickers";
 import Select from "@material-ui/core/Select";
 import DateFnsUtils from "@date-io/date-fns";
 import "../App.css";
@@ -57,6 +57,7 @@ function CleaningrequrestCreate() {
 
  const [success, setSuccess] = React.useState(false);
  const [error, setError] = React.useState(false);
+ const [errorMessage, setErrorMำssage] = React.useState("");
  
  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
    if (reason === "clickaway") {
@@ -151,7 +152,7 @@ const convertType = (data: string | number | undefined) => {
      RoomAllocateID: convertType(cleaningrequrest.RoomAllocateID),
      CleaningtypeID: convertType(cleaningrequrest.CleaningtypeID),
      TimerequrestID: convertType(cleaningrequrest.TimerequrestID),
-     RecordTime: selectedDate,
+     Day: selectedDate,
      Tel:cleaningrequrest.Tel ?? "",
      Note:cleaningrequrest.Note ?? "",
      
@@ -168,16 +169,21 @@ const convertType = (data: string | number | undefined) => {
     body: JSON.stringify(data),
   };
  
-   fetch(apiUrl, requestOptions)
-     .then((response) => response.json())
-     .then((res) => {
-       if (res.data) {
-         setSuccess(true);
-       } else {
-         setError(true);
-       }
-     });
- }
+ 
+  fetch(apiUrl, requestOptions)
+  .then((response) => response.json())
+  .then((res) => {
+    if (res.data) {
+      console.log("บันทึกได้")
+      setSuccess(true);
+      //setErrorMำssage("")
+    } else {
+      console.log("บันทึกไม่ได้")
+      setError(true);
+      setErrorMำssage(res.error)
+    }
+  });
+}
  
  return (
    <Container className={classes.container} maxWidth="md">
@@ -189,7 +195,7 @@ const convertType = (data: string | number | undefined) => {
      </Snackbar>
      <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
        <Alert onClose={handleClose} severity="error">
-         บันทึกข้อมูลไม่สำเร็จ
+         บันทึกข้อมูลไม่สำเร็จ: {errorMessage}
        </Alert>
      </Snackbar>
      <Paper className={classes.paper}>
@@ -281,27 +287,25 @@ const convertType = (data: string | number | undefined) => {
 
  {/***************************************************************** */}
  <Grid item xs={6}>
-   <FormControl fullWidth variant="outlined" className={classes.font}>
-     <p>วันที่ต้องการทำความสะอาด</p>
-     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-       <KeyboardDatePicker
-         InputProps={{
-          classes: {
-            input: classes.fontIn,
-          },
-        }}
-         margin="normal"
-         id="Day"
-         format="yyyy-MM-dd"
-         value={selectedDate}
-         onChange={handleDateChange}
-         KeyboardButtonProps={{
-           "aria-label": "change date",
-         }}
-       />
-     </MuiPickersUtilsProvider>
-   </FormControl>
-   </Grid>
+            <FormControl fullWidth variant="outlined" className={classes.font}>
+              <p>วันที่และเวลา</p>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  InputProps={{
+                    classes: {
+                      input: classes.fontIn,
+                    },
+                  }}
+                  name="Day"
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                  label=""
+                  
+                  format="yyyy/MM/dd"
+                />
+              </MuiPickersUtilsProvider>
+            </FormControl>
+          </Grid>
           <Grid item xs={6}>
            <FormControl fullWidth variant="outlined" className={classes.font}>
              <p>เบอร์ติดต่อ</p>
