@@ -19,11 +19,11 @@ func TestTelNumberMustBeInValidPattern(t *testing.T) {
 		"028789999",  //ขึ้นต้นด้วย 0  \d 8 ตัว
 	}
 	for _, fixture := range fixtures {
-		tt:= true
+		ff := true
 		user := RepairRequest{
 		
-			RecordDate:      time.Now().Add( 24 *time.Hour),
-			EntryPermission: &tt,
+			RecordDate:      time.Now().Add( 24 -time.Hour),
+			EntryPermission: &ff,
 			TelNumber:        fixture,
 			//RequestDate:     time.Now(),
 			//RoomAllocate:    RoomAllocate{},
@@ -51,7 +51,7 @@ func TestRecordDateMustBeFuture(t *testing.T) {
 	g := NewGomegaWithT(t)
 	ff := false
 	rr :=RepairRequest{
-		RecordDate: time.Now().Add( 24-  time.Hour),
+		RequestDate: time.Now().Add( 24 - time.Hour),
 		EntryPermission:  &ff,
 		TelNumber:       "0800485123",
 
@@ -67,17 +67,17 @@ func TestRecordDateMustBeFuture(t *testing.T) {
 	g.Expect(err).ToNot(BeNil())
 
 	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("Must be correct"))
+	g.Expect(err.Error()).To(Equal("RequestDate Must be in the future"))
 }
 
 
 func TestEntryPermissionNotBlank(t *testing.T) {
 	g := NewGomegaWithT(t)
-//	tt:=true
-
+	
+	ff := false
 	user := RepairRequest{
 		RecordDate:      time.Now().Add( 24 *time.Hour),
-		EntryPermission:   nil,
+		EntryPermission:   &ff,
 		TelNumber:       "0800485123",
 		
 		//RequestDate:     time.Now().Add( 24 *time.Hour),
@@ -97,5 +97,5 @@ func TestEntryPermissionNotBlank(t *testing.T) {
 	g.Expect(err).ToNot(BeNil())
 
 	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("entry"))
+	g.Expect(err.Error()).To(Equal("Entrypermission must not be null"))
 } 
