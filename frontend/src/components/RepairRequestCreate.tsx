@@ -34,6 +34,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import NavbarRepairRequest from "./NavbarRepairRequest";
+import { TextField } from "@material-ui/core";
 const Alert = (props: AlertProps) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 };
@@ -57,23 +58,27 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function RepairRequestCreate() {
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
-
-  const [dormtenants, setDormTenants] = useState<DormTenantInterface>();
-  const [inventorys, setInventorys] = useState<DormInventoryInterface[]>([]);
-  const [inventorytypes, setInventorytypes] = useState<DormInventoryTypeInterface[]>([]);
-  const [repairtypes, setRepairtypes] = useState<RepairTypeInterface[]>([]);
-  const [roomallocate,setRoomAllocate] = useState<RoomAllocateInterface[]>([]);
-  const [repairrequest, setRepairRequest] = useState<Partial<RepairRequestinterface>>(
+  const [selectedDate, setSelectedDate] = React.useState<Date | null>(new Date());
+  const [dormtenants, setDormTenants] = React.useState<DormTenantInterface>();
+  const [inventorys, setInventorys] = React.useState<DormInventoryInterface[]>([]);
+  const [inventorytypes, setInventorytypes] = React.useState<DormInventoryTypeInterface[]>([]);
+  const [repairtypes, setRepairtypes] = React.useState<RepairTypeInterface[]>([]);
+  const [roomallocate,setRoomAllocate] = React.useState<RoomAllocateInterface[]>([]);
+  const [repairrequest, setRepairRequest] = React.useState<Partial<RepairRequestinterface>>(
     {}
   );
 
   //-------------------------set state --------
 
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState("");
+  
   const [state, setState] = useState({
-    EntryPermission: true,
+
+ 
+    
+    EntryPermission: false,
   });
 
 
@@ -94,6 +99,8 @@ function RepairRequestCreate() {
     setError(false);
   };
 
+
+
   const handleChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>
   ) => {
@@ -107,7 +114,7 @@ function RepairRequestCreate() {
   const handleDateChange = (date: Date | null) => {
     console.log(date);
     setSelectedDate(date);
-  };
+  }; 
 
   const handleCheckboxChange = (
     event: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,13 +127,21 @@ function RepairRequestCreate() {
     });
   };
 
+  const handleInputChange = (
+    event: React.ChangeEvent<{ id?: string; value: any }>
+  ) => {
+    const id = event.target.id as keyof typeof RepairRequestCreate;
+    const { value } = event.target;
+    setRepairRequest({ ...repairrequest, [id]: value });
+  };
+ 
   //---------------------------state----------------------------------------
 
   //-------------- รับค่า ผู้เช่าพัก
   
   const getDormTenants = async () => {
     const uid = Number(localStorage.getItem("uid"));
-    fetch(`${apiUrl}/route/ListDormTenants/${uid}`, requestOptions) 
+    fetch(`${apiUrl}/route/GetDormTenant/${uid}`, requestOptions) 
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
@@ -154,7 +169,7 @@ function RepairRequestCreate() {
    //------------- รับค่าสิ่งของ
 
   const getDormInventory = async () => {
-    let uid = localStorage.getItem("uid");
+ 
     fetch(`${apiUrl}/route/ListDormInventory`, requestOptions) 
       .then((response) => response.json())
       .then((res) => {
@@ -169,8 +184,7 @@ function RepairRequestCreate() {
      //------------- รับค่าประเภทการแจ้งซ่อม
 
      const getRepairType = async () => {
-        let uid = localStorage.getItem("uid");
-        fetch(`${apiUrl}/route/ListRepairtype`, requestOptions) 
+       fetch(`${apiUrl}/route/ListRepairtype`, requestOptions) 
           .then((response) => response.json())
           .then((res) => {
             if (res.data) {
@@ -183,7 +197,7 @@ function RepairRequestCreate() {
     
     //-------------- รับค่าห้องพัก
     const getRoomAllocate = async () => {
-        let uid = localStorage.getItem("uid");
+
         fetch(`${apiUrl}/route/ListRoomAllocates`, requestOptions) 
           .then((response) => response.json())
           .then((res) => {
@@ -197,13 +211,13 @@ function RepairRequestCreate() {
   useEffect(() => {
     getDormTenants();
     getDormInventory();
-   // getDormInventorytypes();
+   getDormInventorytypes();
     getRepairType();
     getRoomAllocate();
 
   }, []);
 
-  const convertType = (data: string | number | undefined) => {
+  const convertType = (data: string | number | undefined | null) => {
     let val = typeof data === "string" ? parseInt(data) : data;
     return val;
   };
@@ -212,40 +226,41 @@ function RepairRequestCreate() {
     let data = {
       DormTenantID: convertType(dormtenants?.ID),
       RoomAllocateID: convertType(repairrequest.RoomAllocateID),
-      DormInventory: convertType(repairrequest.DormInventoryID),
+      DormInventoryID: convertType(repairrequest.DormInventoryID),
       //DormInventorytype: convertType(inventorytypes.ID),
-      RepairType: convertType(repairrequest.RepairTypeID),
+      RepairTypeID: convertType(repairrequest.RepairTypeID),
+      TelNumber: repairrequest.TelNumber ?? "",
       RecordDate: selectedDate,
       RequestDate: selectedDate,
       EntryPermission : repairrequest.EntryPermission,
-
-
     };
 
-    //---------------ส่ง data
     console.log(data)
-    const apiUrl = "http://localhost:8080/route/CreateGetRepairRequest";  
-    const requestOptionsPost = {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
+   const requestOptions = {
+   method: "POST",
+   headers: {
+     Authorization: `Bearer ${localStorage.getItem("token")}`,
+     "Content-Type": "application/json",
+   },
+   body: JSON.stringify(data),
+ };
 
-    fetch(apiUrl, requestOptionsPost)
-      .then((response) => response.json())
-      .then((res) => {
-        if (res.data) {
-          console.log("บันทึกได้")
-          setSuccess(true);
-        } else {
-          console.log("บันทึกไม่ได้")
-          setError(true);
-        }
-      });
+  fetch(`${apiUrl}/route/CreateRepairRequest`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        console.log("บันทึกได้")
+        setSuccess(true)
+        setErrorMessage("")
+      } else {
+        console.log("บันทึกไม่ได้")
+        setError(true)
+        setErrorMessage(res.error)
+      }
+    });
   }
+
+
 
   return (
     <Container className={classes.container} maxWidth="md">
@@ -257,7 +272,7 @@ function RepairRequestCreate() {
       </Snackbar>
       <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">
-          บันทึกข้อมูลไม่สำเร็จ
+          บันทึกข้อมูลไม่สำเร็จ : {errorMessage}
         </Alert>
       </Snackbar>
       <Paper className={classes.paper} >
@@ -278,23 +293,33 @@ function RepairRequestCreate() {
 
 
         <Grid container spacing={3} className={classes.root}>
-          <Grid item xs={6}>
-                  <FormControl fullWidth variant="outlined">
-              <p>ผู้แจ้งซ่อม</p>
+         <Grid item xs={12} className={classes.font}>
+           <p>ชื่อผู้แจ้งซ่อม</p>
+           <FormControl fullWidth variant="outlined">
               <Select
+                className={classes.fontIn}
                 native
                 disabled
                 value={repairrequest.DormTenantID}
+                /*onChange={handleChange}
+                inputProps={{
+                  name: "DormAttenID",
+                }}*/
               >
                 <option aria-label="None" value="">
-
-                  {dormtenants?.DormTenant_FirstName}
+                  {dormtenants?.DormTenant_FirstName} {dormtenants?.DormTenant_LastName}
                 </option>
-            </Select>
-        </FormControl>
-          </Grid>
-      
-          <Grid item xs={6}>
+                {/*
+                {dormattens.map((item: DormAttenInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.FirstName} {item.LastName}
+                  </option>
+                ))}*/}
+              </Select>
+            </FormControl>
+            </Grid>
+
+            <Grid item xs={6}>
             <FormControl fullWidth variant="outlined" className={classes.font}>
               <p>ประเภทการแจ้งซ่อม</p>
               <Select
@@ -318,6 +343,8 @@ function RepairRequestCreate() {
               </Select>
             </FormControl>
                 </Grid>
+      
+
 
                 <Grid item xs={6}>
             <FormControl fullWidth variant="outlined" className={classes.font}>
@@ -340,82 +367,33 @@ function RepairRequestCreate() {
             </FormControl>
           </Grid>
 
-          <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>ห้องพักที่แจ้งซ่อม</p>
-              <Select
-                native
-                className={classes.fontIn}
-                value={repairrequest.RoomAllocateID}
-                onChange={handleChange}
-                inputProps={{
-                  name: "RoomAllocateID",
-                }}
-              >
-                <option aria-label="None" value="">
-                  ห้องพักที่แจ้ง
-                </option>
-               
-                {roomallocate.map((item: RoomAllocateInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                     {item.Number}
-                  </option> 
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={6}>
+        
+   <Grid item xs={6}>
             <FormControl fullWidth variant="outlined" className={classes.font}>
               <p>ประเภทงานซ่อม</p>
               <Select
                 className={classes.fontIn}
                 native
-                value={repairrequest.DormInventoryID}
+                value={repairrequest.DormInventoryTypeID}
                 onChange={handleChange}
                 inputProps={{
-                  name: "DormInventoryID",
+                  name: "DormInventoryTypeID",
                 }}
               >
                 <option aria-label="None" value="">
                   กรุณาเลือกประเภทงานซ่อม 
                 </option>
-                {inventorys.map((item: DormInventoryInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                 {item.ID} {item.DormInventoryType.InvenType} 
+                
+                {inventorytypes.map((item: DormInventoryTypeInterface) => (
+                  <option  key={item.ID} value={item.ID}>
+                 {item.ID} {item.InvenType} 
                   </option>
                 ))}
-                
-                <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>ห้องพักที่แจ้งซ่อม</p>
-              <Select
-                native
-                value={repairrequest.RoomAllocateID}
-                onChange={handleChange}
-                inputProps={{
-                  name: "RoomAllocateID",
-                }}
-              >
-                <option aria-label="None" value="">
-                  ห้องพักที่แจ้ง
-                </option>
-               
-                {roomallocate.map((item: RoomAllocateInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                     {item.Number}
-                  </option> 
-                ))}
-              </Select>
+               </Select>
             </FormControl>
           </Grid>
 
-              </Select>
-            </FormControl>
-                </Grid>
-
-               
-          <Grid item xs={6}>
+        <Grid item xs={6}>
             <FormControl fullWidth variant="outlined" className={classes.font}>
             <p>สิ่งของที่เสียหาย</p>
               <Select
@@ -431,13 +409,44 @@ function RepairRequestCreate() {
                   กรุณาเลือกสิ่งของ
                 </option>
                 {inventorys.map((item: DormInventoryInterface) => (
-                  (repairrequest["DormInventoryID"] == item.DormInventoryTypeID)?(<option value={item.ID} key={item.ID}>
+                (repairrequest["DormInventoryTypeID"] == item.DormInventoryTypeID)?(<option value={item.ID} key={item.ID}>
                     {item.FurnitureName}
                   </option>):""
+                ))}
+                   </Select>
+            </FormControl>
+          </Grid>
+
+
+        
+                <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <p>ห้องพักที่แจ้งซ่อม</p>
+              <Select
+                native
+                className={classes.fontIn}
+                value={repairrequest.RoomAllocateID}
+                onChange={handleChange}
+                inputProps={{
+                  name: "RoomAllocateID",
+                }}
+              >
+                <option aria-label="None" value="">
+                  ห้องพักที่แจ้ง
+                </option>
+               
+                {roomallocate.map((item: RoomAllocateInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                     {item.Number}
+                  </option> 
                 ))}
               </Select>
             </FormControl>
           </Grid>
+
+           
+               
+ 
 
            
           <Grid item xs={6}>
@@ -461,14 +470,35 @@ function RepairRequestCreate() {
             </FormControl>
           </Grid>
 
-     
+
+          <Grid item xs={6}>
+           <FormControl fullWidth variant="outlined" className={classes.font}>
+             <p>เบอร์ติดต่อ</p>
+             <TextField
+               InputProps={{
+                classes: {
+                  input: classes.fontIn,
+                },
+              }}
+               placeholder="หมายเลขโทรศัพท์ 10 หมายเลข"
+               id="TelNumber"
+               variant="outlined"
+               type="string"
+               size="medium"
+               value={repairrequest.TelNumber || ""}
+               onChange={handleInputChange}
+             />
+           </FormControl>
+           </Grid>
+
           <Grid item xs={3} className={classes.font}>
             <p>อนุญาตให้ช่างเข้าห้องเมื่อผู้เช่าไม่อยู่หรือไม่</p>
           </Grid>
           <Grid item xs={3} >
           <FormControlLabel
-              
-              control={<Checkbox checked={state.EntryPermission} 
+
+             
+              control={<Checkbox   checked={state.EntryPermission} 
               id="EntryPermission"
               onChange={handleCheckboxChange}
               
@@ -476,7 +506,7 @@ function RepairRequestCreate() {
               name : 'EntryPermission'}}
 
               name="EntryPermission" />}
-              label="Yes!"/> 
+              label="Yes!"/>
 
           </Grid>
 

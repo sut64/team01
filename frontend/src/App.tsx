@@ -41,6 +41,7 @@ import {
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Home from "./components/Home";
 import DormAttens from "./components/DormAttens";
+import DormTenants from "./components/DormTenants";
 import PostalRecords from "./components/PostalRecords";
 import PostalRecordCreate from "./components/PostalRecordCreate";
 import SignIn from "./components/SignIn";
@@ -60,7 +61,6 @@ import MeterRecord from "./components/MeterRecord";
 import MeterRecordCreate from "./components/MeterRecordCreate";
 import FurnitureRequest from "./components/FurnitureRequest";
 import FurnitureRequestCreate from "./components/FurnitureRequestCreate";
-import HomeFurnitureRequest from "./components/HomeFurnitureRequest";
 import RepairRequestCreate from "./components/RepairRequestCreate";
 import RepairRequest from "./components/RepairRequest";
 import HomeRepair from "./components/HomeRepair";
@@ -170,7 +170,7 @@ export default function MiniDrawer() {
            <Routes>
               <Route path="/" element={<Home/>} />
               <Route path="/home_postal_record" element={<HomePostalRecord/>} />
-              <Route  path="/dormatten" element={<DormAttens/>} /> 
+              <Route  path="/dormtenant" element={<DormTenants/>} /> 
               <Route  path="/postal_record" element={<PostalRecords/>} />
               <Route  path="/postal_record/create" element={<PostalRecordCreate/>}/>
               <Route path="/home_roomallocate" element={<HomeRoomAllocate/>} />
@@ -184,7 +184,6 @@ export default function MiniDrawer() {
               <Route  path="/bill/create" element={<BillCreate/>}/>
               <Route  path="/meterrecord/create" element = {<MeterRecordCreate/>}/>
               <Route  path="/meterrecord" element = {<MeterRecord/>}/>
-              <Route path="/home_furniturerequest" element={<HomeFurnitureRequest/>} />
               <Route  path="/furniturerequest" element={<FurnitureRequest/>} />
               <Route  path="/furniturerequest/create" element={<FurnitureRequestCreate/>}/>
               <Route path="/home_repairrequest" element={<HomeRepair/>} />
