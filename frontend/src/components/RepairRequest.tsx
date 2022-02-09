@@ -97,6 +97,9 @@ function RepairRequest() {
                 <TableCell align="center" width="12%" className={classes.font}>
                   วันที่แจ้ง
                 </TableCell>
+                <TableCell align="center" width="12%" className={classes.font}>
+                  เบอร์ติดต่อ
+                </TableCell>
                 <TableCell align="center" width="8%" className={classes.font}>
                   ประเภทการแจ้งซ่อม
                 </TableCell>
@@ -110,7 +113,7 @@ function RepairRequest() {
                   วันที่และเวลาที่นัดหมาย
                 </TableCell>
                 <TableCell align="center" width="15%"className={classes.font}>
-                  เข้าห้องพัก
+                  อนุญาตเข้าห้องพัก
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -120,10 +123,12 @@ function RepairRequest() {
                   <TableCell align="center" className={classes.fontIn}>{item.ID}</TableCell>
                   <TableCell align="center" className={classes.fontIn}>{item.DormTenant.DormTenant_FirstName } {item.DormTenant.DormTenant_LastName}</TableCell>
                   <TableCell align="center" className={classes.fontIn}>{format((new Date(item.RecordDate)), 'dd MMMM yyyy hh:mm a')}</TableCell>
+                  <TableCell align="center" className={classes.fontIn}>{item.TelNumber}</TableCell>
                   <TableCell align="center" className={classes.fontIn}>{item.RepairType.TypeName}</TableCell>
                   <TableCell align="center" className={classes.fontIn}>{item.DormInventory.DormInventoryType.InvenType}</TableCell>
                   <TableCell align="center" className={classes.fontIn}>{item.DormInventory.FurnitureName}</TableCell>
                   <TableCell align="center" className={classes.fontIn}>{format((new Date(item.RequestDate)), 'dd MMMM yyyy hh:mm a')}</TableCell>
+                  <TableCell align="center" className={classes.font}>{item.EntryPermission? "อนุญาต":"ไม่อนุญาต"}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

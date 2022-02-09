@@ -34,9 +34,11 @@ import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
 import CarpenterIcon from '@mui/icons-material/Carpenter';
 import Divider from "@material-ui/core/Divider";
 import { List } from "@material-ui/core";
-import { DormAttenInterface } from "../models/IDormAtten";
+//import { DormAttenInterface } from "../models/IDormAtten";
+import { DormTenantInterface } from "../models/IDormTenant";
 import { fontSize } from "@mui/system";
-
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import BuildIcon from '@mui/icons-material/Build';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -152,9 +154,9 @@ function NavbarRepairRequest() {
     /*{ name: "ระบบแจ้งทำความสะอาด", icon: <HomeIcon />, path: "/homecleang" },
     { name: "แจ้งทำความสะอาด", icon: <CleaningServicesIcon />, path: "/cleaningrequrest" },
     { name: "สร้างการแจ้งทำความสะอาด", icon: <CleaningServicesIcon />, path: "/cleaningrequrest/create" },*/
-    { name: "ระบบแจ้งซ่อม", icon: <HomeIcon />, path: "/home_repairrequest" },
-    { name: "แจ้งซ่อม", icon: <CarpenterIcon />, path: "/repairrequest" },
-    { name: "สร้างการแจ้งซ่อม", icon: <CarpenterIcon />, path: "/repairrequest/create" },
+    { name: "ระบบแจ้งซ่อม", icon: <BuildIcon />, path: "/home_repairrequest" },
+    { name: "ใบแจ้งซ่อม", icon: <AssignmentIcon />, path: "/repairrequest" },
+    { name: "แบบฟอร์มการแจ้งซ่อม", icon: <CarpenterIcon />, path: "/repairrequest/create" },
   ]
 
   const signout = () => {
@@ -163,15 +165,15 @@ function NavbarRepairRequest() {
   };
   const theme = useTheme();
   
-  const [dormatten, setDormAttens] = useState<DormAttenInterface>();
- 
-  const getDormAttens = async () => {
+ // const [dormatten, setDormAttens] = useState<DormAttenInterface>();
+  const [dormtenant, setDormTenants] = useState<DormTenantInterface>();
+  const getDormTenants = async () => {
     const uid = Number(localStorage.getItem("uid"));
-    fetch(`${apiUrl}/route/GetDormAtten/${uid}`, requestOptions)
+    fetch(`${apiUrl}/route/GetDormTenant/${uid}`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
-          setDormAttens(res.data);
+          setDormTenants(res.data);
         } else {
           console.log("else");
         }
@@ -179,7 +181,7 @@ function NavbarRepairRequest() {
   };
   
     useEffect(() => {
-      getDormAttens();
+      getDormTenants();
   }, []);
 
 
@@ -210,7 +212,7 @@ function NavbarRepairRequest() {
           <h1>ระบบแจ้งซ่อม</h1>
           </Typography>
           <Typography variant="subtitle1" className={classes.fontName}>
-            {dormatten?.FirstName} &nbsp;&nbsp;       
+            {dormtenant?.DormTenant_FirstName} &nbsp;&nbsp;       
           </Typography>
           <Button color="inherit" 
           style={{fontFamily:"kanitlight",color:"black"}}

@@ -48,6 +48,27 @@ function SignIn() {
   const [error, setError] = useState(false);
 
   const login = () => {
+    const apiUrl = ( "http://localhost:8080/login/DormTenant");
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(signin),
+    };
+    fetch(apiUrl, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.data) {
+          setSuccess(true);
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("uid", res.data.id);
+          window.location.reload()
+        } else {
+          setError(true);
+        }
+      });
+  };
+
+  const loginAttent = () => {
     const apiUrl = "http://localhost:8080/login/DormAtten";
     const requestOptions = {
       method: "POST",
@@ -110,7 +131,10 @@ function SignIn() {
           Sign in
           
         </Typography>
-        hint : *Pid:1234567890123, Password:123456*
+        <p> hint Attent : *Pid:1234567890123, Password:123456*</p>
+       
+        <p>hint Tenant : *Pid:1236196196199, Password: 654321*</p>
+        
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -146,7 +170,17 @@ function SignIn() {
             className={classes.submit}
             onClick={login}
           >
-            Sign In
+            เข้าสู่ระบบในฐานะผู้เช่าหอพัก
+          </Button>
+
+          <Button
+            fullWidth
+            variant="contained"
+            color="default"
+            className={classes.submit}
+            onClick={loginAttent}
+          >
+            เข้าสู่ระบบในฐานะผู้ดูแลหอพัก
           </Button>
         
         </form>
