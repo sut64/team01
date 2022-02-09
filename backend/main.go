@@ -63,7 +63,7 @@ func main() {
 			// Repair_request Routes
 			protected.GET("/route/ListRepairRequest", controller.ListRepairRequest)
 			protected.GET("/route/GetRepairRequest:id", controller.GetRepairRequest)
-			protected.POST("/route/CreateGetRepairRequest", controller.CreateRepairRequest)
+			protected.POST("/route/CreateRepairRequest", controller.CreateRepairRequest)
 
 			// RepairType ประเภทการแจ้งซ่อม อย่าลบอีกนะ			
 			protected.GET("/route/ListRepairtype", controller.ListRepairtype)
@@ -107,6 +107,7 @@ func main() {
 	r.POST("/route/CreateDormAtten", actor.CreateDormAtten)
 	r.POST("/route/CreateDormTenant", actor.CreateDormTenant)
 	//Login Actor
+	r.POST("/login/DormTenant", actor.LoginDormTenant)
 	r.POST("/login/DormAtten", actor.LoginDormAtten)
 	// Run the server
 	r.Run()

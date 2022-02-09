@@ -1,118 +1,83 @@
-package controller
+package entity
 
 import (
-	"net/http"
-
-	"github.com/gin-gonic/gin"
-	"github.com/sut64/team01/entity"
+	"time"
+	"github.com/asaskevich/govalidator"
+	"gorm.io/gorm"
 )
 
-// POST /RepairRequest
-func CreateRepairRequest(c *gin.Context) {
+/*type DormTenant struct {
+	gorm.Model
+	FirstName      string
+	LastName       string
+	Pid            string
+	Gender         string
+	Age            uint8
+	Email          string
+	Tel            string
+	RoomAllocates  []RoomAllocate  `gorm:"foreignKey:DormTenantID"`
 
-	var repairrequest entity.RepairRequest
-	var dormtenant entity.DormTenant
-	var repairtype entity.RepairType
-	var dorminventory entity.DormInventory
-	var roomallocate entity.RoomAllocate
+}*/
 
-	// ผลลัพธ์ที่ได้จะถูก bind เข้าตัวแปร RoomAllocate
-	if err := c.ShouldBindJSON(&repairrequest); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	// ค้นหา roomallocate ด้วย id
-	if tx := entity.DB().Where("id = ?", repairrequest.RoomAllocateID).First(&roomallocate); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "roomallrocate not found"})
-		return
-	}
 
-	// ค้นหา repairtype ด้วย id
-	if tx := entity.DB().Where("id = ?", repairrequest.RepairType).First(&repairtype); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "repairtype not found"})
-		return
-	}
+/*type DormInventory struct {
+	gorm.Model
+	FurnitureName string
+	Amount        uint16
 
-	// ค้นหา dorminventory ด้วย id
-	if tx := entity.DB().Where("id = ?", repairrequest.DormInventoryID).First(&dorminventory); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "dormatten not found"})
-		return
-	}
+	DormInventoryTypeID *uint
+	DormInventoryType   DormInventoryType `gorm:"references:id"`
 
-	// สร้าง repairrequest
-	ad := entity.RepairRequest{
-	
-		RoomAllocate: roomallocate ,       // โยงความสัมพันธ์กับ Entity roomallocate
-		DormTenant: dormtenant, // โยงความสัมพันธ์กับ Entity DormTenant
-		DormInventory: dorminventory,
-		RepairType: repairtype,
+	RepairRequests []RepairRequest `gorm:"foreignKey:DormInventoryID"`
+}
+*/
+ /* type RoomAllocate struct {
+	gorm.Model
+	FirstName      string
+	LastName       string
+	Number         string
+	People         int
+	Note           string
+	EntryTime      time.Time
+	RepairRequests []RepairRequest `gorm:"foreignKey:RoomAllocateID"`
 
-		RecordDate: repairrequest.RecordDate,
-		RequestDate: repairrequest.RequestDate,
-		EntryPermission: repairrequest.EntryPermission,
-		TelNumber: repairrequest.TelNumber,
+	DormTenantID *uint
+	DormTenant   DormTenant `gorm:"references:id"`
+} */
 
-		
-	}
 
-	// บันทึก
-	if err := entity.DB().Create(&ad).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data": ad})
+type RepairRequest struct {
+	gorm.Model
+	TelNumber       string      `valid:"matches(^[0]\\d{9}$)"`
+
+	RecordDate      time.Time   `valid:"-"` 
+ 	EntryPermission *bool         //มีการ validation ใน controller ไม่ได้ใช้ govalidator	
+	RequestDate     time.Time   `valid:"future~RequestDate Must be in the future" ` 
+
+  	RoomAllocateID *uint 
+	RoomAllocate   RoomAllocate `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
+
+	DormTenantID *uint
+	DormTenant   DormTenant     `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
+
+	DormInventoryID *uint 
+	DormInventory   DormInventory `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
+
+	RepairTypeID *uint 
+	RepairType   RepairType `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
 }
 
-// GET /repair_requests/:id
-func GetRepairRequest(c *gin.Context) {
-	var repairrequest entity.RepairRequest
-	id := c.Param("id")
-	if err := entity.DB().Preload("RoomAllocate").Preload("DormTenant").Preload("DormInventory").Preload("RepairType").Raw("SELECT * FROM repair_requests WHERE id = ?", id).Find(&repairrequest).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data": repairrequest})
+func init() {
+	govalidator.CustomTypeTagMap.Set("past", func(i interface{}, context interface{}) bool {
+		t := i.(time.Time)
+		return t.Before(time.Now())
+	})
+
+	govalidator.CustomTypeTagMap.Set("future", func(i interface{}, context interface{}) bool {
+		t := i.(time.Time)
+		return t.After(time.Now())
+	})
+
+
 }
 
-// GET /repair_requests
-func ListRepairRequest(c *gin.Context) {
-	var repairrequest []entity.RepairRequest
-	if err := entity.DB().Preload("RoomAllocate").Preload("DormTenant").Preload("DormInventory").Preload("DormInventory.DormInventoryType").Preload("RepairType").Raw("SELECT * FROM repair_requests").Find(&repairrequest).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"data": repairrequest})
-}
-
-// DELETE /repair_requests/:id
-func DeleteRequisitionRecord(c *gin.Context) {
-	id := c.Param("id")
-	if tx := entity.DB().Exec("DELETE FROM repair_request WHERE id = ?", id); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "repair request record not found"})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"data": id})
-}
-
-// PATCH /repair_requests
-func UpdateRequisitionRecord(c *gin.Context) {
-	var repairrequest entity.RepairRequest
-	if err := c.ShouldBindJSON(&repairrequest); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	if tx := entity.DB().Where("id = ?", repairrequest.ID).First(&repairrequest); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "repair request record not found"})
-		return
-	}
-
-	if err := entity.DB().Save(&repairrequest).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"data": repairrequest})
-}
