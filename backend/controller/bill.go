@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/asaskevich/govalidator"
@@ -37,7 +39,7 @@ func CreateBill(c *gin.Context) {
 	}
 
 	// ค้นหา room ด้วย id
-	if tx := entity.DB().Where("id = ?", roomallocate.RoomID).First(&room); tx.RowsAffected == 0 {
+	if tx := entity.DB().Where("id = ?", bill.RoomID).First(&room); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "room not found"})
 		return
 	}
@@ -66,7 +68,7 @@ func CreateBill(c *gin.Context) {
 	if *room.RoomtypesID == 1 || *room.RoomtypesID == 2 {
 		calculate = calculate + 3500.00
 	} else if *room.RoomtypesID == 3 || *room.RoomtypesID == 4 {
-		calculate = calculate + 0.00
+		calculate = calculate + 4500.00
 	} else {
 		calculate = calculate + 0.00
 	}
@@ -108,8 +110,20 @@ func CreateBill(c *gin.Context) {
 		AmountPaid:       calculate,
 	}
 
+	data_out, err := json.MarshalIndent(b, "", "    ")
+	if err != nil {
+		panic("fail")
+	}
+	fmt.Println(string(data_out))
+
+	//แทรกการ validate PayByCash
+	if b.PayByCash == nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "PayByCash: cannot be Null"})
+		return
+	}
+
 	//แทรกการ validate ไว้ช่วงนี้ของ controller
-	if _, err := govalidator.ValidateStruct(bill); err != nil {
+	if _, err := govalidator.ValidateStruct(b); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

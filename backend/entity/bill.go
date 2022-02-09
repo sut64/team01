@@ -9,10 +9,6 @@ import (
 
 type Bill struct {
 	gorm.Model
-	BillDateTime time.Time `valid:"past~BillDateTime: must be in the past"` //มีการ validation
-	PayByCash    *bool     //`valid:"required~PayByCash: cannot be blank"`    //มีการ validation
-	AmountPaid   float64   //`valid:"customPositiveAmountPaid"`               //มีการ validation
-
 	DormAttenID *uint
 	DormAtten   DormAtten `gorm:"references:id" valid:"-"`
 
@@ -30,6 +26,10 @@ type Bill struct {
 
 	CleaningrequrestID *uint
 	Cleaningrequrest   Cleaningrequrest `gorm:"references:id" valid:"-"`
+
+	BillDateTime time.Time `valid:"past~BillDateTime: must be in the past"` //มีการ validation
+	PayByCash    *bool     //มีการ validation ใน controller ไม่ได้ใช้ govalidator														//`valid:"customPayByCashMustNotNull~PayByCash: cannot be Null"`                                          
+	AmountPaid   float64   `valid:"customPositiveAmountPaid,required~AmountPaid: 0 does not validate as customPositiveAmountPaid"` //มีการ validation
 }
 
 func init() {
@@ -39,7 +39,16 @@ func init() {
 	})
 
 	govalidator.CustomTypeTagMap.Set("customPositiveAmountPaid", func(i interface{}, context interface{}) bool {
-		return i.(float64) >= 0.00
+		return i.(float64) > 0
 	})
+	/*
+	govalidator.CustomTypeTagMap.Set("customPayByCashMustNotNull", func(i interface{}, context interface{}) bool {
+		check := i.(*bool)
 
+		if check == nil {
+			return false
+		}
+		return true
+	})
+	*/
 }

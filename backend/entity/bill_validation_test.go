@@ -55,10 +55,10 @@ func TestBillDateTimeMustBePast(t *testing.T) {
 	// err.Error ต้องมี error message แสดงออกมา
 	g.Expect(err.Error()).To(Equal("BillDateTime: must be in the past"))
 }
-
+/*
 func CheckBool(t *bool) (bool, error) {
 	if t == nil {
-		return false, fmt.Errorf("PayByCash: cannot be blank")
+		return false, fmt.Errorf("PayByCash: cannot be Null")
 	} else {
 		return true, nil
 	}
@@ -66,7 +66,7 @@ func CheckBool(t *bool) (bool, error) {
 
 // ตรวจสอบค่าจ่ายด้วยเงินสดเป็น Null ต้องเจอ Error
 // จ่ายด้วยเงินสดต้องไม่เป็น Null
-/*
+
 func TestBillPayByCashNotNull(t *testing.T) {
 	g := NewGomegaWithT(t)
 
@@ -85,8 +85,8 @@ func TestBillPayByCashNotNull(t *testing.T) {
 	g.Expect(err).ToNot(BeNil())
 
 	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("PayByCash: cannot be blank"))
-}
+	g.Expect(err.Error()).To(Equal("PayByCash: cannot be Null"))
+}*/
 
 // ตรวจสอบค่าใช้จ่ายรวม น้อยกว่าหรือเท่ากับศูนย์ ต้องเจอ Error
 // ค่าใช้จ่ายรวมต้องไม่น้อยกว่าหรือเท่ากับศูนย์
@@ -94,6 +94,7 @@ func TestBillAmountPaidNotLessThanEqualZero(t *testing.T) {
 	g := NewGomegaWithT(t)
 
 	fixtures := []float64{
+		0,
 		-100,
 		-200.00,
 	}
@@ -119,4 +120,4 @@ func TestBillAmountPaidNotLessThanEqualZero(t *testing.T) {
 		g.Expect(err.Error()).To(Equal(result))
 
 	}
-}*/
+}
