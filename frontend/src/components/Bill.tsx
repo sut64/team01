@@ -92,17 +92,17 @@ function Bills() {
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell align="center" width="5%" className={classes.font}>
+                <TableCell align="center" width="3%" className={classes.font}>
                   ลำดับ
                 </TableCell>
-                <TableCell align="center" width="20%" className={classes.font}>
+                <TableCell align="center" width="22%" className={classes.font}>
                   วันที่และเวลา
                 </TableCell>
-                <TableCell align="center" width="15%" className={classes.font}>
-                  ผู้ดูแลหอพัก(ผู้บันทึก)
+                <TableCell align="center" width="10%" className={classes.font}>
+                  ผู้บันทึก
                 </TableCell>
                 <TableCell align="center" width="10%" className={classes.font}>
-                  หมายเลขห้อง
+                  เลขห้อง
                 </TableCell>
                 <TableCell align="center" width="10%" className={classes.font}>
                   ค่าเช่าห้อง
@@ -119,8 +119,8 @@ function Bills() {
                 <TableCell align="center" width="15%" className={classes.font}>
                   ช่องทางการชำระ
                 </TableCell>
-                <TableCell align="center" width="20%" className={classes.font}>
-                  จำนวนเงินทั้งหมด
+                <TableCell align="center" width="15%" className={classes.font}>
+                  ยอดรวม
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -129,14 +129,14 @@ function Bills() {
                 <TableRow key={item.ID}>
                   <TableCell align="center" className={classes.font}>{item.ID}</TableCell>
                   <TableCell align="center" className={classes.font}>{format((new Date(item.BillDateTime)), 'dd MMMM yyyy hh:mm a')}</TableCell>
-                  <TableCell align="center" className={classes.font}>{item.DormAtten.FirstName} {item.DormAtten.LastName}</TableCell>
+                  <TableCell align="center" className={classes.font}>{item.DormAtten.FirstName}</TableCell>
                   <TableCell align="center" className={classes.font}>{item.RoomAllocate.Number}</TableCell>
                   <TableCell align="center" className={classes.font}>{item.Room.Roomtypes.Price}</TableCell>
                   <TableCell align="center" className={classes.font}>{item.MeterRecord.Sum}</TableCell>
                   <TableCell align="center" className={classes.font}>{item.RepairRequest.RepairType.Cost}</TableCell>
                   <TableCell align="center" className={classes.font}>{item.Cleaningrequrest.Cleaningtype.Price}</TableCell>
                   <TableCell align="center" className={classes.font}>{item.PayByCash? "เงินสด":"ช่องทางอื่นๆ"}</TableCell>
-                  <TableCell align="center" className={classes.font}>{item.AmountPaid}</TableCell>
+                  <TableCell align="center" className={classes.font}>{item.AmountPaid.toFixed(2)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -77,7 +77,8 @@ function BillCreate() {
   const [errorMessage, setErrorMessage] = useState("");
   
   const [state, setState] = useState({
-    PayByCash: false,
+    PayByCashTrue: false,
+    PayByCashFalse: false,
   });
 
   const apiUrl = "http://localhost:8080";
@@ -100,6 +101,8 @@ function BillCreate() {
   const handleChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>
   ) => {
+    console.log(event.target.name)
+    console.log(event.target.value)
     const name = event.target.name as keyof typeof bill;
     setBill({
       ...bill,
@@ -114,12 +117,32 @@ function BillCreate() {
 
   const handleCheckboxChange = (
     event: React.ChangeEvent<HTMLInputElement>) => {
-    const name = event.target.name as keyof typeof bill;  
-    setState({ ...state, [name]: event.target.checked });
+    const name = event.target.name;  
+    console.log(name)
+    console.log(event.target.checked)
+    //setState({ ...state, [name]: event.target.checked });
 
+    let PayByCash = undefined
+    
+    if(name == "PayByCashTrue" && event.target.checked){
+      setState({ ...state, ["PayByCashFalse"]: false, ["PayByCashTrue"]: true });
+      PayByCash = true
+    }else if(name == "PayByCashTrue" && !(event.target.checked)){
+      setState({ ...state, ["PayByCashTrue"]: false });
+      PayByCash = false
+    }
+
+    if(name == "PayByCashFalse" && event.target.checked){
+      setState({ ...state, ["PayByCashFalse"]: true ,["PayByCashTrue"]: false,});
+      PayByCash = false
+    }else if(name == "PayByCashFalse" && !(event.target.checked)){
+      setState({ ...state, ["PayByCashFalse"]: false });
+      PayByCash = true
+    }
+    //setState({ ...state, [name]: event.target.checked });
     setBill({
       ...bill,
-      [name]: event.target.checked,
+      ["PayByCash"]: PayByCash,
     });
   };
 
@@ -243,6 +266,8 @@ function BillCreate() {
       PayByCash: bill.PayByCash,
       AmountPaid: convertType(bill.AmountPaid),
     };
+    console.log(data)
+    
 
     const apiUrl = "http://localhost:8080/route/CreateBill";
     const requestOptions = {
@@ -261,6 +286,7 @@ function BillCreate() {
          console.log("บันทึกได้")
          setSuccess(true);
          setErrorMessage("")
+         window.location.reload()
        } else {
          console.log("บันทึกไม่ได้")
          setError(true);
@@ -437,21 +463,33 @@ function BillCreate() {
             </FormControl>
           </Grid>
           
-          <Grid item xs={3} className={classes.font}>
-            <p>จ่ายด้วยเงินสดหรือไม่</p>
+          <Grid item xs={2} className={classes.font}>
+            <p>ช่องทางการชำระ</p>
           </Grid>
-          <Grid item xs={3} >
+          <Grid item xs={4} >
           <FormControlLabel
               
-              control={<Checkbox checked={state.PayByCash} 
+              control={<Checkbox checked={state.PayByCashTrue} 
               id="PayByCash"
               onChange={handleCheckboxChange}
               
               inputProps={{ 
-              name : 'PayByCash'}}
+              name : 'PayByCashTrue'}}
               
-              name="PayByCash" />}
-              label="Yes!"/> 
+              name="PayByCashTrue" />}
+              label="เงินสด"/> 
+
+          <FormControlLabel
+              
+              control={<Checkbox checked={state.PayByCashFalse} 
+              id="PayByCash"
+              onChange={handleCheckboxChange}
+              
+              inputProps={{ 
+              name : 'PayByCashFalse'}}
+              
+              name="PayByCashFalse" />}
+              label="ช่องทางอื่นๆ"/> 
 
           </Grid>
           
