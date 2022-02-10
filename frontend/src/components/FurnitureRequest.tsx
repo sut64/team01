@@ -29,25 +29,27 @@ const useStyles = makeStyles((theme: Theme) =>
 function FurnitureRequest() {
  const classes = useStyles();
  const [FurnitureRequest, setFurnitureRequest] = React.useState<FurnitureRequestInterface[]>([]);
- 
+ const apiUrl = "http://localhost:8080";
+ const requestOptions = {
+  method: "GET",
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    "Content-Type": "application/json",
+  },
+};
+
  const getFurnitureRequests = async () => {
-   const apiUrl = "http://localhost:8080/ListFurnitureRequest";
-   const requestOptions = {
-     method: "GET",
-     headers: { "Content-Type": "application/json" },
-   };
- 
-   fetch(apiUrl, requestOptions)
-     .then((response) => response.json())
-     .then((res) => {
-       console.log(res.data);
-       if (res.data) {
-         setFurnitureRequest(res.data);
-       } else {
-         console.log("else");
-       }
-     });
- };
+    fetch(`${apiUrl}/route/ListFurnitureRequest`, requestOptions)   
+      .then((response) => response.json())
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          setFurnitureRequest(res.data);
+        } else {
+          console.log("else");
+        }
+      });
+  };
  
  useEffect(() => {
   getFurnitureRequests();
@@ -87,19 +89,22 @@ function FurnitureRequest() {
                  ID
                </TableCell>
                <TableCell align="center" width="25%">
-                 First
+                 ผู้บันทึก
                </TableCell>
-               <TableCell align="center" width="25%">
-                 Last
+               <TableCell align="center" width="20%">
+                 ครุภัณฑ์ที่ต้องการยืม
                </TableCell>
                <TableCell align="center" width="5%">
-                 Age
+                 จำนวน
+               </TableCell>
+               <TableCell align="center" width="25%">
+                 ผู้ยืม
                </TableCell>
                <TableCell align="center" width="20%">
-                 Email
+                 เบอร์โทรศัพท์
                </TableCell>
                <TableCell align="center" width="20%">
-                 Birth Day
+                 วันที่ทำการยืม
                </TableCell>
              </TableRow>
            </TableHead>
@@ -107,12 +112,10 @@ function FurnitureRequest() {
              {FurnitureRequest.map((furniturerequest: FurnitureRequestInterface) => (
                <TableRow key={furniturerequest.ID}>
                  <TableCell align="right">{furniturerequest.ID}</TableCell>
-                 <TableCell align="left" size="medium">
-                   {furniturerequest.DormAttenID}
-                 </TableCell>
-                 <TableCell align="left">{furniturerequest.DormInventoryID}</TableCell>
+                 <TableCell align="left" size="medium">{furniturerequest.DormAtten.FirstName} {furniturerequest.DormAtten.LastName}</TableCell>
+                 <TableCell align="left">{furniturerequest.DormInventory.FurnitureName}</TableCell>
                  <TableCell align="left">{furniturerequest.FurAmount}</TableCell>
-                 <TableCell align="left">{furniturerequest.RoomAllocateID}</TableCell>
+                 <TableCell align="left">{furniturerequest.RoomAllocate.DormTenant_FirstName} {furniturerequest.RoomAllocate.DormTenant_LastName}</TableCell>
                  <TableCell align="left">{furniturerequest.PhoneNo}</TableCell>
                  <TableCell align="center">{moment(furniturerequest.DateRequest).format("DD/MM/YYYY")}</TableCell>
                </TableRow>
