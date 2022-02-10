@@ -355,7 +355,9 @@ function RepairRequestCreate() {
                     classes: {
                       input: classes.fontIn,
                     },
+                    
                   }}
+                  disabled
                   name="RecordDate"
                   value={selectedDate}
                   onChange={handleDateChange}

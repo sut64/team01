@@ -9,45 +9,66 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { createTheme,ThemeProvider } from "@material-ui/core";
 import { SigninInterface } from "../models/ISignIn";
-
-
+import { AppBar, Tabs, Tab, Box ,Paper,Grid} from "@material-ui/core";
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import BadgeIcon from '@mui/icons-material/Badge';
 function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: any;
+  value: any;
+}
+
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={2}><Typography>{children}</Typography></Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index: any) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
 const useStyles = makeStyles((theme) => ({
-
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%",
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  
+  root: { flexGrow: 1, backgroundColor: theme.palette.background.paper, },
+  paper: { marginTop: theme.spacing(8), display: "flex", flexDirection: "column", alignItems: "center", },
+  paper2: { marginTop: theme.spacing(1), display: "flex", flexDirection: "column", alignItems: "center", },
+  avatar: { margin: theme.spacing(1), backgroundColor: theme.palette.secondary.main, },
+  form: { width: "100%", marginTop: theme.spacing(1), },
+  submit: { margin: theme.spacing(3, 0, 2), },
+  center: { align : "center"}
 }));
-
+const paperStyle={width:340,margin:"20px auto"}
+const btnstyle={margin:'8px 0'}
+const paperStyle2 ={padding :20,height:'73vh',width:300, margin:"0 auto",align : "center",alignItems: "center",}
+const avatarStyle={backgroundColor:'#1bbd7e',align : "center"}
 function SignIn() {
-  
   const classes = useStyles();
   const [signin, setSignin] = useState<Partial<SigninInterface>>({});
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
-
-  const login = () => {
+  const [value, setValue] = React.useState(0);
+  
+  const loginTenant = () => {
     const apiUrl = ( "http://localhost:8080/login/DormTenant");
     const requestOptions = {
       method: "POST",
@@ -61,6 +82,7 @@ function SignIn() {
           setSuccess(true);
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("uid", res.data.id);
+          localStorage.setItem("role", res.data.role);
           window.location.reload()
         } else {
           setError(true);
@@ -68,7 +90,7 @@ function SignIn() {
       });
   };
 
-  const loginAttent = () => {
+  const loginAtten = () => {
     const apiUrl = "http://localhost:8080/login/DormAtten";
     const requestOptions = {
       method: "POST",
@@ -82,11 +104,16 @@ function SignIn() {
           setSuccess(true);
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("uid", res.data.id);
+          localStorage.setItem("role", res.data.role);
           window.location.reload()
         } else {
           setError(true);
         }
       });
+  };
+
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setValue(newValue);
   };
 
   const handleInputChange = (
@@ -104,89 +131,150 @@ function SignIn() {
     setSuccess(false);
     setError(false);
   };
-  
-  
- 
+
   return (
-    
-    <Container component="main" maxWidth="xs" >
+    <Container component="main" maxWidth="xs">
       <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success">
           เข้าสู่ระบบสำเร็จ
         </Alert>
       </Snackbar>
+
       <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">
-          หมายเลขบัตรประชาชนหรือรหัสผ่านไม่ถูกต้อง
+          รหัสประจำตัวหรือรหัสผ่านไม่ถูกต้อง
         </Alert>
       </Snackbar>
+
       <CssBaseline />
       <div className={classes.paper}>
-        {/*<Avatar className={classes.avatar}>
-        
-          <LockOutlinedIcon />
-        </Avatar>*/}
-        <img src="/img/postal.png" width="50px"></img>
-        <Typography component="h1" variant="h5">
-          Sign in
-          
-        </Typography>
-        <p> hint Attent : *Pid:1234567890123, Password:123456*</p>
-       
-        <p>hint Tenant : *Pid:1236196196199, Password: 654321*</p>
-        
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="Pid"
-            label="Pid"
-            name="Pid"
-            autoComplete="pid"
-            autoFocus
-            value={signin.Pid || ""}
-            onChange={handleInputChange}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="Password"
-            label="Password"
-            type="password"
-            id="Password"
-            autoComplete="current-password"
-            value={signin.Password || ""}
-            onChange={handleInputChange}
-          />
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            //style={{ backgroundColor:"#626567"}}
-            className={classes.submit}
-            onClick={login}
-          >
-            เข้าสู่ระบบในฐานะผู้เช่าหอพัก
-          </Button>
 
-          <Button
-            fullWidth
-            variant="contained"
-            color="default"
-            className={classes.submit}
-            onClick={loginAttent}
-          >
-            เข้าสู่ระบบในฐานะผู้ดูแลหอพัก
-          </Button>
-        
-        </form>
-      </div>
-    </Container>
+     
+
+        <div className={classes.root}>
+          <Paper  elevation={20} style={paperStyle}>
+
+            <Tabs value={value} onChange={handleChange} aria-label="disabled tabs example"  indicatorColor="primary"
+          textColor="primary">
+              <Tab label="ผู้เช่าหอพัก" {...a11yProps(0)} />
+              <Tab label="ผู้ดูแลหอพัก" {...a11yProps(1)} />
+            </Tabs>
+          <TabPanel value={value} index={0}>
+
+            
+        <Paper  style={paperStyle2}>
+        <CssBaseline />
+          <div className={classes.paper2}>
+            <Avatar className={classes.avatar} style={avatarStyle}  ><SupervisorAccountIcon/></Avatar>
+              <Typography align="center">
+                <h2>Sign In</h2>
+                <h6>hint Atten : *Pid:1234567890123, Password:123456*</h6> 
+                </Typography>
+                </div>
+      
     
+            <form className={classes.form} noValidate >
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="Pid"
+                label="Pid"
+                name="Pid"
+                autoComplete="Pid"
+                autoFocus
+                value={signin.Pid || ""}
+                onChange={handleInputChange}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="Password"
+                label="Password"
+                type="password"
+                id="Password"
+                autoComplete="current-password"
+                value={signin.Password || ""}
+                onChange={handleInputChange}
+              />
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={loginAtten}
+                style={btnstyle}
+              >
+                เข้าสู่ระบบ
+              </Button>
+            </form>
+            </Paper>
+          </TabPanel>
+
+          <TabPanel value={value} index={1}>
+          <Paper  style={paperStyle2}>
+          <CssBaseline />
+          <div className={classes.paper2}>
+            <Avatar className={classes.avatar} style={avatarStyle}  ><BadgeIcon/></Avatar>
+              <Typography align="center">
+                <h2>Sign In</h2>
+                <h6>hint Tenant : *Pid:1236196196199, Password: 654321 *</h6> 
+                
+              
+                </Typography>
+                </div>
+          
+            <form className={classes.form} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="Pid"
+                label="Pid"
+                name="Pid"
+                placeholder="Pid"
+                autoComplete="Pid"
+                autoFocus
+                value={signin.Pid || ""}
+                onChange={handleInputChange}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="Password"
+                label="Password"
+                type="password"
+                id="Password"
+                autoComplete="current-password"
+                value={signin.Password || ""}
+                onChange={handleInputChange}
+              />
+              <Button
+                fullWidth
+                style={btnstyle}
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={loginTenant}
+              >
+                เข้าสู่ระบบ
+              </Button>
+              
+            </form>
+            </Paper>
+          </TabPanel>
+
+          </Paper>
+        </div>
+      </div>
+      
+    </Container>
   );
 }
 
