@@ -50,6 +50,8 @@ import HomePostalRecord from "./components/HomePostalRecord";
 import RoomAllocate from "./components/RoomAllocate";
 import RoomAllocateCreate from "./components/RoomAllocateCreate";
 import HomeRoomAllocate from "./components/HomeRoomAllocate";
+import HomeFurnitureRequest from "./components/HomeFurnitureRequest";
+
 
 import HomeCleaning from "./components/HomeCleaning";
 import Cleaningrequrests from "./components/Cleaningrequrests";
@@ -184,6 +186,7 @@ export default function MiniDrawer() {
               <Route  path="/bill/create" element={<BillCreate/>}/>
               <Route  path="/meterrecord/create" element = {<MeterRecordCreate/>}/>
               <Route  path="/meterrecord" element = {<MeterRecord/>}/>
+              <Route path="/home_furniturerequest" element={<HomeFurnitureRequest/>} />
               <Route  path="/furniturerequest" element={<FurnitureRequest/>} />
               <Route  path="/furniturerequest/create" element={<FurnitureRequestCreate/>}/>
               <Route path="/home_repairrequest" element={<HomeRepair/>} />
