@@ -54,7 +54,7 @@ func CreateRoomAllocate(c *gin.Context) {
 	}
 
 	//มีการใช้ validation
-	if _, err := govalidator.ValidateStruct(roomallocate); err != nil {
+	if _, err := govalidator.ValidateStruct(ad); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
