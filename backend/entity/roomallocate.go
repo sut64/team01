@@ -40,6 +40,7 @@ func init() {
 
 	govalidator.CustomTypeTagMap.Set("future", func(i interface{}, context interface{}) bool {
 		t := i.(time.Time)
-		return t.After(time.Now())
+		now := time.Now()
+		return now.Before(time.Time(t))
 	})
 }
