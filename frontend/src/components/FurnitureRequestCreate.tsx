@@ -58,6 +58,8 @@ function FurnitureRequestCreate() {
 
  const [success, setSuccess] = React.useState(false);
  const [error, setError] = React.useState(false);
+ const [errorMessage, setErrorMessage] = React.useState("");
+
  
  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
    if (reason === "clickaway") {
@@ -172,9 +174,13 @@ const convertType = (data: string | number | undefined) => {
      .then((response) => response.json())
      .then((res) => {
        if (res.data) {
+         console.log("บันทึกสำเร็จ")
          setSuccess(true);
+         setErrorMessage("")
        } else {
+        console.log("บันทึกไม่สำเร็จ")
          setError(true);
+         setErrorMessage(res.error)
        }
      });
  }
@@ -190,7 +196,7 @@ const convertType = (data: string | number | undefined) => {
      </Snackbar>
      <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
        <Alert onClose={handleClose} severity="error">
-         บันทึกข้อมูลไม่สำเร็จ
+         บันทึกข้อมูลไม่สำเร็จ: {errorMessage}
        </Alert>
      </Snackbar>
      <Paper className={classes.paper}>
