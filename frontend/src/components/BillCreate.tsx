@@ -278,6 +278,7 @@ function BillCreate() {
     },
     body: JSON.stringify(data),
   };
+  
  
    fetch(apiUrl, requestOptions)
      .then((response) => response.json())
@@ -286,7 +287,7 @@ function BillCreate() {
          console.log("บันทึกได้")
          setSuccess(true);
          setErrorMessage("")
-         window.location.reload()
+         //window.location.reload()
        } else {
          console.log("บันทึกไม่ได้")
          setError(true);
