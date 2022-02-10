@@ -3,6 +3,7 @@ package controller
 import (
 	"net/http"
 
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"github.com/sut64/team01/entity"
 )
@@ -47,6 +48,12 @@ func CreateFurnitureRequest(c *gin.Context) {
 		DormInventory: dorminventory,
 		RoomAllocate:  roomallocate,
 	}
+
+	if _, err := govalidator.ValidateStruct(fr); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
 	// 12: บันทึก
 	if err := entity.DB().Create(&fr).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -59,7 +66,7 @@ func CreateFurnitureRequest(c *gin.Context) {
 func GetFurnitureRequest(c *gin.Context) {
 	var furniturerequest entity.FurnitureRequest
 	id := c.Param("id")
-	if err := entity.DB().Preload("DormAtten").Preload("DormInventory").Preload("RoomAllocate").Raw("SELECT * FROM furniturerequests WHERE id = ?", id).Find(&furniturerequest).Error; err != nil {
+	if err := entity.DB().Preload("DormAtten").Preload("DormInventory").Preload("RoomAllocate").Raw("SELECT * FROM furniture_requests WHERE id = ?", id).Find(&furniturerequest).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -69,42 +76,10 @@ func GetFurnitureRequest(c *gin.Context) {
 // GET /furniturerequest
 func ListFurnitureRequest(c *gin.Context) {
 	var furniturerequest []entity.FurnitureRequest
-	if err := entity.DB().Preload("DormAtten").Preload("DormInventory").Preload("RoomAllocate").Raw("SELECT * FROM furniturerequests").Find(&furniturerequest).Error; err != nil {
+	if err := entity.DB().Preload("DormAtten").Preload("DormInventory").Preload("RoomAllocate").Raw("SELECT * FROM furniture_requests").Find(&furniturerequest).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": furniturerequest})
-}
-
-// PATCH /furniturerequest
-func UpdateFurnitureRequest(c *gin.Context) {
-	var furniturerequest entity.FurnitureRequest
-	if err := c.ShouldBindJSON(&furniturerequest); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	if tx := entity.DB().Where("id = ?", furniturerequest.ID).First(&furniturerequest); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "furniture request record not found"})
-		return
-	}
-
-	if err := entity.DB().Save(&furniturerequest).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"data": furniturerequest})
-}
-
-// DELETE /furniturerequest/:id
-func DeleteFurnitureRequest(c *gin.Context) {
-	id := c.Param("id")
-	if tx := entity.DB().Exec("DELETE FROM furniturerequests WHERE id = ?", id); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "furniturerequest not found"})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"data": id})
 }
