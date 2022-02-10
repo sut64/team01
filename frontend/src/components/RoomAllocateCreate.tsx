@@ -67,6 +67,7 @@ function RoomAllocateCreate() {
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const apiUrl = "http://localhost:8080";
   const requestOptions = {
@@ -199,10 +200,12 @@ function RoomAllocateCreate() {
       .then((res) => {
         if (res.data) {
           console.log("บันทึกได้")
-          setSuccess(true);
+          setSuccess(true)
+          setErrorMessage("");
         } else {
           console.log("บันทึกไม่ได้")
-          setError(true);
+          setError(true)
+          setErrorMessage(res.error);
         }
       });
   }
@@ -217,7 +220,7 @@ function RoomAllocateCreate() {
       </Snackbar>
       <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">
-          บันทึกข้อมูลไม่สำเร็จ
+          บันทึกข้อมูลไม่สำเร็จ: {errorMessage}
         </Alert>
       </Snackbar>
       <Paper className={classes.paper} >
