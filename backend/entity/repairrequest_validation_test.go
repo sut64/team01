@@ -71,30 +71,23 @@ func TestRequestDateMustBeFuture(t *testing.T) {
 }
 
 
-func TestEntryPermissionNotBlank(t *testing.T) {
+func TestEntryPermissionNotNull(t *testing.T) {
 	g := NewGomegaWithT(t)
-	
-	ff := false
-	user := RepairRequest{
-		RecordDate:      time.Now().Add( 24 *time.Hour),
-		EntryPermission:   &ff,
+
+	v := true
+
+	// ข้อมูลถูกต้องหมดทุก field
+	rr := RepairRequest{
+		RequestDate: time.Now().Add( 24 * time.Hour),
 		TelNumber:       "0800485123",
-		
-		//RequestDate:     time.Now().Add( 24 *time.Hour),
-		//RoomAllocate:    RoomAllocate{},
-		//DormTenant:      DormTenant{},
-		//DormInventory:   DormInventory{},
-	//	RepairType:      RepairType{},
+		EntryPermission: &v,
 	}
-
 	// ตรวจสอบด้วย govalidator
-	ok, err := govalidator.ValidateStruct(user)
+	ok, err := govalidator.ValidateStruct(rr)
 
-	// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
-	g.Expect(ok).ToNot(BeTrue())
+	// ok ต้องเป็น true แปลว่าไม่มี error
+	g.Expect(ok).To(BeTrue())
 
-	// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
-	g.Expect(err).ToNot(BeNil())
-
-
-} 
+	// err เป็นค่า nil แปลว่าไม่มี error
+	g.Expect(err).To(BeNil())
+}
