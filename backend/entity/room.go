@@ -22,4 +22,5 @@ type Room struct {
 	Roomtypes   Roomtypes
 
 	RoomAllocate []RoomAllocate `gorm:"foreignKey:RoomID"`
+	Bills        []Bill         `gorm:"foreignKey:RoomID"`
 }
