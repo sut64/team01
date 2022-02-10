@@ -220,23 +220,6 @@ function Navbar() {
   
   const [dormatten, setDormAttens] = useState<DormAttenInterface>();
  
-  const getDormAttens = async () => {
-    const uid = Number(localStorage.getItem("uid"));
-    fetch(`${apiUrl}/route/GetDormAtten/${uid}`, requestOptions)
-      .then((response) => response.json())
-      .then((res) => {
-        if (res.data) {
-          setDormAttens(res.data);
-        } else {
-          console.log("else");
-        }
-      });
-  };
-  
-    useEffect(() => {
-      getDormAttens();
-  }, []);
-
 
  return (
   
@@ -263,9 +246,6 @@ function Navbar() {
          {/* <img src="/img/postal.png" width="50px"></img>*/}
           <Typography variant="h6" className={classes.title}>
           <h1>ระบบหอพัก</h1>
-          </Typography>
-          <Typography variant="subtitle1" className={classes.fontName}>
-            {dormatten?.FirstName} &nbsp;&nbsp;       
           </Typography>
           <Button color="inherit" 
           style={{fontFamily:"kanitlight",color:"black"}}
