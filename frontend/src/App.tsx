@@ -66,6 +66,7 @@ import FurnitureRequestCreate from "./components/FurnitureRequestCreate";
 import RepairRequestCreate from "./components/RepairRequestCreate";
 import RepairRequest from "./components/RepairRequest";
 import HomeRepair from "./components/HomeRepair";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -173,6 +174,8 @@ export default function MiniDrawer() {
               <Route path="/" element={<Home/>} />
               <Route path="/home_postal_record" element={<HomePostalRecord/>} />
               <Route  path="/dormtenant" element={<DormTenants/>} /> 
+              <Route  path="/dormatten" element={<DormAttens/>} /> 
+              
               <Route  path="/postal_record" element={<PostalRecords/>} />
               <Route  path="/postal_record/create" element={<PostalRecordCreate/>}/>
               <Route path="/home_roomallocate" element={<HomeRoomAllocate/>} />
@@ -192,6 +195,7 @@ export default function MiniDrawer() {
               <Route path="/home_repairrequest" element={<HomeRepair/>} />
               <Route  path="/repairrequest" element={<RepairRequest/>}/>
               <Route  path="/repairrequest/create" element={<RepairRequestCreate/>}/>
+            
 
               
               

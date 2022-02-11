@@ -581,19 +581,74 @@ func SetupDatabase() {
 		DormInventoryType: InventType1,
 	}
 	db.Model(&DormInventory{}).Create(&DormInventory1)
+
+	DormInventory11 := DormInventory{
+		FurnitureName:     "หลอดไฟ",
+		Amount:            200,
+		DormInventoryType: InventType1,
+	}
+	db.Model(&DormInventory{}).Create(&DormInventory11)
+
+	DormInventory12 := DormInventory{
+		FurnitureName:     "แอร์",
+		Amount:            100,
+		DormInventoryType: InventType1,
+	}
+	db.Model(&DormInventory{}).Create(&DormInventory12)
+
 	DormInventory2 := DormInventory{
 		FurnitureName:     "โต๊ะ",
 		Amount:            150,
 		DormInventoryType: InventType3,
 	}
 	db.Model(&DormInventory{}).Create(&DormInventory2)
-	DormInventory3 := DormInventory{
-		FurnitureName:     "ก๊อกน้ำ",
+	DormInventory7 := DormInventory{
+		FurnitureName:     "เก้าอี้",
+		Amount:            150,
+		DormInventoryType: InventType3,
+	}
+	db.Model(&DormInventory{}).Create(&DormInventory7)
+
+	DormInventory8 := DormInventory{
+		FurnitureName:     "มุ้งลวด",
+		Amount:            150,
+		DormInventoryType: InventType3,
+	}
+	db.Model(&DormInventory{}).Create(&DormInventory8)
+
+	DormInventory10 := DormInventory{
+		FurnitureName:     "ตู่เสื้อผ้า",
+		Amount:            150,
+		DormInventoryType: InventType3,
+	}
+	db.Model(&DormInventory{}).Create(&DormInventory10)
+	DormInventory9 := DormInventory{
+		FurnitureName:     "เตียง",
 		Amount:            100,
 		DormInventoryType: InventType2,
 	}
-	db.Model(&DormInventory{}).Create(&DormInventory3)
+	db.Model(&DormInventory{}).Create(&DormInventory9)
 
+	DormInventory4 := DormInventory{
+		FurnitureName:     "อ่างล้างหน้า",
+		Amount:            2,
+		DormInventoryType: InventType2,
+	}
+	db.Model(&DormInventory{}).Create(&DormInventory4)
+
+	DormInventory5 := DormInventory{
+		FurnitureName:     "ฝักบัว",
+		Amount:            40,
+		DormInventoryType: InventType2,
+	}
+	db.Model(&DormInventory{}).Create(&DormInventory5)
+
+	DormInventory6 := DormInventory{
+		FurnitureName:     "เครื่องทำน้ำอุ่น",
+		Amount:            100,
+		DormInventoryType: InventType2,
+	}
+	db.Model(&DormInventory{}).Create(&DormInventory6)
 	//---------repairType--------------------
 
 	Normal := RepairType{
