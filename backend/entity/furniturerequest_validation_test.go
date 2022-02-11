@@ -89,7 +89,7 @@ func TestDateRequestMustBePast(t *testing.T) {
 	g.Expect(err).ToNot(BeNil())
 
 	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("RequestDate must be in the future"))
+	g.Expect(err.Error()).To(Equal("DateRequest must be in the future"))
 }
 
 
