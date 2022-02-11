@@ -68,7 +68,7 @@ function DormAttens() {
              gutterBottom
              className={classes.font}
            >
-             ผู้ดูแลหอพัก
+             ผู้เข้าพัก
            </Typography>
          </Box>
          

@@ -19,6 +19,7 @@ type LoginDormTenantPayload struct {
 type LoginDormTenantResponse struct {
 	Token string `json:"token"`
 	ID    uint   `json:"id"`
+	Role  string `json:"role"`
 }
 
 // POST /login
@@ -63,6 +64,7 @@ func LoginDormTenant(c *gin.Context) {
 	tokenResponse := LoginDormTenantResponse{
 		Token: signedToken,
 		ID:    dorm_tenant.ID,
+		Role:  `tenant`,
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": tokenResponse})

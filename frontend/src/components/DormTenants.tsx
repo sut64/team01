@@ -13,7 +13,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { DormTenantInterface } from "../models/IDormTenant";
-
+import NavbarDormTenant from "./NavbarDormTenant"; 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
@@ -34,7 +34,7 @@ function DormTenants() {
   const [dormtenants, setDormTenants] = useState<DormTenantInterface[]>([]);
 
   const getDormTenants = async () => {
-    const apiUrl = "http://localhost:8080/route/ListDormTenant";
+    const apiUrl = "http://localhost:8080/route/ListDormTenants";
     const requestOptions = {
       method: "GET",
       headers: {
@@ -60,6 +60,7 @@ function DormTenants() {
 
   return (
     <div>
+      <NavbarDormTenant/>
       <Container className={classes.container} maxWidth="md">
         <Box display="flex">
           <Box flexGrow={1}>
@@ -73,17 +74,7 @@ function DormTenants() {
               ข้อมูลผู้ดูแลหอพัก
             </Typography>
           </Box>
-          <Box>
-            <Button
-              style={{ float: "right" ,backgroundColor:"#626567"}}
-              component={RouterLink}
-              to="/nurse/create"
-              variant="contained"
-              color="primary"
-            >
-              สร้างข้อมูล
-            </Button>
-          </Box>
+
         </Box>
         <TableContainer component={Paper} className={classes.tableSpace}>
           <Table className={classes.table} aria-label="simple table">

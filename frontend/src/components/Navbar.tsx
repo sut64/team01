@@ -82,10 +82,11 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import Divider from "@material-ui/core/Divider";
 import { List } from "@material-ui/core";
 import { DormAttenInterface } from "../models/IDormAtten";
+import { DormTenantInterface } from "../models/IDormTenant";
 import { fontSize } from "@mui/system";
 import CarpenterIcon from '@mui/icons-material/Carpenter';
 import ChairIcon from '@mui/icons-material/Chair';
-
+import SignIn from "./SignIn";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -167,7 +168,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-function Navbar() {
+export default function NavBar(){
   
   
  const classes = useStyles();
@@ -181,15 +182,13 @@ function Navbar() {
    },
  };
   //const [token, setToken] = React.useState<String>("");
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
 
-  const menu = [
+  const theme = useTheme();
+  const [token, setToken] = React.useState<String>("");
+  const [role, setRole] = React.useState<String>("");
+
+  const forAtten = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/" },
     { name: "ผู้ดูแลหอพัก", icon: <AccountCircleIcon />, path: "/dormatten" },
     { name: "ระบบบันทึกรายการพัสดุ", icon: <MarkAsUnreadIcon />, path: "/home_postal_record" },
@@ -198,29 +197,83 @@ function Navbar() {
     { name: "ระบบการจัดสรรห้องพัก", icon: <RoomPreferencesIcon />, path: "/home_roomallocate" },
    /* { name: "บันทึกการจัดสรรหอพัก", icon: <BedroomChildIcon />, path: "/roomallocate" },
     { name: "สร้างบันทึกการจัดสรรห้องพัก", icon: <NoteAltIcon />, path: "/roomallocate/create" },*/
-    { name: "ระบบแจ้งทำความสะอาดห้องพัก", icon: <CleaningServicesIcon />, path: "/homecleang" },
-   /* { name: "บันทึกรายการพัสดุ", icon: <CleaningServicesIcon />, path: "/cleaningrequrest" },
-    { name: "สร้างบันทึกรายการพัสดุ", icon: <CleaningServicesIcon />, path: "/cleaningrequrest/create" },*/
     { name: "ระบบการบันทึกการชำระเงิน", icon: <LocalAtmIcon />, path: "/home_bill" },
     /*{ name: "บันทึกการชำระเงิน", icon: <PaymentsIcon />, path: "/bill" },
     { name: "สร้างบันทึกการชำระเงิน", icon: <PointOfSaleIcon />, path: "/bill/create" },*/
-    { name: "ระบบแจ้งซ่อม", icon: < CarpenterIcon />, path: "/home_repairrequest" },
-    /*{ name: "บันทึกการยืมครุภัณฑ์", icon: <PaymentsIcon />, path: "/bill" },
-    { name: "สร้างบันทึกการยืมครุภัณฑ์", icon: <PointOfSaleIcon />, path: "/bill/create" },*/
     { name: "ระบบยืมครุภัณฑ์", icon: < ChairIcon />, path: "/home_furniturerequest" },
-
-    
   ];
 
+  const forTenant = [
+    { name: "หน้าแรก", icon: <HomeIcon />, path: "/" },
+    { name: "ผู้ดูแลหอพัก", icon: <AccountCircleIcon />, path: "/dormtenant" },
+    { name: "ระบบแจ้งทำความสะอาดห้องพัก", icon: <CleaningServicesIcon />, path: "/homecleang" },
+    { name: "ระบบแจ้งซ่อม", icon: < CarpenterIcon />, path: "/home_repairrequest" },
+
+  ];
+
+  const [dormtenant, setDormTenants] = useState<DormTenantInterface>();
+ 
+  const getDormTenants = async () => {
+    const uid = Number(localStorage.getItem("uid"));
+    fetch(`${apiUrl}/route/GetDormTenant/${uid}`, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.data) {
+          setDormTenants(res.data);
+        } else {
+          console.log("else");
+        }
+      });
+  };
+
+  const [dormatten, setDormAttens] = useState<DormAttenInterface>();
+ 
+  const getDormAttens = async () => {
+    const uid = Number(localStorage.getItem("uid"));
+    fetch(`${apiUrl}/route/GetDormAtten/${uid}`, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.data) {
+          setDormAttens(res.data);
+        } else {
+          console.log("else");
+        }
+      });
+  };
+  useEffect(() => {
+    const role = localStorage.getItem("role");
+    const token = localStorage.getItem("token");
+    if (token && role) {
+        setToken(token);
+        setRole(role);
+    }
+    getDormTenants();
+    getDormAttens();
+
+}, []);
+
+const handleDrawerOpen = () => {
+  setOpen(true);
+};
+
+const handleDrawerClose = () => {
+  setOpen(false);
+};
+
+if (!token) {
+  return <SignIn />;
+}
   const signout = () => {
     localStorage.clear();
     window.location.href = "/";
   };
-  const theme = useTheme();
-  
-  const [dormatten, setDormAttens] = useState<DormAttenInterface>();
- 
 
+
+
+  
+
+
+if ( role === "atten") {
  return (
   
     <>
@@ -246,6 +299,9 @@ function Navbar() {
          {/* <img src="/img/postal.png" width="50px"></img>*/}
           <Typography variant="h6" className={classes.title}>
           <h1>ระบบหอพัก</h1>
+          </Typography>
+          <Typography variant="subtitle1" className={classes.fontName}>
+            {dormatten?.FirstName} &nbsp;&nbsp;       
           </Typography>
           <Button color="inherit" 
           style={{fontFamily:"kanitlight",color:"black"}}
@@ -279,7 +335,7 @@ function Navbar() {
         </div>
         <Divider />
         <List>
-          {menu.map((item, index) => (
+          {forAtten.map((item, index) => (
             <Link to={item.path} key={item.name} className={classes.menubar}>
               <ListItem button>
                 <ListItemIcon>{item.icon}</ListItemIcon>
@@ -291,7 +347,83 @@ function Navbar() {
       </Drawer>
     </>
   )
+ }
 
-          }
+ if ( role === "tenant") {
+  return (
+   
+     <>
+       <AppBar
+         position="fixed"
+         className={clsx(classes.appBar,classes.nav, {
+           [classes.appBarShift]: open,
+         })}
+       >
+         <Toolbar>
+           <IconButton
+             color="inherit"
+             aria-label="open drawer"
+             onClick={handleDrawerOpen}
+             edge="start"
+             className={clsx(classes.menuButton, {
+               [classes.hide]: open,
+             })}
+           >
+             <img src="/img/logo_dorm_system.jpg" width="50px"></img>
+             {/*<MenuIcon />*/}
+           </IconButton>
+          {/* <img src="/img/postal.png" width="50px"></img>*/}
+           <Typography variant="h6" className={classes.title}>
+           <h1>ระบบหอพัก</h1>
+           </Typography>
+           <Typography variant="subtitle1" className={classes.fontName}>
+            {dormtenant?.DormTenant_FirstName} &nbsp;&nbsp;       
+          </Typography>
+           <Button color="inherit" 
+           style={{fontFamily:"kanitlight",color:"black"}}
+           //style={{backgroundColor:"#E5E7E9"}}
+           onClick={signout}>
+             ออกจากระบบ
+           </Button>
+         </Toolbar>
+       </AppBar>
+       <Drawer
+         variant="permanent"
+         className={clsx(classes.drawer, {
+           [classes.drawerOpen]: open,
+           [classes.drawerClose]: !open,
+         })}
+         classes={{
+           paper: clsx({
+             [classes.drawerOpen]: open,
+             [classes.drawerClose]: !open,
+           }),
+         }}
+       >
+         <div className={classes.toolbar}>
+           <IconButton onClick={handleDrawerClose}>
+             {theme.direction === "rtl" ? (
+               <ChevronRightIcon />
+             ) : (
+               <ChevronLeftIcon />
+             )}
+           </IconButton>
+         </div>
+         <Divider />
+         <List>
+           {forTenant.map((item, index) => (
+             <Link to={item.path} key={item.name} className={classes.menubar}>
+               <ListItem button>
+                 <ListItemIcon>{item.icon}</ListItemIcon>
+                 <ListItemText disableTypography style={{fontFamily:"kanitlight"}} primary={item.name} />
+               </ListItem>
+             </Link>
+           ))}
+         </List>
+       </Drawer>
+     </>
+   )
+  }
 
-export default Navbar;
+  return <SignIn />;
+}
