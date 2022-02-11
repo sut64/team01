@@ -156,8 +156,8 @@ function SignIn() {
 
             <Tabs value={value} onChange={handleChange} aria-label="disabled tabs example"  indicatorColor="primary"
           textColor="primary">
-              <Tab label="ผู้เช่าหอพัก" {...a11yProps(0)} />
-              <Tab label="ผู้ดูแลหอพัก" {...a11yProps(1)} />
+              <Tab label="ผู้ดูแลหอพัก" {...a11yProps(0)} />
+              <Tab label="ผู้เช่าหอพัก" {...a11yProps(1)} />
             </Tabs>
           <TabPanel value={value} index={0}>
 

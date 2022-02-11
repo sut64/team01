@@ -17,7 +17,7 @@ type FurnitureRequest struct {
 	RoomAllocateID  *uint
 	RoomAllocate    RoomAllocate `gorm:"references:id" valid:"-"`
 	PhoneNo         string       `valid:"matches(^[0]\\d{9}$)"`
-	DateRequest     time.Time    `valid:"future~RecordTime must be in the future"`
+	DateRequest     time.Time    `valid:"future~RequestDate must be in the future"`
 }
 
 func init() {
