@@ -617,7 +617,7 @@ func SetupDatabase() {
 	db.Model(&DormInventory{}).Create(&DormInventory8)
 
 	DormInventory10 := DormInventory{
-		FurnitureName:     "ตู่เสื้อผ้า",
+		FurnitureName:     "ตู้เสื้อผ้า",
 		Amount:            150,
 		DormInventoryType: InventType3,
 	}
