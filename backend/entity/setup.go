@@ -116,13 +116,13 @@ func SetupDatabase() {
 	dorm_tenant0 := DormTenant{
 		Pid:                  "0000000000000",
 		DormTenant_FirstName: "สำหรับบันทึกจำนวนเงิน",
-		DormTenant_LastName:  "สำหรับบันทึกจำนวนเงิน",
-		Email:                "test@gmail.com",
-		Gender:               "Male",
-		Age:                  0,
-		Role:                 role2,
-		Tel:                  "0888888888",
-		Password:             string(password2),
+		//DormTenant_LastName:  "สำหรับบันทึกจำนวนเงิน",
+		Email:    "test@gmail.com",
+		Gender:   "Male",
+		Age:      0,
+		Role:     role2,
+		Tel:      "0888888888",
+		Password: string(password2),
 	}
 	db.Model(&DormTenant{}).Create(&dorm_tenant0)
 	dorm_tenant1 := DormTenant{
@@ -430,7 +430,7 @@ func SetupDatabase() {
 	db.Model(&Cleaningtype{}).Create(&cleaningtype5)
 
 	cleaningtype0 := Cleaningtype{
-		Type:  "ใช้สำหรับคำนวณเงิน",
+		Type:  "ไม่มีการทำความสะอาด",
 		Price: 0.00,
 	}
 	db.Model(&Cleaningtype{}).Create(&cleaningtype0)
@@ -455,15 +455,19 @@ func SetupDatabase() {
 		Period: "15:00 - 17:00",
 	}
 	db.Model(&Timerequrest{}).Create(&timerequrest4)
+	timerequrest5 := Timerequrest{
+		Period: "00:00 - 00:00",
+	}
+	db.Model(&Timerequrest{}).Create(&timerequrest5)
 
 	//----------------- ช่วงเวลาทำความสะอาด -------------------
 	Cleaning0 := Cleaningrequrest{
-		//RoomAllocate: roomallocate2,
+		//RoomAllocate: roomallocate1,
 		Cleaningtype: cleaningtype0,
-		//Timerequrest: timerequrest2,
-		Day:  time.Now(),
-		Tel:  "0900000000",
-		Note: "มีหนูตายหลังตู้เย็น",
+		Timerequrest: timerequrest5,
+		Day:          time.Now(),
+		Tel:          "0000000000",
+		Note:         "ใช้สำหรับคำนวณเงิน",
 	}
 	db.Model(&Cleaningrequrest{}).Create(&Cleaning0)
 
@@ -496,12 +500,12 @@ func SetupDatabase() {
 	db.Model(&Unitprice{}).Create(&Unitprice1)
 
 	MeterRecord0 := MeterRecord{
-		//Uele:         8.39,
-		//Uwat:         12.14,
+		Uele:      0.00,
+		Uwat:      0.00,
 		Sum:       0.00,
 		Date:      time.Now(),
 		Unitprice: Unitprice1,
-		DormAtten: dorm_atten1,
+		//DormAtten: dorm_atten1,
 		//RoomAllocate: roomallocate1,
 	}
 	db.Model(&MeterRecord{}).Create(&MeterRecord0)
@@ -675,12 +679,12 @@ func SetupDatabase() {
 
 	//--------RepairRequest-------------------
 	repair0 := RepairRequest{
-		//DormTenant:      dorm_tenant1,
+		DormTenant:      dorm_tenant0,
 		RecordDate:      time.Now(),
 		EntryPermission: &f,
 		RequestDate:     time.Now(),
-		//TelNumber:       "0800000000",
-		RepairType: test,
+		TelNumber:       "0000000000",
+		RepairType:      test,
 		//DormInventory:   DormInventory2,
 		//RoomAllocate:    roomallocate1,
 	}
