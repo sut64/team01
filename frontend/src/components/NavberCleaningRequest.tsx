@@ -80,7 +80,8 @@ import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 
 import Divider from "@material-ui/core/Divider";
 import { List } from "@material-ui/core";
-import { DormAttenInterface } from "../models/IDormAtten";
+//import { DormAttenInterface } from "../models/IDormAtten";
+import { DormTenantInterface } from "../models/IDormTenant";
 import { fontSize } from "@mui/system";
 
 const drawerWidth = 240;
@@ -206,23 +207,23 @@ function NavbarCleaningRequest() {
   };
   const theme = useTheme();
   
-  const [dormatten, setDormAttens] = useState<DormAttenInterface>();
- 
-  const getDormAttens = async () => {
-    const uid = Number(localStorage.getItem("uid"));
-    fetch(`${apiUrl}/route/GetDormAtten/${uid}`, requestOptions)
-      .then((response) => response.json())
-      .then((res) => {
-        if (res.data) {
-          setDormAttens(res.data);
-        } else {
-          console.log("else");
-        }
-      });
-  };
+ // const [dormatten, setDormAttens] = useState<DormAttenInterface>();
+ const [dormtenant, setDormTenants] = useState<DormTenantInterface>();
+ const getDormTenants = async () => {
+   const uid = Number(localStorage.getItem("uid"));
+   fetch(`${apiUrl}/route/GetDormTenant/${uid}`, requestOptions)
+     .then((response) => response.json())
+     .then((res) => {
+       if (res.data) {
+         setDormTenants(res.data);
+       } else {
+         console.log("else");
+       }
+     });
+ };
   
     useEffect(() => {
-      getDormAttens();
+      getDormTenants();
   }, []);
 
 
@@ -253,7 +254,7 @@ function NavbarCleaningRequest() {
           <h1>ระบบแจ้งทำความสะอาดห้องพัก</h1>
           </Typography>
           <Typography variant="subtitle1" className={classes.fontName}>
-            {dormatten?.FirstName} &nbsp;&nbsp;       
+            {dormtenant?.DormTenant_FirstName} &nbsp;&nbsp;       
           </Typography>
           <Button color="inherit" 
           style={{fontFamily:"kanitlight",color:"black"}}
