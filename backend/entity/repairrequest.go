@@ -5,6 +5,7 @@ import (
 
 	"github.com/asaskevich/govalidator"
 	"gorm.io/gorm"
+	"fmt"
 )
 
 /*type DormTenant struct {
@@ -50,8 +51,9 @@ type RepairRequest struct {
 	TelNumber string `valid:"matches(^[0]\\d{9}$)"`
 
 	RecordDate      time.Time `valid:"-"`
-	EntryPermission *bool     //มีการ validation ใน controller ไม่ได้ใช้ govalidator
+	EntryPermission *bool       //มีการ validation ใน controller ไม่ได้ใช้ govalidator
 	RequestDate     time.Time `valid:"future~RequestDate Must be in the future" `
+	ProblemNote     string      `valid:"required~ProblemNote can not be blank"`                                  
 
 	RoomAllocateID *uint
 	RoomAllocate   RoomAllocate `gorm:"references:id" valid:"-"` // ไม่ validate ไปในระดับ relation
@@ -79,4 +81,12 @@ func init() {
 		return t.After(time.Now())
 	})
 
+}
+
+func BooleanNotNull(t *bool) (bool, error) {
+	if t == nil {
+		return false, fmt.Errorf("EntryPermission cannot be blank and please choose one")
+	} else {
+		return true, nil
+	}
 }
