@@ -1,8 +1,6 @@
 package controller
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/asaskevich/govalidator"
@@ -39,33 +37,43 @@ func CreateBill(c *gin.Context) {
 	}
 
 	// ค้นหา room ด้วย id
-	if tx := entity.DB().Where("id = ?", bill.RoomID).First(&room); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "room not found"})
-		return
+	if bill.RoomID != nil {
+		if tx := entity.DB().Where("id = ?", bill.RoomID).First(&room); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "room not found"})
+			return
+		}
 	}
 
 	// ค้นหา MeterRecord ด้วย id
-	if tx := entity.DB().Where("id = ?", bill.MeterRecordID).First(&meterrecord); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "meterrecord not found"})
-		return
+	if bill.MeterRecordID != nil {
+		if tx := entity.DB().Where("id = ?", bill.MeterRecordID).First(&meterrecord); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "meterrecord not found"})
+			return
+		}
 	}
 
 	// ค้นหา RepairRequest ด้วย id
-	if tx := entity.DB().Where("id = ?", bill.RepairRequestID).First(&repairrequest); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "repairrequest not found"})
-		return
+	if bill.RepairRequestID != nil {
+		if tx := entity.DB().Where("id = ?", bill.RepairRequestID).First(&repairrequest); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "repairrequest not found"})
+			return
+		}
 	}
 
 	// ค้นหา Cleaningrequrest ด้วย id
-	if tx := entity.DB().Where("id = ?", bill.CleaningrequrestID).First(&cleaningrequrest); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "cleaningrequrest not found"})
-		return
+	if bill.CleaningrequrestID != nil {
+		if tx := entity.DB().Where("id = ?", bill.CleaningrequrestID).First(&cleaningrequrest); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "cleaningrequrest not found"})
+			return
+		}
 	}
 
 	calculate := 0.00
 
 	// เผื่อใช้ เก็บไว้ก่อน
-	if *room.RoomtypesID == 1 || *room.RoomtypesID == 2 {
+	if bill.RoomID == nil {
+		calculate = calculate + 0.00
+	} else if *room.RoomtypesID == 1 || *room.RoomtypesID == 2 {
 		calculate = calculate + 3500.00
 	} else if *room.RoomtypesID == 3 || *room.RoomtypesID == 4 {
 		calculate = calculate + 4500.00
@@ -75,7 +83,9 @@ func CreateBill(c *gin.Context) {
 
 	calculate = calculate + meterrecord.Sum
 
-	if *repairrequest.RepairTypeID == 1 {
+	if bill.RepairRequestID == nil {
+		calculate = calculate + 0.00
+	} else if *repairrequest.RepairTypeID == 1 {
 		calculate = calculate + 250.00
 	} else if *repairrequest.RepairTypeID == 2 {
 		calculate = calculate + 500.00
@@ -83,7 +93,9 @@ func CreateBill(c *gin.Context) {
 		calculate = calculate + 0.00
 	}
 
-	if *cleaningrequrest.CleaningtypeID == 1 {
+	if bill.CleaningrequrestID == nil {
+		calculate = calculate + 0.00
+	} else if *cleaningrequrest.CleaningtypeID == 1 {
 		calculate = calculate + 50.00
 	} else if *cleaningrequrest.CleaningtypeID == 2 {
 		calculate = calculate + 100.00
@@ -110,11 +122,11 @@ func CreateBill(c *gin.Context) {
 		AmountPaid:       calculate,
 	}
 
-	data_out, err := json.MarshalIndent(b, "", "    ")
-	if err != nil {
-		panic("fail")
-	}
-	fmt.Println(string(data_out))
+	//data_out, err := json.MarshalIndent(b, "", "    ")
+	//if err != nil {
+	//	panic("fail")
+	//}
+	//fmt.Println(string(data_out))
 
 	//แทรกการ validate PayByCash
 	if b.PayByCash == nil {
