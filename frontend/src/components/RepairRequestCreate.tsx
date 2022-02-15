@@ -58,7 +58,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function RepairRequestCreate() {
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = React.useState<Date | null>(new Date());
+  const [selectedDate1, setSelectedDate1] = React.useState<Date | null>(new Date());
+  const [selectedDate2, setSelectedDate2] = React.useState<Date | null>(new Date());
   const [dormtenants, setDormTenants] = React.useState<DormTenantInterface>();
   const [inventorys, setInventorys] = React.useState<DormInventoryInterface[]>([]);
   const [inventorytypes, setInventorytypes] = React.useState<DormInventoryTypeInterface[]>([]);
@@ -75,10 +76,8 @@ function RepairRequestCreate() {
   const [errorMessage, setErrorMessage] = React.useState("");
   
   const [state, setState] = useState({
-
- 
-    
-    EntryPermission: false,
+     EntryPermissionF: false,
+    EntryPermissionT: false,
   });
 
 
@@ -104,6 +103,8 @@ function RepairRequestCreate() {
   const handleChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>
   ) => {
+    console.log(event.target.name)
+    console.log(event.target.value)
     const name = event.target.name as keyof typeof repairrequest;
     setRepairRequest({
       ...repairrequest,
@@ -111,19 +112,54 @@ function RepairRequestCreate() {
     });
   };
 
-  const handleDateChange = (date: Date | null) => {
+  const handleDateChange1 = (date: Date | null) => {
     console.log(date);
-    setSelectedDate(date);
+    setSelectedDate1(date);
+  }; 
+  const handleDateChange2 = (date: Date | null) => {
+    console.log(date);
+    setSelectedDate2(date);
   }; 
 
   const handleCheckboxChange = (
     event: React.ChangeEvent<HTMLInputElement>) => {
-    const name = event.target.name as keyof typeof repairrequest;  
-    setState({ ...state, [name]: event.target.checked });
+    const name = event.target.name ;  
+    console.log(name)
+    console.log(event.target.checked)
+    //setState({ ...state, [name]: event.target.checked });
+    let EntryPermission = undefined
+
+    if(name == "EntryPermissionT" && event.target.checked){
+      setState({ ...state, ["EntryPermissionF"]: false, ["EntryPermissionT"]: true });
+      EntryPermission = true
+      
+    }else if(name == "EntryPermissionT" && !(event.target.checked)){
+      setState({ ...state, ["EntryPermissionT"]: false });
+      EntryPermission = false
+    }
+/////////////////////////
+
+
+    if (name == "EntryPermissionT" && !(event.target.checked)){
+      setState({ ...state, ["EntryPermissionT"]: false, ["EntryPermissionF"]: false });
+      EntryPermission = undefined
+    }
+////////////////////////////////
+    if(name == "EntryPermissionF" && event.target.checked){
+      setState({ ...state, ["EntryPermissionF"]: true ,["EntryPermissionT"]: false,});
+      EntryPermission = false
+    }else if(name == "EntryPermissionF" && !(event.target.checked)){
+      setState({ ...state, ["EntryPermissionF"]: false });
+      EntryPermission = undefined
+    } else  if (name == "EntryPermissionF" && !(event.target.checked)){
+      setState({ ...state, ["EntryPermissionT"]: false, ["EntryPermissionF"]: false });
+      EntryPermission = undefined
+    }
+
 
     setRepairRequest({
       ...repairrequest,
-      [name]: event.target.checked,
+      ["EntryPermission"]: EntryPermission,
     });
   };
 
@@ -230,8 +266,9 @@ function RepairRequestCreate() {
       //DormInventorytype: convertType(inventorytypes.ID),
       RepairTypeID: convertType(repairrequest.RepairTypeID),
       TelNumber: repairrequest.TelNumber ?? "",
-      RecordDate: selectedDate,
-      RequestDate: selectedDate,
+      ProblemNote: repairrequest.ProblemNote ?? "",
+      RecordDate: selectedDate1,
+      RequestDate: selectedDate2,
       EntryPermission : repairrequest.EntryPermission,
     };
 
@@ -359,8 +396,8 @@ function RepairRequestCreate() {
                   }}
                   disabled
                   name="RecordDate"
-                  value={selectedDate}
-                  onChange={handleDateChange}
+                  value={selectedDate1}
+                  onChange={handleDateChange1}
                   label=""
                   minDate={new Date("2018-01-01T00:00")}
                   format="yyyy/MM/dd hh:mm a"
@@ -388,7 +425,7 @@ function RepairRequestCreate() {
                 
                 {inventorytypes.map((item: DormInventoryTypeInterface) => (
                   <option  key={item.ID} value={item.ID}>
-                 {item.ID} {item.InvenType} 
+                 {item.InvenType} 
                   </option>
                 ))}
                </Select>
@@ -462,8 +499,8 @@ function RepairRequestCreate() {
                     },
                   }}
                   name="RequestDate"
-                  value={selectedDate}
-                  onChange={handleDateChange}
+                  value={selectedDate2}
+                  onChange={handleDateChange2}
                   label=""
                   minDate={new Date("2018-01-01T00:00")}
                   format="yyyy/MM/dd hh:mm a"
@@ -493,22 +530,55 @@ function RepairRequestCreate() {
            </FormControl>
            </Grid>
 
-          <Grid item xs={3} className={classes.font}>
-            <p>อนุญาตให้ช่างเข้าห้องเมื่อผู้เช่าไม่อยู่หรือไม่</p>
-          </Grid>
-          <Grid item xs={3} >
-          <FormControlLabel
+           <Grid item xs={6}>
+           <FormControl fullWidth variant="outlined" className={classes.font}>
+             <p>อาการ/ปัญหา</p>
+             <TextField
+               InputProps={{
+                classes: {
+                  input: classes.fontIn,
+                },
+              }}
+               placeholder="ระบุอาการหรือปัญหาของสิ่งของที่เสียหาย"
+               id="ProblemNote"
+               variant="outlined"
+               type="string"
+               size="medium"
+               value={repairrequest.ProblemNote || ""}
+               onChange={handleInputChange}
+             />
+           </FormControl>
+           </Grid>
 
-             
-              control={<Checkbox   checked={state.EntryPermission} 
+          <Grid item xs={3} className={classes.font}>
+            <p>การอนุญาตเข้าห้องพัก</p>
+          </Grid>
+          <Grid item xs={4} >
+          <FormControlLabel
+            
+              
+              control={<Checkbox checked={state.EntryPermissionT} 
               id="EntryPermission"
               onChange={handleCheckboxChange}
               
               inputProps={{ 
-              name : 'EntryPermission'}}
+              name : 'EntryPermissionT'}}
+              
+              name="EntryPermissionT" />}
+              label="อนุญาต"/> 
 
-              name="EntryPermission" />}
-              label="Yes!"/>
+          <FormControlLabel
+              
+              
+              control={<Checkbox checked={state.EntryPermissionF} 
+              id="EntryPermission"
+              onChange={handleCheckboxChange}
+              
+              inputProps={{ 
+              name : 'EntryPermissionF'}}
+              
+              name="EntryPermissionF" />}
+              label="ไม่อนุญาต"/> 
 
           </Grid>
 
@@ -522,6 +592,7 @@ function RepairRequestCreate() {
               กลับ
             </Button>
             <Button
+
               style={{ float: "right" ,backgroundColor:"#f4adfd"}}
               onClick={submit}
               variant="contained"

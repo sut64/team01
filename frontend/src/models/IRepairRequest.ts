@@ -14,6 +14,7 @@ export interface RepairRequestinterface {
     RecordDate : Date,
     EntryPermission : Boolean,
     RequestDate : Date,
+    ProblemNote :string,
     
     RepairTypeID: number,
     RepairType : RepairTypeInterface,

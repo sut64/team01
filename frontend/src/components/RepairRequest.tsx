@@ -109,6 +109,9 @@ function RepairRequest() {
                 <TableCell align="center" width="15%" className={classes.font}>
                   สิ่งของที่เสียหาย
                 </TableCell>
+                <TableCell align="center" width="15%" className={classes.font}>
+                  อาการ/ปัญหา
+                </TableCell>
                 <TableCell align="center" width="15%"className={classes.font}>
                   วันที่และเวลาที่นัดหมาย
                 </TableCell>
@@ -127,6 +130,7 @@ function RepairRequest() {
                   <TableCell align="center" className={classes.fontIn}>{item.RepairType.TypeName}</TableCell>
                   <TableCell align="center" className={classes.fontIn}>{item.DormInventory.DormInventoryType.InvenType}</TableCell>
                   <TableCell align="center" className={classes.fontIn}>{item.DormInventory.FurnitureName}</TableCell>
+                  <TableCell align="center" className={classes.fontIn}>{item.ProblemNote}</TableCell>
                   <TableCell align="center" className={classes.fontIn}>{format((new Date(item.RequestDate)), 'dd MMMM yyyy hh:mm a')}</TableCell>
                   <TableCell align="center" className={classes.font}>{item.EntryPermission? "อนุญาต":"ไม่อนุญาต"}</TableCell>
                 </TableRow>

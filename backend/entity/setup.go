@@ -629,7 +629,7 @@ func SetupDatabase() {
 	DormInventory9 := DormInventory{
 		FurnitureName:     "เตียง",
 		Amount:            100,
-		DormInventoryType: InventType2,
+		DormInventoryType: InventType3,
 	}
 	db.Model(&DormInventory{}).Create(&DormInventory9)
 
@@ -685,6 +685,7 @@ func SetupDatabase() {
 		RequestDate:     time.Now(),
 		TelNumber:       "0000000000",
 		RepairType:      test,
+		ProblemNote:	"-",
 		//DormInventory:   DormInventory2,
 		//RoomAllocate:    roomallocate1,
 	}
@@ -699,6 +700,7 @@ func SetupDatabase() {
 		RepairType:      Urgen,
 		DormInventory:   DormInventory2,
 		RoomAllocate:    roomallocate1,
+		ProblemNote:	"-",
 	}
 	db.Model(&RepairRequest{}).Create(&repair1)
 
@@ -711,6 +713,7 @@ func SetupDatabase() {
 		RepairType:      Normal,
 		DormInventory:   DormInventory1,
 		RoomAllocate:    roomallocate2,
+		ProblemNote:	"-",
 	}
 	db.Model(&RepairRequest{}).Create(&repair2)
 

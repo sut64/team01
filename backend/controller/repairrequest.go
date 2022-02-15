@@ -1,7 +1,9 @@
 package controller
 
 import (
+
 	"net/http"
+
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"github.com/sut64/team01/entity"
@@ -16,7 +18,7 @@ func CreateRepairRequest(c *gin.Context) {
 	var dorminventory entity.DormInventory
 	var roomallocate entity.RoomAllocate
 
-	// ผลลัพธ์ที่ได้จะถูก bind เข้าตัวแปร RoomAllocate
+	// ผลลัพธ์ที่ได้จะถูก bind เข้าตัวแปร RepairRequest
 	if err := c.ShouldBindJSON(&repairrequest); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -49,26 +51,28 @@ func CreateRepairRequest(c *gin.Context) {
 	
 		RoomAllocate: roomallocate ,       // โยงความสัมพันธ์กับ Entity roomallocate
 		DormTenant: dormtenant, // โยงความสัมพันธ์กับ Entity DormTenant
-		DormInventory: dorminventory,
-		RepairType: repairtype,
+		DormInventory: dorminventory, // โยงความสัมพันธ์กับ Entity dorminventory
+		RepairType: repairtype, // โยงความสัมพันธ์กับ Entity repairtype
 
+		ProblemNote: repairrequest.ProblemNote,
 		RecordDate: repairrequest.RecordDate.Local(),
 		RequestDate: repairrequest.RequestDate.Local(),
 		EntryPermission: repairrequest.EntryPermission,
 		TelNumber: repairrequest.TelNumber,	
 	}
 
-	//Validaition โดย Govalidation
+	//Validaition 
 	if _, err := govalidator.ValidateStruct(ad); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	//แทรกการ validate EntryPermission
-	if ad.EntryPermission == nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "EntryPermission : cannot be Null"})
+	if _, err := entity.BooleanNotNull(ad.EntryPermission); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+	
+	
 	// บันทึก
 	if err := entity.DB().Create(&ad).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -98,38 +102,4 @@ func ListRepairRequest(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"data": repairrequest})
 }
-
-// DELETE /repair_requests/:id
-func DeleteRequisitionRecord(c *gin.Context) {
-	id := c.Param("id")
-	if tx := entity.DB().Exec("DELETE FROM repair_request WHERE id = ?", id); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "repair request record not found"})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"data": id})
-}
-
-// PATCH /repair_requests
-func UpdateRequisitionRecord(c *gin.Context) {
-	var repairrequest entity.RepairRequest
-	if err := c.ShouldBindJSON(&repairrequest); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	if tx := entity.DB().Where("id = ?", repairrequest.ID).First(&repairrequest); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "repair request record not found"})
-		return
-	}
-
-	if err := entity.DB().Save(&repairrequest).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"data": repairrequest})
-}
-
-
 
