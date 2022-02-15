@@ -113,18 +113,6 @@ func SetupDatabase() {
 	}
 	db.Model(&Carrier{}).Create(&carrier5)
 	//------------DormTenant-------------------------
-	dorm_tenant0 := DormTenant{
-		Pid:                  "0000000000000",
-		DormTenant_FirstName: "สำหรับบันทึกจำนวนเงิน",
-		//DormTenant_LastName:  "สำหรับบันทึกจำนวนเงิน",
-		Email:    "test@gmail.com",
-		Gender:   "Male",
-		Age:      0,
-		Role:     role2,
-		Tel:      "0888888888",
-		Password: string(password2),
-	}
-	db.Model(&DormTenant{}).Create(&dorm_tenant0)
 	dorm_tenant1 := DormTenant{
 		Pid:                  "1234567890123",
 		DormTenant_FirstName: "John",
@@ -223,11 +211,6 @@ func SetupDatabase() {
 		Price: 4500,
 	}
 	db.Model(&Roomtypes{}).Create(&roomtype4)
-	roomtype0 := Roomtypes{
-		Name:  "สำหรับบันทึกจำนวนเงิน",
-		Price: 0,
-	}
-	db.Model(&Roomtypes{}).Create(&roomtype0)
 
 	//------------Room-------------------------
 	room1 := Room{
@@ -330,11 +313,6 @@ func SetupDatabase() {
 		Roomtypes: roomtype4,
 	}
 	db.Model(&Room{}).Create(&room20)
-	room0 := Room{
-		Number:    "A00",
-		Roomtypes: roomtype0,
-	}
-	db.Model(&Room{}).Create(&room0)
 	//------------RoomAllocate-------------------------
 	roomallocate1 := RoomAllocate{
 		EntryTime:            time.Now(),
@@ -428,13 +406,6 @@ func SetupDatabase() {
 		Price: 400,
 	}
 	db.Model(&Cleaningtype{}).Create(&cleaningtype5)
-
-	cleaningtype0 := Cleaningtype{
-		Type:  "ไม่มีการทำความสะอาด",
-		Price: 0.00,
-	}
-	db.Model(&Cleaningtype{}).Create(&cleaningtype0)
-
 	//----------------- ช่วงเวลาทำความสะอาด -------------------
 	timerequrest1 := Timerequrest{
 		Period: "08:00 - 10:00",
@@ -455,22 +426,8 @@ func SetupDatabase() {
 		Period: "15:00 - 17:00",
 	}
 	db.Model(&Timerequrest{}).Create(&timerequrest4)
-	timerequrest5 := Timerequrest{
-		Period: "00:00 - 00:00",
-	}
-	db.Model(&Timerequrest{}).Create(&timerequrest5)
 
 	//----------------- ช่วงเวลาทำความสะอาด -------------------
-	Cleaning0 := Cleaningrequrest{
-		//RoomAllocate: roomallocate1,
-		Cleaningtype: cleaningtype0,
-		Timerequrest: timerequrest5,
-		Day:          time.Now(),
-		Tel:          "0000000000",
-		Note:         "ใช้สำหรับคำนวณเงิน",
-	}
-	db.Model(&Cleaningrequrest{}).Create(&Cleaning0)
-
 	Cleaning1 := Cleaningrequrest{
 		RoomAllocate: roomallocate1,
 		Cleaningtype: cleaningtype3,
@@ -490,25 +447,32 @@ func SetupDatabase() {
 		Note:         "มีหนูตายหลังตู้เย็น",
 	}
 	db.Model(&Cleaningrequrest{}).Create(&Cleaning2)
+	Cleaning3 := Cleaningrequrest{
+		RoomAllocate: roomallocate2,
+		Cleaningtype: cleaningtype4,
+		Timerequrest: timerequrest2,
+		Day:          time.Now(),
+		Tel:          "0932561432",
+		Note:         "มีเศษอาหารหล่นหลังตู้เย็น",
+	}
+	db.Model(&Cleaningrequrest{}).Create(&Cleaning3)
+	Cleaning4 := Cleaningrequrest{
+		RoomAllocate: roomallocate1,
+		Cleaningtype: cleaningtype3,
+		Timerequrest: timerequrest4,
+		Day:          time.Now(),
+		Tel:          "0817745023",
+		Note:         "น้ำหวานหกบริเวณหน้าห้องน้ำ",
+	}
+	db.Model(&Cleaningrequrest{}).Create(&Cleaning4)
 
-	//------------Bill-------------------------
+	//------------MeterRecord-------------------------
 
 	Unitprice1 := Unitprice{
 		Unitname: "test",
 		Uperbath: 8.45,
 	}
 	db.Model(&Unitprice{}).Create(&Unitprice1)
-
-	MeterRecord0 := MeterRecord{
-		Uele:      0.00,
-		Uwat:      0.00,
-		Sum:       0.00,
-		Date:      time.Now(),
-		Unitprice: Unitprice1,
-		//DormAtten: dorm_atten1,
-		//RoomAllocate: roomallocate1,
-	}
-	db.Model(&MeterRecord{}).Create(&MeterRecord0)
 
 	MeterRecord1 := MeterRecord{
 		Uele:         8.39,
@@ -667,29 +631,11 @@ func SetupDatabase() {
 	}
 	db.Model(&RepairType{}).Create(&Urgen)
 
-	test := RepairType{
-		TypeName: "ใช้สำหรับการคิดเงิน",
-		Cost:     0.00,
-	}
-	db.Model(&RepairType{}).Create(&test)
-
 	//--------Boolean-------------------
 	t := true
 	f := false
 
 	//--------RepairRequest-------------------
-	repair0 := RepairRequest{
-		DormTenant:      dorm_tenant0,
-		RecordDate:      time.Now(),
-		EntryPermission: &f,
-		RequestDate:     time.Now(),
-		TelNumber:       "0000000000",
-		RepairType:      test,
-		ProblemNote:	"-",
-		//DormInventory:   DormInventory2,
-		//RoomAllocate:    roomallocate1,
-	}
-	db.Model(&RepairRequest{}).Create(&repair0)
 
 	repair1 := RepairRequest{
 		DormTenant:      dorm_tenant1,
@@ -700,7 +646,7 @@ func SetupDatabase() {
 		RepairType:      Urgen,
 		DormInventory:   DormInventory2,
 		RoomAllocate:    roomallocate1,
-		ProblemNote:	"-",
+		ProblemNote:     "-",
 	}
 	db.Model(&RepairRequest{}).Create(&repair1)
 
@@ -713,34 +659,47 @@ func SetupDatabase() {
 		RepairType:      Normal,
 		DormInventory:   DormInventory1,
 		RoomAllocate:    roomallocate2,
-		ProblemNote:	"-",
+		ProblemNote:     "-",
 	}
 	db.Model(&RepairRequest{}).Create(&repair2)
+
+	repair3 := RepairRequest{
+		DormTenant:      dorm_tenant2,
+		RecordDate:      time.Now(),
+		EntryPermission: &t,
+		RequestDate:     time.Now(),
+		TelNumber:       "0879456123",
+		RepairType:      Urgen,
+		DormInventory:   DormInventory1,
+		RoomAllocate:    roomallocate2,
+		ProblemNote:     "-",
+	}
+	db.Model(&RepairRequest{}).Create(&repair3)
 
 	//------------Bill-------------------------
 
 	bill1 := Bill{
-		BillDateTime:     time.Now(),
-		DormAtten:        dorm_atten1,
-		RoomAllocate:     roomallocate1,
-		Room:             roomallocate1.Room,
-		MeterRecord:      MeterRecord1,
-		RepairRequest:    repair0,
+		BillDateTime: time.Now(),
+		DormAtten:    dorm_atten1,
+		RoomAllocate: roomallocate1,
+		Room:         roomallocate1.Room,
+		MeterRecord:  MeterRecord1,
+		//RepairRequest:    nil,
 		Cleaningrequrest: Cleaning1,
 		PayByCash:        &t,
 		AmountPaid:       roomallocate1.Room.Roomtypes.Price + MeterRecord1.Sum + Cleaning1.Cleaningtype.Price,
 	}
 	db.Model(&Bill{}).Create(&bill1)
 	bill2 := Bill{
-		BillDateTime:     time.Now(),
-		DormAtten:        dorm_atten1,
-		RoomAllocate:     roomallocate2,
-		Room:             roomallocate2.Room,
-		MeterRecord:      MeterRecord2,
-		RepairRequest:    repair2,
-		Cleaningrequrest: Cleaning0,
-		PayByCash:        &f,
-		AmountPaid:       roomallocate2.Room.Roomtypes.Price + MeterRecord2.Sum + repair2.RepairType.Cost,
+		BillDateTime:  time.Now(),
+		DormAtten:     dorm_atten1,
+		RoomAllocate:  roomallocate2,
+		Room:          roomallocate2.Room,
+		MeterRecord:   MeterRecord2,
+		RepairRequest: repair2,
+		//Cleaningrequrest: nil,
+		PayByCash:  &f,
+		AmountPaid: roomallocate2.Room.Roomtypes.Price + MeterRecord2.Sum + repair2.RepairType.Cost,
 	}
 	db.Model(&Bill{}).Create(&bill2)
 

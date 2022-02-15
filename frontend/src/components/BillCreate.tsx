@@ -18,7 +18,7 @@ import Divider from "@material-ui/core/Divider";
 import Snackbar from "@material-ui/core/Snackbar";
 import Select from "@material-ui/core/Select";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
-
+import { format } from 'date-fns'
 import { DormAttenInterface } from "../models/IDormAtten";
 import { RoomAllocateInterface } from "../models/IRoomAllocate";
 import { RoomInterface } from "../models/IRoom";
@@ -128,15 +128,15 @@ function BillCreate() {
       setState({ ...state, ["PayByCashFalse"]: false, ["PayByCashTrue"]: true });
       PayByCash = true
     }else if(name == "PayByCashTrue" && !(event.target.checked)){
-      setState({ ...state, ["PayByCashTrue"]: false });
+      setState({ ...state, ["PayByCashTrue"]: false, ["PayByCashFalse"]: true });
       PayByCash = false
     }
 
     if(name == "PayByCashFalse" && event.target.checked){
-      setState({ ...state, ["PayByCashFalse"]: true ,["PayByCashTrue"]: false,});
+      setState({ ...state, ["PayByCashFalse"]: true, ["PayByCashTrue"]: false,});
       PayByCash = false
     }else if(name == "PayByCashFalse" && !(event.target.checked)){
-      setState({ ...state, ["PayByCashFalse"]: false });
+      setState({ ...state, ["PayByCashFalse"]: false, ["PayByCashTrue"]: true });
       PayByCash = true
     }
     //setState({ ...state, [name]: event.target.checked });
@@ -385,7 +385,7 @@ function BillCreate() {
                 {rooms.map((item: RoomInterface) => (
                   (RoomAllocates[(bill.RoomAllocateID == undefined ? 1 : bill.RoomAllocateID)-1].RoomID  == item.ID && bill.RoomAllocateID != undefined) || 21 == item.ID?
                 (<option value={item.ID} key={item.ID}>
-                    {item.ID} ({item.Roomtypes.Price})
+                    ({item.Roomtypes.Price} บาท)
                   </option>):""
                 ))}
               </Select>
@@ -408,8 +408,8 @@ function BillCreate() {
                   กรุณาเลือกใบบันทึกน้ำ-ไฟ(ราคา)
                 </option>
                 {MeterRecords.map((item: MeterRecordInterface) => (
-                  (bill["RoomAllocateID"] == item.RoomAllocateID && !Bills.find(({MeterRecordID})=>(MeterRecordID == item.ID)) || 1 == item.ID)?(<option value={item.ID} key={item.ID}>
-                    {item.ID} ({item.Sum})
+                  (bill["RoomAllocateID"] == item.RoomAllocateID && !Bills.find(({MeterRecordID})=>(MeterRecordID == item.ID)))?(<option value={item.ID} key={item.ID}>
+                    {format((new Date(item.Date)), 'MMMM yyyy')} ({item.Sum} บาท)
                   </option>):""
                 ))}
               </Select>
@@ -432,8 +432,8 @@ function BillCreate() {
                   กรุณาเลือกใบบันทึกซ่อมบำรุง(ราคา)
                 </option>
                 {RepairRequests.map((item: RepairRequestinterface) => (
-                  (bill["RoomAllocateID"] == item.RoomAllocateID && !Bills.find(({RepairRequestID})=>(RepairRequestID == item.ID)) || 1 == item.ID)?(<option value={item.ID} key={item.ID}>
-                    {item.ID} ({item.RepairType.Cost})
+                  (bill["RoomAllocateID"] == item.RoomAllocateID && !Bills.find(({RepairRequestID})=>(RepairRequestID == item.ID)))?(<option value={item.ID} key={item.ID}>
+                    {format((new Date(item.RecordDate)), 'MMMM yyyy')} ({item.RepairType.Cost} บาท)
                   </option>):""
                 ))}
               </Select>
@@ -456,8 +456,8 @@ function BillCreate() {
                   กรุณาเลือกใบบันทึกทำความสะอาด(ราคา)
                 </option>
                 {Cleaningrequrests.map((item: CleaningrequrestInterface) => (
-                  (bill["RoomAllocateID"] == item.RoomAllocateID && !Bills.find(({CleaningrequrestID})=>(CleaningrequrestID == item.ID)) || 1 == item.ID)?(<option value={item.ID} key={item.ID}>
-                    {item.ID} ({item.Cleaningtype.Price})
+                  (bill["RoomAllocateID"] == item.RoomAllocateID && !Bills.find(({CleaningrequrestID})=>(CleaningrequrestID == item.ID)))?(<option value={item.ID} key={item.ID}>
+                    {format((new Date(item.Day)), 'MMMM yyyy')} ({item.Cleaningtype.Price} บาท)
                   </option>):""
                 ))}
               </Select>

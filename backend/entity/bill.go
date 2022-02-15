@@ -28,7 +28,7 @@ type Bill struct {
 	Cleaningrequrest   Cleaningrequrest `gorm:"references:id" valid:"-"`
 
 	BillDateTime time.Time `valid:"past~BillDateTime: must be in the past"` //มีการ validation
-	PayByCash    *bool     //มีการ validation ใน controller ไม่ได้ใช้ govalidator														//`valid:"customPayByCashMustNotNull~PayByCash: cannot be Null"`                                          
+	PayByCash    *bool     //`valid:"customPayByCashMustNotNull,required~PayByCash: cannot be Null"`                                 //มีการ validation ใน controller ไม่ได้ใช้ govalidator														//`valid:"customPayByCashMustNotNull~PayByCash: cannot be Null"`
 	AmountPaid   float64   `valid:"customPositiveAmountPaid,required~AmountPaid: 0 does not validate as customPositiveAmountPaid"` //มีการ validation
 }
 
@@ -41,14 +41,9 @@ func init() {
 	govalidator.CustomTypeTagMap.Set("customPositiveAmountPaid", func(i interface{}, context interface{}) bool {
 		return i.(float64) > 0
 	})
-	/*
-	govalidator.CustomTypeTagMap.Set("customPayByCashMustNotNull", func(i interface{}, context interface{}) bool {
-		check := i.(*bool)
 
-		if check == nil {
-			return false
-		}
-		return true
-	})
-	*/
+	/*govalidator.CustomTypeTagMap.Set("customPayByCashMustNotNull", func(i interface{}, context interface{}) bool {
+		return i.(*bool) != nil
+	})*/
+
 }

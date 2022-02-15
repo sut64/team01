@@ -92,7 +92,6 @@ func TestBillAmountPaidNotLessThanEqualZero(t *testing.T) {
 
 //====================ใช้งานไม่ได้==========================
 
-/*
 func CheckBool(t *bool) (bool, error) {
 	if t == nil {
 		return false, fmt.Errorf("PayByCash: cannot be Null")
@@ -109,8 +108,8 @@ func TestBillPayByCashNotNull(t *testing.T) {
 
 	bill := Bill{
 		BillDateTime: time.Now().Add(-24 * time.Hour),
-		PayByCash:    nil, // ผิด
-		AmountPaid:   4045.66,
+		//PayByCash:    nil, // ผิด
+		AmountPaid: 4045.66,
 	}
 
 	ok, err := CheckBool(bill.PayByCash)
@@ -123,4 +122,4 @@ func TestBillPayByCashNotNull(t *testing.T) {
 
 	// err.Error ต้องมี error message แสดงออกมา
 	g.Expect(err.Error()).To(Equal("PayByCash: cannot be Null"))
-}*/
+}
