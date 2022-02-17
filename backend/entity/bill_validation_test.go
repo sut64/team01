@@ -90,7 +90,7 @@ func TestBillAmountPaidNotLessThanEqualZero(t *testing.T) {
 	}
 }
 
-//====================ใช้งานไม่ได้==========================
+//==================== ใช้งานไม่ได้ เอาไว้ทำ test backend ==========================
 
 func CheckBool(t *bool) (bool, error) {
 	if t == nil {
