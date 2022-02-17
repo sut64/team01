@@ -36,6 +36,7 @@ import {
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import { ListItemIcon } from "@material-ui/core";
+import { time } from "console";
 
 const Alert = (props: AlertProps) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -383,7 +384,7 @@ function BillCreate() {
                   กรุณาเลือกห้อง(ราคา)
                 </option>
                 {rooms.map((item: RoomInterface) => (
-                  (RoomAllocates[(bill.RoomAllocateID == undefined ? 1 : bill.RoomAllocateID)-1].RoomID  == item.ID && bill.RoomAllocateID != undefined) || 21 == item.ID?
+                  (RoomAllocates[(bill.RoomAllocateID == undefined ? 1 : bill.RoomAllocateID)-1].RoomID  == item.ID  && bill.RoomAllocateID != undefined)?
                 (<option value={item.ID} key={item.ID}>
                     ({item.Roomtypes.Price} บาท)
                   </option>):""
