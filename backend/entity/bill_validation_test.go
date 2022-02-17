@@ -108,8 +108,8 @@ func TestBillPayByCashNotNull(t *testing.T) {
 
 	bill := Bill{
 		BillDateTime: time.Now().Add(-24 * time.Hour),
-		//PayByCash:    nil, // ผิด
-		AmountPaid: 4045.66,
+		PayByCash:    nil, // ผิด
+		AmountPaid:   4045.66,
 	}
 
 	ok, err := CheckBool(bill.PayByCash)
