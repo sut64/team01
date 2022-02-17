@@ -529,6 +529,17 @@ func SetupDatabase() {
 	}
 	db.Model(&MeterRecord{}).Create(&MeterRecord5)
 
+	MeterRecord6 := MeterRecord{
+		Uele:         8.39,
+		Uwat:         12.14,
+		Sum:          645.64,
+		Date:         time.Now(),
+		Unitprice:    Unitprice1,
+		DormAtten:    dorm_atten1,
+		RoomAllocate: roomallocate5,
+	}
+	db.Model(&MeterRecord{}).Create(&MeterRecord6)
+
 	//------------DormInventoryType-------------------------
 	InventType1 := DormInventoryType{
 		InvenType: "เครื่องใช้ไฟฟ้า",

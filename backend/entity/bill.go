@@ -18,13 +18,13 @@ type Bill struct {
 	RoomID *uint
 	Room   Room `gorm:"references:id" valid:"-"`
 
-	MeterRecordID *uint
+	MeterRecordID *uint       `gorm:"uniqueIndex"`
 	MeterRecord   MeterRecord `gorm:"references:id" valid:"-"`
 
-	RepairRequestID *uint
+	RepairRequestID *uint         `gorm:"uniqueIndex"`
 	RepairRequest   RepairRequest `gorm:"references:id" valid:"-"`
 
-	CleaningrequrestID *uint
+	CleaningrequrestID *uint            `gorm:"uniqueIndex"`
 	Cleaningrequrest   Cleaningrequrest `gorm:"references:id" valid:"-"`
 
 	BillDateTime time.Time `valid:"past~BillDateTime: must be in the past"` //มีการ validation
