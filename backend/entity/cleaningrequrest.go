@@ -25,7 +25,7 @@ type Cleaningrequrest struct {
 
 	Note string    `valid:"required~Note can not be blank"`
 	Day  time.Time `valid:"future~Day must be in the future"`
-	Tel  string    `valid:"matches(^[0]\\d{9}$)"`
+	Tel  string    `valid:"matches(^[0]\\d{9}$)~กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง"`
 
 	Bills []Bill `gorm:"foreignKey:CleaningrequrestID"`
 }
