@@ -13,11 +13,11 @@ type FurnitureRequest struct {
 	DormAtten       DormAtten `gorm:"references:id" valid:"-"`
 	DormInventoryID *uint
 	DormInventory   DormInventory `gorm:"references:id" valid:"-"`
-	FurAmount       uint          `valid:"customPositiveNumber,required~Amount must not be zero or negative number"`
+	FurAmount       uint          `valid:"customPositiveNumber,required~จำนวนที่กรอกต้องเป็นจำนวนเต็มและไม่เป็น0เท่านั้น"`
 	RoomAllocateID  *uint
 	RoomAllocate    RoomAllocate `gorm:"references:id" valid:"-"`
-	PhoneNo         string       `valid:"matches(^[0]\\d{9}$)"`
-	DateRequest     time.Time    `valid:"future~DateRequest must be in the future"`
+	PhoneNo         string       `valid:"matches(^[0]\\d{9}$)~กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง"`
+	DateRequest     time.Time    `valid:"future~วันเวลาที่ระบุต้องเป็นอนาคต"`
 }
 
 func init() {
