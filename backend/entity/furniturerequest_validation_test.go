@@ -1,7 +1,6 @@
 package entity
 
 import (
-	"fmt"
 	"testing"
 	"time"
 
@@ -62,12 +61,12 @@ func TestFurPhoneNoMustBeInValidPattern(t *testing.T) {
 		g.Expect(err).ToNot(BeNil())
 
 		// err.Error ต้องมี error message แสดงออกมา
-		g.Expect(err.Error()).To(Equal(fmt.Sprintf(`PhoneNo: %s does not validate as matches(^[0]\d{9}$)`, fixture)))
+		g.Expect(err.Error()).To(Equal(`กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง`))
 	}
 
 }
 
-func TestDateRequestMustBePast(t *testing.T) {
+func TestDateRequestMustBeFuture(t *testing.T) {
 	g := NewGomegaWithT(t)
 
 	fr := FurnitureRequest{
@@ -89,7 +88,7 @@ func TestDateRequestMustBePast(t *testing.T) {
 	g.Expect(err).ToNot(BeNil())
 
 	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("DateRequest must be in the future"))
+	g.Expect(err.Error()).To(Equal("วันเวลาที่ระบุต้องเป็นอนาคต"))
 }
 
 
@@ -115,5 +114,5 @@ func TestFurAmountMustBePositiveAndNotZero(t *testing.T) {
 	g.Expect(err).ToNot(BeNil())
 
 	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("Amount must not be zero or negative number"))
+	g.Expect(err.Error()).To(Equal("จำนวนที่กรอกต้องเป็นจำนวนเต็มและไม่เป็น0เท่านั้น"))
 }
