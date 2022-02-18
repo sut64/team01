@@ -86,6 +86,6 @@ func TestPhoneNoMustBeInValidPattern(t *testing.T) {
 		g.Expect(err).ToNot(BeNil())
 
 		// err.Error ต้องมี error message แสดงออกมา
-		g.Expect(err.Error()).To(Equal(fmt.Sprintf(`Tel: %s does not validate as matches(^[0]\d{9}$)`, fixture)))
+		g.Expect(err.Error()).To(Equal(fmt.Sprintf(`กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง`)))
 	}
 }
