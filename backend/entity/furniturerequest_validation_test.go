@@ -114,5 +114,5 @@ func TestFurAmountMustBePositiveAndNotZero(t *testing.T) {
 	g.Expect(err).ToNot(BeNil())
 
 	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("จำนวนที่กรอกต้องเป็นจำนวนเต็มและไม่เป็น0เท่านั้น"))
+	g.Expect(err.Error()).To(Equal("จำนวนที่กรอกต้องเป็นจำนวนเต็มบวกและไม่เป็น0เท่านั้น"))
 }

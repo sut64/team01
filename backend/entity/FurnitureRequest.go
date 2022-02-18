@@ -13,7 +13,7 @@ type FurnitureRequest struct {
 	DormAtten       DormAtten `gorm:"references:id" valid:"-"`
 	DormInventoryID *uint
 	DormInventory   DormInventory `gorm:"references:id" valid:"-"`
-	FurAmount       uint          `valid:"customPositiveNumber,required~จำนวนที่กรอกต้องเป็นจำนวนเต็มและไม่เป็น0เท่านั้น"`
+	FurAmount       uint          `valid:"customPositiveNumber,required~จำนวนที่กรอกต้องเป็นจำนวนเต็มบวกและไม่เป็น0เท่านั้น"`
 	RoomAllocateID  *uint
 	RoomAllocate    RoomAllocate `gorm:"references:id" valid:"-"`
 	PhoneNo         string       `valid:"matches(^[0]\\d{9}$)~กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง"`
