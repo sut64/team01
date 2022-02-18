@@ -1,7 +1,7 @@
 package entity
 
 import (
-	"fmt"
+	//"fmt"
 	"testing"
 	"time"
 
@@ -65,7 +65,7 @@ func TestTelNumberMustBeInValidPattern(t *testing.T) {
 		g.Expect(err).ToNot(BeNil())
 
 		// err.Error ต้องมี error message แสดงออกมา
-		g.Expect(err.Error()).To(Equal(fmt.Sprintf(`TelNumber: %s does not validate as matches(^[0]\d{9}$)`, fixture)))
+		g.Expect(err.Error()).To(Equal("Tel. Number invalid pattern"))
 	}
 
 } 

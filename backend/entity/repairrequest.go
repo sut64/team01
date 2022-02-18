@@ -48,7 +48,7 @@ import (
 
 type RepairRequest struct {
 	gorm.Model
-	TelNumber string `valid:"matches(^[0]\\d{9}$)"`
+	TelNumber string `valid:"matches(^[0]\\d{9}$)~Tel. Number invalid pattern"` //matches(^[0][2689]\\d{8}$) ฟิกเลขหลัง 0
 
 	RecordDate      time.Time `valid:"-"`
 	EntryPermission *bool       //มีการ validation ใน controller ไม่ได้ใช้ govalidator
