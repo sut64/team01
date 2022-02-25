@@ -75,12 +75,14 @@ function RepairRequestCreate() {
   const [error, setError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
   
+  //state ของ EntryPermission
   const [state, setState] = useState({
      EntryPermissionF: false,
-    EntryPermissionT: false,
+     EntryPermissionT: false,
   });
 
 
+   //ดึง token จาก Localstorage
   const apiUrl = "http://localhost:8080";
   const requestOptions = {
     method: "GET",
@@ -89,6 +91,9 @@ function RepairRequestCreate() {
       "Content-Type": "application/json",
     },
   };
+
+
+    //---------------------------Handle ต่าง ๆ ----------------------------------------
 
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === "clickaway") {
@@ -137,7 +142,7 @@ function RepairRequestCreate() {
       setState({ ...state, ["EntryPermissionT"]: false });
       EntryPermission = false
     }
-/////////////////////////
+///////////////////////// ปุ่มอนุญาตถ้าติ้ก ปุ่มไม่อนุญาตจะไม่ติ้ก ส่ง true 
 
 
     if (name == "EntryPermissionT" && !(event.target.checked)){
@@ -172,6 +177,7 @@ function RepairRequestCreate() {
   };
  
   //---------------------------state----------------------------------------
+
 
   //-------------- รับค่า ผู้เช่าพัก
   
@@ -247,7 +253,7 @@ function RepairRequestCreate() {
   useEffect(() => {
     getDormTenants();
     getDormInventory();
-   getDormInventorytypes();
+    getDormInventorytypes();
     getRepairType();
     getRoomAllocate();
 
@@ -274,8 +280,8 @@ function RepairRequestCreate() {
 
     console.log(data)
    const requestOptions = {
-   method: "POST",
-   headers: {
+    method: "POST",
+     headers: {
      Authorization: `Bearer ${localStorage.getItem("token")}`,
      "Content-Type": "application/json",
    },
