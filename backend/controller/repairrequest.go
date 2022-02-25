@@ -24,7 +24,7 @@ func CreateRepairRequest(c *gin.Context) {
 		return
 	}
 	
-	// 10: ค้นหา dormtenant ด้วย id
+	// ค้นหา dormtenant ด้วย id
 	if tx := entity.DB().Where("id = ?", repairrequest.DormTenantID).First(&dormtenant); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "dorm tenant not found"})
 		return
@@ -71,8 +71,6 @@ func CreateRepairRequest(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	
-	
 	// บันทึก
 	if err := entity.DB().Create(&ad).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

@@ -29,6 +29,7 @@ type RoomAllocate struct {
 	Postal_Records   []Postal_Record    `gorm:"foreignKey:RoomAllocateID"`
 	Bills            []Bill             `gorm:"foreignKey:RoomAllocateID"`
 	FurnitureRequest []FurnitureRequest `gorm:"foreignKey:RoomAllocateID"`
+	RepairRequest    []RepairRequest    `gorm:"foreignKey:RoomAllocateID"`
 }
 
 //ฟังก์ชันที่จะใช่ในการ validation EntryTime

@@ -38,8 +38,7 @@ func TestTelNumberMustBeInValidPattern(t *testing.T) {
 		"0122222",
 		"011111",
 		"-",
-
-	}
+		}
 	for _, fixture := range fixtures {
 		ff := true
 		user := RepairRequest{
@@ -54,22 +53,15 @@ func TestTelNumberMustBeInValidPattern(t *testing.T) {
 			//DormInventory:   DormInventory{},
 			//RepairType:      RepairType{},
 		}
-
 		ok, err := govalidator.ValidateStruct(user)
-		
-
 		// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
 		g.Expect(ok).ToNot(BeTrue())
-
 		// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
 		g.Expect(err).ToNot(BeNil())
-
 		// err.Error ต้องมี error message แสดงออกมา
 		g.Expect(err.Error()).To(Equal("Tel. Number invalid pattern"))
 	}
-
 } 
-
 func TestRequestDateMustBeFuture(t *testing.T) {
 	
 	g := NewGomegaWithT(t)
@@ -109,7 +101,7 @@ func TestEntryPermissionNotNull(t *testing.T) {
 		ProblemNote: "Hello",
 
 	}
-	//ตรวจสอบด้วย govalidator
+	//ตรวจสอบด้วย BooleanNotNull
 	ok, err := BooleanNotNull(rr.EntryPermission)
 
 	//ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้

@@ -94,6 +94,9 @@ function RepairRequest() {
                 <TableCell align="center" width="10%" className={classes.font}>
                   ผู้แจ้ง
                 </TableCell>
+                <TableCell align="center" width="10%" className={classes.font}>
+                  ห้องพักที่แจ้ง
+                </TableCell>
                 <TableCell align="center" width="12%" className={classes.font}>
                   วันที่แจ้ง
                 </TableCell>
@@ -125,8 +128,11 @@ function RepairRequest() {
                 <TableRow key={item.ID}>
                   <TableCell align="center" className={classes.fontIn}>{item.ID}</TableCell>
                   <TableCell align="center" className={classes.fontIn}>{item.DormTenant.DormTenant_FirstName } {item.DormTenant.DormTenant_LastName}</TableCell>
+                  <TableCell align="center" className={classes.fontIn}>{item.RoomAllocate.Number}</TableCell>
                   <TableCell align="center" className={classes.fontIn}>{format((new Date(item.RecordDate)), 'dd MMMM yyyy hh:mm a')}</TableCell>
+                 
                   <TableCell align="center" className={classes.fontIn}>{item.TelNumber}</TableCell>
+
                   <TableCell align="center" className={classes.fontIn}>{item.RepairType.TypeName}</TableCell>
                   <TableCell align="center" className={classes.fontIn}>{item.DormInventory.DormInventoryType.InvenType}</TableCell>
                   <TableCell align="center" className={classes.fontIn}>{item.DormInventory.FurnitureName}</TableCell>
