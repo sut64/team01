@@ -7,21 +7,21 @@
     "id": "ec28a03f-a636-4ca2-8bb3-6530af2dc008",
     "name": "B6107260 -  repair request ตรวจสอบข้อมูลถูกต้อง ครบถ้วน",
     "commands": [{
-      "id": "54304f41-4e44-4093-8c4e-f8094a93f27d",
+      "id": "90919496-85fb-40b2-a570-cf9000accc89",
       "comment": "",
       "command": "open",
       "target": "http://localhost:3000/repairrequest/create",
       "targets": [],
       "value": ""
     }, {
-      "id": "638089aa-8d87-4d09-8fa8-2bcdda90eb86",
+      "id": "3e195242-54e0-4022-9f5d-b1c7e4dff872",
       "comment": "",
       "command": "setWindowSize",
-      "target": "1552x840",
+      "target": "1536x824",
       "targets": [],
       "value": ""
     }, {
-      "id": "d61d49b1-c76d-432a-9142-15d137e639d3",
+      "id": "017cce7d-ea05-43a4-bed7-62abc77405a5",
       "comment": "",
       "command": "click",
       "target": "name=RepairTypeID",
@@ -34,14 +34,14 @@
       ],
       "value": ""
     }, {
-      "id": "e4b9319f-772f-4a43-8f03-2a49ab784578",
+      "id": "d42791cc-a419-4b68-af4e-b8a3b3ea5f11",
       "comment": "",
       "command": "select",
       "target": "name=RepairTypeID",
       "targets": [],
       "value": "label=ปกติ"
     }, {
-      "id": "507299f6-3ae6-427c-b0f3-e4234afa7cd0",
+      "id": "f4ac897d-6439-4e76-b60b-98af404f0e58",
       "comment": "",
       "command": "click",
       "target": "name=DormInventoryTypeID",
@@ -54,14 +54,14 @@
       ],
       "value": ""
     }, {
-      "id": "11dc025f-6aa6-4c9a-8c19-799387956a65",
+      "id": "702eb505-9559-4d63-b354-d3123ab79207",
       "comment": "",
       "command": "select",
       "target": "name=DormInventoryTypeID",
       "targets": [],
       "value": "label=เครื่องใช้ไฟฟ้า"
     }, {
-      "id": "fe36ce81-a039-4d10-a339-6c2ba92587ec",
+      "id": "d0f1e7a3-c676-4a53-85a9-f7f2908382ec",
       "comment": "",
       "command": "click",
       "target": "name=DormInventoryID",
@@ -74,27 +74,14 @@
       ],
       "value": ""
     }, {
-      "id": "9ad1beab-114b-4c9c-9137-1a383f23292d",
-      "comment": "",
-      "command": "click",
-      "target": "name=DormInventoryID",
-      "targets": [
-        ["name=DormInventoryID", "name"],
-        ["css=.Mui-focused > .MuiSelect-root", "css:finder"],
-        ["xpath=//select[@name='DormInventoryID']", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[5]/div/div/select", "xpath:idRelative"],
-        ["xpath=//div[5]/div/div/select", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "064f3830-3655-4ab1-bab5-71ff8fe28b53",
+      "id": "e13ce95e-8b1b-415a-a6b9-7f4a32a32fdd",
       "comment": "",
       "command": "select",
       "target": "name=DormInventoryID",
       "targets": [],
       "value": "label=พัดลม"
     }, {
-      "id": "b5e60097-55e6-4b0f-8711-7c9061b7816b",
+      "id": "19d4ea43-0c92-41a1-a5af-3f9da41ea9ae",
       "comment": "",
       "command": "click",
       "target": "name=RoomAllocateID",
@@ -107,14 +94,14 @@
       ],
       "value": ""
     }, {
-      "id": "3aca31c6-d44f-4ef7-af46-85231ebef8bb",
+      "id": "8fd4cb20-9efe-4129-91c1-c652563bed75",
       "comment": "",
       "command": "select",
       "target": "name=RoomAllocateID",
       "targets": [],
-      "value": "label=A02"
+      "value": "label=A09"
     }, {
-      "id": "929a1cd2-9fbd-47d9-a3f9-3d24c76a9302",
+      "id": "4efda5c4-a523-4e2c-818a-2afa2c9d1be1",
       "comment": "",
       "command": "mouseOver",
       "target": "css=.MuiGrid-root:nth-child(7) .MuiSvgIcon-root",
@@ -123,7 +110,7 @@
       ],
       "value": ""
     }, {
-      "id": "923da5b4-1e00-4b28-bd24-30b819516ecf",
+      "id": "22de790b-06f3-4e8e-84a2-fc4a6905f169",
       "comment": "",
       "command": "click",
       "target": "css=.MuiGrid-root:nth-child(7) .MuiSvgIcon-root",
@@ -132,7 +119,7 @@
       ],
       "value": ""
     }, {
-      "id": "c2f076c2-ec30-4a91-b162-971362b46ca3",
+      "id": "fa3ac6b8-4bc4-4111-84f2-341e507be6ab",
       "comment": "",
       "command": "mouseOut",
       "target": "css=.MuiGrid-root:nth-child(7) .MuiSvgIcon-root",
@@ -141,29 +128,18 @@
       ],
       "value": ""
     }, {
-      "id": "b487731b-95a6-4d71-a3f3-c251a3ae09d6",
-      "comment": "",
-      "command": "mouseOver",
-      "target": "css=.MuiPickersCalendar-week:nth-child(3) > div:nth-child(7) .MuiTypography-root",
-      "targets": [
-        ["css=.MuiPickersCalendar-week:nth-child(3) > div:nth-child(7) .MuiTypography-root", "css:finder"],
-        ["xpath=//div[3]/div[7]/button/span/p", "xpath:position"],
-        ["xpath=//p[contains(.,'19')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "60b69a59-c3e3-4533-b078-19df5f73de4f",
+      "id": "ccb8f032-513d-4e02-a8bc-982b49ae68f7",
       "comment": "",
       "command": "click",
-      "target": "css=.MuiPickersCalendar-week:nth-child(3) > div:nth-child(7) .MuiTypography-root",
+      "target": "css=.MuiPickersCalendar-week:nth-child(5) > div:nth-child(2) .MuiTypography-root",
       "targets": [
-        ["css=.MuiPickersCalendar-week:nth-child(3) > div:nth-child(7) .MuiTypography-root", "css:finder"],
-        ["xpath=//div[3]/div[7]/button/span/p", "xpath:position"],
-        ["xpath=//p[contains(.,'19')]", "xpath:innerText"]
+        ["css=.MuiPickersCalendar-week:nth-child(5) > div:nth-child(2) .MuiTypography-root", "css:finder"],
+        ["xpath=//div[5]/div[2]/button/span/p", "xpath:position"],
+        ["xpath=//p[contains(.,'28')]", "xpath:innerText"]
       ],
       "value": ""
     }, {
-      "id": "91ea53f7-7a97-49a3-81c8-85f8dca97dcb",
+      "id": "877193f9-bca4-4763-be66-c659c9ddc06c",
       "comment": "",
       "command": "mouseOver",
       "target": "css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label",
@@ -174,7 +150,7 @@
       ],
       "value": ""
     }, {
-      "id": "ebd7f09e-72f6-4719-a46a-d65e798ec2c6",
+      "id": "d97e3eca-0b4e-4bec-b26c-20a3d5b22c88",
       "comment": "",
       "command": "click",
       "target": "css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label",
@@ -185,7 +161,7 @@
       ],
       "value": ""
     }, {
-      "id": "82aebc2b-f64a-4aea-b566-c58cb4063871",
+      "id": "bd2412f5-3ef2-4390-9321-336d2ce0d536",
       "comment": "",
       "command": "click",
       "target": "id=TelNumber",
@@ -198,7 +174,7 @@
       ],
       "value": ""
     }, {
-      "id": "af1d33a3-8517-49a9-ab0a-7797b6e55721",
+      "id": "70a6f9e9-6263-409b-8cf9-02ea2fc70786",
       "comment": "",
       "command": "type",
       "target": "id=TelNumber",
@@ -211,7 +187,7 @@
       ],
       "value": "0800485123"
     }, {
-      "id": "ef994e27-59fd-4598-a6cb-b098ca55152c",
+      "id": "2c52b4b6-aaa8-4415-ad0c-35b990694ada",
       "comment": "",
       "command": "click",
       "target": "id=ProblemNote",
@@ -224,7 +200,7 @@
       ],
       "value": ""
     }, {
-      "id": "6416c5aa-377a-4c3d-89de-f8b3bd708f50",
+      "id": "bc1a13fc-803f-45fc-a7b3-673eb217027a",
       "comment": "",
       "command": "type",
       "target": "id=ProblemNote",
@@ -237,46 +213,19 @@
       ],
       "value": "พัดลมมีควันออก"
     }, {
-      "id": "f23400af-b3a9-4337-b85c-c429761ddf74",
-      "comment": "",
-      "command": "mouseOver",
-      "target": "name=EntryPermissionF",
-      "targets": [
-        ["name=EntryPermissionF", "name"],
-        ["css=.MuiFormControlLabel-root:nth-child(2) #EntryPermission", "css:finder"],
-        ["xpath=(//input[@id='EntryPermission'])[2]", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[11]/label[2]/span/span/input", "xpath:idRelative"],
-        ["xpath=//label[2]/span/span/input", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "4122d004-1504-499a-9b53-20688d1efdb2",
+      "id": "19a72f16-4a2f-4e57-86d4-04364c818504",
       "comment": "",
       "command": "click",
-      "target": "name=EntryPermissionF",
+      "target": "css=.MuiFormControlLabel-root:nth-child(2) > .MuiTypography-root",
       "targets": [
-        ["name=EntryPermissionF", "name"],
-        ["css=.MuiFormControlLabel-root:nth-child(2) #EntryPermission", "css:finder"],
-        ["xpath=(//input[@id='EntryPermission'])[2]", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[11]/label[2]/span/span/input", "xpath:idRelative"],
-        ["xpath=//label[2]/span/span/input", "xpath:position"]
+        ["css=.MuiFormControlLabel-root:nth-child(2) > .MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[11]/label[2]/span[2]", "xpath:idRelative"],
+        ["xpath=//label[2]/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'ไม่อนุญาต')]", "xpath:innerText"]
       ],
       "value": ""
     }, {
-      "id": "d710d9f5-7614-4d07-baf1-6f81c6d780e1",
-      "comment": "",
-      "command": "mouseOut",
-      "target": "name=EntryPermissionF",
-      "targets": [
-        ["name=EntryPermissionF", "name"],
-        ["css=.PrivateSwitchBase-checked-55 #EntryPermission", "css:finder"],
-        ["xpath=(//input[@id='EntryPermission'])[2]", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[11]/label[2]/span/span/input", "xpath:idRelative"],
-        ["xpath=//label[2]/span/span/input", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "1e38edcc-a678-4cf6-83fb-6ee6ecbba4f5",
+      "id": "8a95915f-d651-4f70-b5aa-747d6a33cdc0",
       "comment": "",
       "command": "mouseOver",
       "target": "css=.MuiButtonBase-root:nth-child(2) > .MuiButton-label",
@@ -288,7 +237,7 @@
       ],
       "value": ""
     }, {
-      "id": "71251773-3ab3-4921-99cc-dcf190fd3ab2",
+      "id": "db6fc9ac-5064-47e2-b388-58d20a4e75a7",
       "comment": "",
       "command": "click",
       "target": "css=.MuiButtonBase-root:nth-child(2) > .MuiButton-label",
@@ -300,7 +249,7 @@
       ],
       "value": ""
     }, {
-      "id": "2cf5b53c-e98a-454f-a29c-2d54f34262df",
+      "id": "4e487f2a-b095-4d95-a35e-7b9661139ed5",
       "comment": "",
       "command": "mouseOut",
       "target": "css=.MuiButtonBase-root:nth-child(2) > .MuiButton-label",
@@ -312,7 +261,7 @@
       ],
       "value": ""
     }, {
-      "id": "ebb3aaf3-ad13-4dc3-b11c-6617f18bdca6",
+      "id": "87b8f94c-f0e1-4470-91a4-c19db429b044",
       "comment": "",
       "command": "click",
       "target": "css=.MuiAlert-root",
@@ -323,7 +272,7 @@
       ],
       "value": ""
     }, {
-      "id": "84c7c7db-4772-498e-991f-bc5a95af62e3",
+      "id": "f4b7f66f-1249-453f-9315-c534eb4ccf05",
       "comment": "",
       "command": "assertText",
       "target": "css=.MuiAlert-message",
@@ -338,21 +287,21 @@
     "id": "eb9ea168-f489-425c-976e-bee116d7eacf",
     "name": "B6107260 - ตรวจสอบ Entry Permission ไม่เป็น null",
     "commands": [{
-      "id": "d846a4ec-fd5f-43d7-a18d-237c728e0a27",
+      "id": "66b262cc-855b-4874-9fcb-44809a735be1",
       "comment": "",
       "command": "open",
       "target": "http://localhost:3000/repairrequest/create",
       "targets": [],
       "value": ""
     }, {
-      "id": "eb3d7340-b869-4bf6-b31b-204f9e03ceec",
+      "id": "f8c4708c-638f-4e1c-a38e-6d3060edffb1",
       "comment": "",
       "command": "setWindowSize",
       "target": "1552x840",
       "targets": [],
       "value": ""
     }, {
-      "id": "9baf3a57-9aed-4630-9ff0-58fdaf9e22ed",
+      "id": "6197f75e-ffe8-43c9-b11b-f9c8858926a4",
       "comment": "",
       "command": "click",
       "target": "name=RepairTypeID",
@@ -365,14 +314,14 @@
       ],
       "value": ""
     }, {
-      "id": "b62bdcf6-4c45-42c1-8e7c-13e623674ef7",
+      "id": "9a182495-3443-416d-ad03-1da58b2a99a1",
       "comment": "",
       "command": "select",
       "target": "name=RepairTypeID",
       "targets": [],
       "value": "label=ปกติ"
     }, {
-      "id": "160d4d0c-12b4-4ae9-9071-80d69fd11552",
+      "id": "9372db55-fd35-4138-a64b-b7eceac4beac",
       "comment": "",
       "command": "click",
       "target": "name=DormInventoryTypeID",
@@ -385,14 +334,14 @@
       ],
       "value": ""
     }, {
-      "id": "178f0ca1-5df5-4642-8ac7-250ad687525d",
+      "id": "6669e4c6-ea2a-40e6-827a-8a5ca50af516",
       "comment": "",
       "command": "select",
       "target": "name=DormInventoryTypeID",
       "targets": [],
-      "value": "label=ระบบน้ำ"
+      "value": "label=เครื่องใช้ไฟฟ้า"
     }, {
-      "id": "5e41c8cb-3161-47c2-850f-6c5dd158bc35",
+      "id": "8b20caae-033c-40a5-b3bd-115b544b8644",
       "comment": "",
       "command": "click",
       "target": "name=DormInventoryID",
@@ -405,14 +354,14 @@
       ],
       "value": ""
     }, {
-      "id": "121884a5-6baa-4f5b-937f-deabffa4de0f",
+      "id": "37d364a9-d4c7-40a9-b347-e0f1e6ffd93d",
       "comment": "",
       "command": "select",
       "target": "name=DormInventoryID",
       "targets": [],
-      "value": "label=อ่างล้างหน้า"
+      "value": "label=พัดลม"
     }, {
-      "id": "ce471ab3-8943-4f1b-be7f-c4f560bd0d76",
+      "id": "3b2014ae-7f04-47e7-9874-fd0ff36b25b7",
       "comment": "",
       "command": "click",
       "target": "name=RoomAllocateID",
@@ -425,27 +374,14 @@
       ],
       "value": ""
     }, {
-      "id": "99b8af85-3e7a-4459-b1d5-d09738f015f1",
-      "comment": "",
-      "command": "click",
-      "target": "name=RoomAllocateID",
-      "targets": [
-        ["name=RoomAllocateID", "name"],
-        ["css=.Mui-focused > .MuiSelect-root", "css:finder"],
-        ["xpath=//select[@name='RoomAllocateID']", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[6]/div/div/select", "xpath:idRelative"],
-        ["xpath=//div[6]/div/div/select", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "50ed219c-a393-486c-a0c5-457116758a97",
+      "id": "6b21243f-70a7-46e3-aa30-8cc493488b5d",
       "comment": "",
       "command": "select",
       "target": "name=RoomAllocateID",
       "targets": [],
-      "value": "label=A02"
+      "value": "label=A09"
     }, {
-      "id": "d46cdb3c-7931-4c38-bb0e-8b2b82f2a0e5",
+      "id": "183538fe-52e9-463c-9df8-16ff070af8c9",
       "comment": "",
       "command": "mouseOver",
       "target": "css=.MuiGrid-root:nth-child(7) path:nth-child(1)",
@@ -454,7 +390,7 @@
       ],
       "value": ""
     }, {
-      "id": "f4eea9c1-7c44-449e-9278-d4dca5da3339",
+      "id": "89a9f00c-fb8a-4111-8bf3-ba0fd6312e43",
       "comment": "",
       "command": "click",
       "target": "css=.MuiGrid-root:nth-child(7) path:nth-child(1)",
@@ -463,7 +399,7 @@
       ],
       "value": ""
     }, {
-      "id": "1de55632-8c68-4142-b4c8-77dafb8ac11d",
+      "id": "a5f25c4d-23a7-4717-95ee-3721e514a619",
       "comment": "",
       "command": "mouseOut",
       "target": "css=.MuiGrid-root:nth-child(7) path:nth-child(1)",
@@ -472,40 +408,40 @@
       ],
       "value": ""
     }, {
-      "id": "1b5c0bcf-743b-4f68-8c4d-041b55e2e2f2",
+      "id": "098f8394-5dc9-433c-bd20-3226976c507e",
       "comment": "",
       "command": "mouseOver",
-      "target": "css=.MuiPickersCalendar-week:nth-child(3) > div:nth-child(7) .MuiIconButton-label",
+      "target": "css=.MuiPickersCalendar-week:nth-child(5) > div:nth-child(2) .MuiIconButton-label",
       "targets": [
-        ["css=.MuiPickersCalendar-week:nth-child(3) > div:nth-child(7) .MuiIconButton-label", "css:finder"],
-        ["xpath=//div[3]/div[7]/button/span", "xpath:position"],
-        ["xpath=//span[contains(.,'19')]", "xpath:innerText"]
+        ["css=.MuiPickersCalendar-week:nth-child(5) > div:nth-child(2) .MuiIconButton-label", "css:finder"],
+        ["xpath=//div[5]/div[2]/button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'28')]", "xpath:innerText"]
       ],
       "value": ""
     }, {
-      "id": "62fb2756-90ea-450b-a47a-6637f8623e18",
-      "comment": "",
-      "command": "mouseOut",
-      "target": "css=.MuiPickersCalendar-week:nth-child(3) > div:nth-child(7) .MuiIconButton-label",
-      "targets": [
-        ["css=.MuiPickersCalendar-week:nth-child(3) > div:nth-child(7) .MuiIconButton-label", "css:finder"],
-        ["xpath=//div[3]/div[7]/button/span", "xpath:position"],
-        ["xpath=//span[contains(.,'19')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "a25ba9f1-ab33-4148-84e5-f350995c2ab5",
+      "id": "308050f6-9a0b-4230-b107-e136fe13fcaf",
       "comment": "",
       "command": "click",
-      "target": "css=.MuiPickersCalendar-week:nth-child(3) > div:nth-child(7) .MuiIconButton-label",
+      "target": "css=.MuiPickersCalendar-week:nth-child(5) > div:nth-child(2) .MuiIconButton-label",
       "targets": [
-        ["css=.MuiPickersCalendar-week:nth-child(3) > div:nth-child(7) .MuiIconButton-label", "css:finder"],
-        ["xpath=//div[3]/div[7]/button/span", "xpath:position"],
-        ["xpath=//span[contains(.,'19')]", "xpath:innerText"]
+        ["css=.MuiPickersCalendar-week:nth-child(5) > div:nth-child(2) .MuiIconButton-label", "css:finder"],
+        ["xpath=//div[5]/div[2]/button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'28')]", "xpath:innerText"]
       ],
       "value": ""
     }, {
-      "id": "ef25515f-0efe-40c7-b141-111ac70d1617",
+      "id": "abb3b2bf-f977-4532-84ef-78ea07a67206",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label",
+      "targets": [
+        ["css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[3]/div/div[2]/button[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'OK')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "88861ad6-851f-4769-ad5a-74ac9d1f2296",
       "comment": "",
       "command": "click",
       "target": "css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label",
@@ -516,33 +452,7 @@
       ],
       "value": ""
     }, {
-      "id": "7384384d-4ecd-4cd2-92dc-c86b8632f708",
-      "comment": "",
-      "command": "click",
-      "target": "id=ProblemNote",
-      "targets": [
-        ["id=ProblemNote", "id"],
-        ["css=#ProblemNote", "css:finder"],
-        ["xpath=//input[@id='ProblemNote']", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[9]/div/div/div/input", "xpath:idRelative"],
-        ["xpath=//div[9]/div/div/div/input", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "f549b791-1a64-49a7-b271-e4dcd5bf38a8",
-      "comment": "",
-      "command": "type",
-      "target": "id=ProblemNote",
-      "targets": [
-        ["id=ProblemNote", "id"],
-        ["css=#ProblemNote", "css:finder"],
-        ["xpath=//input[@id='ProblemNote']", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[9]/div/div/div/input", "xpath:idRelative"],
-        ["xpath=//div[9]/div/div/div/input", "xpath:position"]
-      ],
-      "value": "พัดลมมีควันออก"
-    }, {
-      "id": "92e74c99-3328-48af-bd74-5bd9303fa52b",
+      "id": "8e5854d4-f6f4-4cf3-b1e9-4dff8a3c8bfa",
       "comment": "",
       "command": "click",
       "target": "id=TelNumber",
@@ -555,7 +465,7 @@
       ],
       "value": ""
     }, {
-      "id": "0b86ce23-0cd1-4f6c-b793-c39d3439ca9a",
+      "id": "d2db7ff3-531c-42e7-b2ef-562cbb81e669",
       "comment": "",
       "command": "type",
       "target": "id=TelNumber",
@@ -568,63 +478,45 @@
       ],
       "value": "0800485123"
     }, {
-      "id": "8e9e8561-3fd5-42f7-bf2f-1cc3b4a924b3",
+      "id": "136c5378-39f1-4a76-82a1-5d5f1b33186b",
+      "comment": "",
+      "command": "click",
+      "target": "id=ProblemNote",
+      "targets": [
+        ["id=ProblemNote", "id"],
+        ["css=#ProblemNote", "css:finder"],
+        ["xpath=//input[@id='ProblemNote']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[9]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[9]/div/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b1bb18b1-e9a1-4eaa-8f56-c45e0056d40f",
+      "comment": "",
+      "command": "type",
+      "target": "id=ProblemNote",
+      "targets": [
+        ["id=ProblemNote", "id"],
+        ["css=#ProblemNote", "css:finder"],
+        ["xpath=//input[@id='ProblemNote']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[9]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[9]/div/div/div/input", "xpath:position"]
+      ],
+      "value": "พัดลมมีควันออก"
+    }, {
+      "id": "501b5cc1-3904-405c-a52b-7a4790524889",
       "comment": "",
       "command": "mouseOver",
-      "target": "id=EntryPermission",
+      "target": "css=.MuiButtonBase-root:nth-child(2) > .MuiButton-label",
       "targets": [
-        ["id=EntryPermission", "id"],
-        ["name=EntryPermissionT", "name"],
-        ["css=.MuiFormControlLabel-root:nth-child(1) #EntryPermission", "css:finder"],
-        ["xpath=//input[@id='EntryPermission']", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[11]/label/span/span/input", "xpath:idRelative"],
-        ["xpath=//span/input", "xpath:position"]
+        ["css=.MuiButtonBase-root:nth-child(2) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[12]/button/span", "xpath:idRelative"],
+        ["xpath=//div[12]/button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'บันทึกข้อมูล')]", "xpath:innerText"]
       ],
       "value": ""
     }, {
-      "id": "888da99a-2a6c-4929-b89d-4cb4e7205dd0",
-      "comment": "",
-      "command": "click",
-      "target": "id=EntryPermission",
-      "targets": [
-        ["id=EntryPermission", "id"],
-        ["name=EntryPermissionT", "name"],
-        ["css=.MuiFormControlLabel-root:nth-child(1) #EntryPermission", "css:finder"],
-        ["xpath=//input[@id='EntryPermission']", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[11]/label/span/span/input", "xpath:idRelative"],
-        ["xpath=//span/input", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "0782ec85-d787-4b1d-a42c-4da1a72279de",
-      "comment": "",
-      "command": "click",
-      "target": "id=EntryPermission",
-      "targets": [
-        ["id=EntryPermission", "id"],
-        ["name=EntryPermissionT", "name"],
-        ["css=.PrivateSwitchBase-checked-55 #EntryPermission", "css:finder"],
-        ["xpath=//input[@id='EntryPermission']", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[11]/label/span/span/input", "xpath:idRelative"],
-        ["xpath=//span/input", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "1617f703-6df9-4728-8bb2-46fb0ee7afea",
-      "comment": "",
-      "command": "mouseOut",
-      "target": "id=EntryPermission",
-      "targets": [
-        ["id=EntryPermission", "id"],
-        ["name=EntryPermissionT", "name"],
-        ["css=.MuiFormControlLabel-root:nth-child(1) #EntryPermission", "css:finder"],
-        ["xpath=//input[@id='EntryPermission']", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[11]/label/span/span/input", "xpath:idRelative"],
-        ["xpath=//span/input", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "3b935831-dad5-46b1-953a-feef432bdc7b",
+      "id": "034fd84d-6c3a-48da-bdaf-7a25ee4f41d6",
       "comment": "",
       "command": "click",
       "target": "css=.MuiButtonBase-root:nth-child(2) > .MuiButton-label",
@@ -636,7 +528,19 @@
       ],
       "value": ""
     }, {
-      "id": "bb7ef0e3-1d80-4055-9f2b-10278dfac711",
+      "id": "06bfe8cd-6923-465f-9256-48c334943a27",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiButtonBase-root:nth-child(2) > .MuiButton-label",
+      "targets": [
+        ["css=.MuiButtonBase-root:nth-child(2) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[@id='root']/div/main/div[2]/div/div[3]/div[2]/div[12]/button/span", "xpath:idRelative"],
+        ["xpath=//div[12]/button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'บันทึกข้อมูล')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "09c200c6-1fdf-4fa0-b7a4-189f5da9d2b3",
       "comment": "",
       "command": "click",
       "target": "css=.MuiAlert-root",
@@ -647,7 +551,7 @@
       ],
       "value": ""
     }, {
-      "id": "8a42be69-e7b8-47ab-b3d7-6e76a55d4e16",
+      "id": "bffe6d3f-4fdc-4d6b-a551-d362341149be",
       "comment": "",
       "command": "assertText",
       "target": "css=.MuiAlert-message",
@@ -662,21 +566,21 @@
     "id": "4874377a-9f92-47d5-928b-ce3d89551b40",
     "name": "B6107260 - ตรวจสอบเวลาต้องเป็นอนาคต",
     "commands": [{
-      "id": "98a8e689-904b-4b79-ac2c-d8177197a70d",
+      "id": "13d86176-8ddc-4778-9ec7-988b83a5ca5a",
       "comment": "",
       "command": "open",
       "target": "http://localhost:3000/repairrequest/create",
       "targets": [],
       "value": ""
     }, {
-      "id": "f9ff2130-cb70-4a87-8a12-cb27a22b8133",
+      "id": "5b805b3b-a5a9-48fc-8c25-a06b5428d379",
       "comment": "",
       "command": "setWindowSize",
       "target": "1552x840",
       "targets": [],
       "value": ""
     }, {
-      "id": "d0a95a59-6d72-4eb0-9805-f1c1d27f364c",
+      "id": "7ba84c32-c309-4716-b8ae-d73e4bc627c1",
       "comment": "",
       "command": "click",
       "target": "name=RepairTypeID",
@@ -689,14 +593,14 @@
       ],
       "value": ""
     }, {
-      "id": "b04264fb-b3dc-48b2-9ea2-2843a7812d82",
+      "id": "89fac7df-54a5-413a-acd8-dba28ac9435d",
       "comment": "",
       "command": "select",
       "target": "name=RepairTypeID",
       "targets": [],
       "value": "label=ปกติ"
     }, {
-      "id": "f2500a29-b9dc-4afa-ba46-5147a9367cfd",
+      "id": "fc4fa21a-940f-459e-9aa3-9bcbe6c4265f",
       "comment": "",
       "command": "click",
       "target": "name=DormInventoryTypeID",
@@ -709,14 +613,14 @@
       ],
       "value": ""
     }, {
-      "id": "42e82536-c0be-4e0d-822c-a2b5e3d748d8",
+      "id": "6a7d4880-0ad6-4850-856c-b6ff23f55765",
       "comment": "",
       "command": "select",
       "target": "name=DormInventoryTypeID",
       "targets": [],
       "value": "label=เครื่องใช้ไฟฟ้า"
     }, {
-      "id": "238520fd-fa26-4b5c-9cea-71dbd357b01d",
+      "id": "2391c46a-a9f3-44ce-a1fe-56629cc32e6b",
       "comment": "",
       "command": "click",
       "target": "name=DormInventoryID",
@@ -729,14 +633,14 @@
       ],
       "value": ""
     }, {
-      "id": "8b19800a-2071-4380-bad9-ac8d449fd5fa",
+      "id": "09aa889f-d0e4-442a-bf2d-525491182379",
       "comment": "",
       "command": "select",
       "target": "name=DormInventoryID",
       "targets": [],
       "value": "label=พัดลม"
     }, {
-      "id": "987a9cf8-983e-4f0f-a982-b23e8888a2a6",
+      "id": "b3b2db2d-ca73-4be0-94d6-05a2df8852bd",
       "comment": "",
       "command": "click",
       "target": "name=RoomAllocateID",
@@ -749,63 +653,70 @@
       ],
       "value": ""
     }, {
-      "id": "759e9454-603e-4907-ba52-7986b1038853",
+      "id": "a6a92558-3fb3-460b-afee-9432a2ea252b",
       "comment": "",
       "command": "select",
       "target": "name=RoomAllocateID",
       "targets": [],
-      "value": "label=A01"
+      "value": "label=A09"
     }, {
-      "id": "dfb6b62e-8440-41a1-a1a5-2ca5a0bc8e94",
+      "id": "125c274d-d80b-4491-836d-4173b15e8161",
       "comment": "",
       "command": "mouseOver",
-      "target": "css=.MuiGrid-root:nth-child(7) .MuiSvgIcon-root",
+      "target": "css=.MuiGrid-root:nth-child(7) .MuiButtonBase-root",
       "targets": [
-        ["css=.MuiGrid-root:nth-child(7) .MuiSvgIcon-root", "css:finder"]
+        ["css=.MuiGrid-root:nth-child(7) .MuiButtonBase-root", "css:finder"],
+        ["xpath=(//button[@type='button'])[5]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[7]/div/div/div/div/button", "xpath:idRelative"],
+        ["xpath=//div[7]/div/div/div/div/button", "xpath:position"]
       ],
       "value": ""
     }, {
-      "id": "22d90758-c671-434e-bddb-118a8986d460",
+      "id": "b0da57b0-d04d-4cef-8bf7-62ffc4221935",
       "comment": "",
       "command": "click",
-      "target": "css=.MuiGrid-root:nth-child(7) .MuiSvgIcon-root",
+      "target": "css=.MuiGrid-root:nth-child(7) .MuiButtonBase-root",
       "targets": [
-        ["css=.MuiGrid-root:nth-child(7) .MuiSvgIcon-root", "css:finder"]
+        ["css=.MuiGrid-root:nth-child(7) .MuiButtonBase-root", "css:finder"],
+        ["xpath=(//button[@type='button'])[5]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[7]/div/div/div/div/button", "xpath:idRelative"],
+        ["xpath=//div[7]/div/div/div/div/button", "xpath:position"]
       ],
       "value": ""
     }, {
-      "id": "2bc0a3c8-d7c1-48ef-9e16-aa3e0d50d79c",
+      "id": "305addaf-c027-4632-84ed-47a26c7a4643",
       "comment": "",
       "command": "mouseOut",
-      "target": "css=.MuiGrid-root:nth-child(7) .MuiSvgIcon-root",
+      "target": "css=.MuiGrid-root:nth-child(7) .MuiButtonBase-root",
       "targets": [
-        ["css=.MuiGrid-root:nth-child(7) .MuiSvgIcon-root", "css:finder"]
+        ["css=.MuiGrid-root:nth-child(7) .MuiButtonBase-root", "css:finder"],
+        ["xpath=(//button[@type='button'])[5]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[7]/div/div/div/div/button", "xpath:idRelative"],
+        ["xpath=//div[7]/div/div/div/div/button", "xpath:position"]
       ],
       "value": ""
     }, {
-      "id": "a3e005e3-8785-4259-96de-7cd82c551ba1",
+      "id": "3e6fd952-db8f-438b-ac27-0046e433f2e1",
       "comment": "",
       "command": "mouseOver",
-      "target": "css=.MuiPickersCalendar-week:nth-child(3) > div:nth-child(1) .MuiIconButton-label",
+      "target": "css=.MuiPickersCalendar-week:nth-child(4) > div:nth-child(1) .MuiTypography-root",
       "targets": [
-        ["css=.MuiPickersCalendar-week:nth-child(3) > div:nth-child(1) .MuiIconButton-label", "css:finder"],
-        ["xpath=//div[3]/div/button/span", "xpath:position"],
-        ["xpath=//span[contains(.,'13')]", "xpath:innerText"]
+        ["css=.MuiPickersCalendar-week:nth-child(4) > div:nth-child(1) .MuiTypography-root", "css:finder"],
+        ["xpath=//div[4]/div/button/span/p", "xpath:position"]
       ],
       "value": ""
     }, {
-      "id": "3d9e97b6-0618-4f54-9eee-ea43762ec9f3",
+      "id": "a171f9ae-a17c-4434-b5d5-8157dd164838",
       "comment": "",
       "command": "click",
-      "target": "css=.MuiPickersCalendar-week:nth-child(3) > div:nth-child(1) .MuiIconButton-label",
+      "target": "css=.MuiPickersCalendar-week:nth-child(4) > div:nth-child(1) .MuiTypography-root",
       "targets": [
-        ["css=.MuiPickersCalendar-week:nth-child(3) > div:nth-child(1) .MuiIconButton-label", "css:finder"],
-        ["xpath=//div[3]/div/button/span", "xpath:position"],
-        ["xpath=//span[contains(.,'13')]", "xpath:innerText"]
+        ["css=.MuiPickersCalendar-week:nth-child(4) > div:nth-child(1) .MuiTypography-root", "css:finder"],
+        ["xpath=//div[4]/div/button/span/p", "xpath:position"]
       ],
       "value": ""
     }, {
-      "id": "47c0f635-36e4-4f3c-9dc6-b35092ae9ae5",
+      "id": "b08a38bc-3d36-4fd8-acb4-5584221b5784",
       "comment": "",
       "command": "mouseOver",
       "target": "css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label",
@@ -816,7 +727,7 @@
       ],
       "value": ""
     }, {
-      "id": "f48ec394-efbd-47f4-8158-576ba4317128",
+      "id": "4dc6e067-0d88-4c4d-93f9-5a37edc50b27",
       "comment": "",
       "command": "click",
       "target": "css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label",
@@ -827,7 +738,7 @@
       ],
       "value": ""
     }, {
-      "id": "8ec7abd2-caae-4b79-a731-8d57fd2e183f",
+      "id": "14bc6049-049b-4863-8da4-01f7556a74ee",
       "comment": "",
       "command": "click",
       "target": "id=TelNumber",
@@ -840,7 +751,7 @@
       ],
       "value": ""
     }, {
-      "id": "7bc0e269-6bda-4d5d-a87b-a6dc700e64ae",
+      "id": "0306f7c3-ca8e-4d48-bd1f-ecf14d9d20dd",
       "comment": "",
       "command": "type",
       "target": "id=TelNumber",
@@ -853,7 +764,7 @@
       ],
       "value": "0800485123"
     }, {
-      "id": "21089778-67fa-46c7-9140-99edd27ee741",
+      "id": "a0a7baec-421a-47f5-9020-d5f753ee9fc5",
       "comment": "",
       "command": "click",
       "target": "id=ProblemNote",
@@ -866,7 +777,7 @@
       ],
       "value": ""
     }, {
-      "id": "c040898d-7ec5-4cba-a46f-1ede74a60dc9",
+      "id": "a2e1134d-3599-49ca-bf58-3d8c3fe4e370",
       "comment": "",
       "command": "type",
       "target": "id=ProblemNote",
@@ -879,7 +790,7 @@
       ],
       "value": "พัดลมมีควันออก"
     }, {
-      "id": "213e7a0b-5a34-448e-a5fc-23ec14576b41",
+      "id": "d548b11b-741c-4db6-8190-b58ad5b7fca5",
       "comment": "",
       "command": "mouseOver",
       "target": "name=EntryPermissionF",
@@ -892,7 +803,7 @@
       ],
       "value": ""
     }, {
-      "id": "651d91ce-009b-4522-967a-9adaee40dbfd",
+      "id": "cd22bcd4-e109-4b96-b377-10fd1a5fde6f",
       "comment": "",
       "command": "click",
       "target": "name=EntryPermissionF",
@@ -905,7 +816,7 @@
       ],
       "value": ""
     }, {
-      "id": "29036745-8780-4169-b114-1622b92882b0",
+      "id": "f616a3d5-5a63-4b7f-9fa9-4c8edeaa7d3b",
       "comment": "",
       "command": "mouseOut",
       "target": "name=EntryPermissionF",
@@ -918,7 +829,7 @@
       ],
       "value": ""
     }, {
-      "id": "8c1f5815-3a1f-49f3-92b4-8f252a101e2b",
+      "id": "5614d632-01c2-49d7-b86c-bf8321262709",
       "comment": "",
       "command": "mouseOver",
       "target": "css=.MuiButtonBase-root:nth-child(2) > .MuiButton-label",
@@ -930,7 +841,7 @@
       ],
       "value": ""
     }, {
-      "id": "1d3eaf4c-9c52-4d24-bcb5-0e29ea47362f",
+      "id": "bc80fc68-a860-4db7-9832-a38ccbea9f6f",
       "comment": "",
       "command": "click",
       "target": "css=.MuiButtonBase-root:nth-child(2) > .MuiButton-label",
@@ -942,7 +853,7 @@
       ],
       "value": ""
     }, {
-      "id": "60eed4c2-198e-4fc7-8fe8-106a8348953a",
+      "id": "94f0e269-441c-4251-8a57-d18bd19dcfc3",
       "comment": "",
       "command": "mouseOut",
       "target": "css=.MuiButtonBase-root:nth-child(2) > .MuiButton-label",
@@ -954,7 +865,7 @@
       ],
       "value": ""
     }, {
-      "id": "9783e85c-5658-4729-9700-f149e11139ee",
+      "id": "b686e8cb-83c0-42d6-85d7-364bb5ffa362",
       "comment": "",
       "command": "click",
       "target": "css=.MuiAlert-root",
@@ -965,7 +876,7 @@
       ],
       "value": ""
     }, {
-      "id": "bc329a80-4113-428b-9e87-a3d3c5714190",
+      "id": "158ebfcf-8079-46ec-bbb2-47d3d1a30bcf",
       "comment": "",
       "command": "assertText",
       "target": "css=.MuiAlert-message",
@@ -980,21 +891,21 @@
     "id": "0b0be94e-054d-452f-8755-2cf8b28c28a1",
     "name": "B6107260 - ตรวจสอบเบอร์โทรต้องเป็นตามแพทเทิร์น",
     "commands": [{
-      "id": "930cc0d6-e4cf-4582-9a08-96bbea77f6d5",
+      "id": "6aa25763-24cf-4dbe-8941-2621157b2ded",
       "comment": "",
       "command": "open",
       "target": "http://localhost:3000/repairrequest/create",
       "targets": [],
       "value": ""
     }, {
-      "id": "f610b33b-d55c-4940-a772-de29c732d86b",
+      "id": "1f83cc3f-7f57-4ffe-baad-b80aafb91082",
       "comment": "",
       "command": "setWindowSize",
       "target": "1552x840",
       "targets": [],
       "value": ""
     }, {
-      "id": "7cdb6487-3526-452b-aca5-03d7112442b1",
+      "id": "6175bcba-a6bf-4f24-8e52-075643a79eea",
       "comment": "",
       "command": "click",
       "target": "name=RepairTypeID",
@@ -1007,14 +918,14 @@
       ],
       "value": ""
     }, {
-      "id": "87cf1426-293b-461d-b523-7cc1078d2bf2",
+      "id": "8f7ce6e5-aad6-46e9-8ccc-f3af61b1e0e2",
       "comment": "",
       "command": "select",
       "target": "name=RepairTypeID",
       "targets": [],
       "value": "label=ปกติ"
     }, {
-      "id": "7981bba9-0a9a-4ee0-8f4d-8f3da252077d",
+      "id": "acd3552f-fabe-4209-af99-00f052eb4c75",
       "comment": "",
       "command": "click",
       "target": "name=DormInventoryTypeID",
@@ -1027,14 +938,14 @@
       ],
       "value": ""
     }, {
-      "id": "b4e9fc53-5938-4afb-b69f-a6b66c1b03e9",
+      "id": "c142ca2a-cd3a-49b5-8dca-fec44101a8c2",
       "comment": "",
       "command": "select",
       "target": "name=DormInventoryTypeID",
       "targets": [],
       "value": "label=เครื่องใช้ไฟฟ้า"
     }, {
-      "id": "212923dd-e376-4fc0-b961-8f7d91974470",
+      "id": "a9580a81-1161-4315-9c92-d7a0643d5878",
       "comment": "",
       "command": "click",
       "target": "name=DormInventoryID",
@@ -1047,14 +958,14 @@
       ],
       "value": ""
     }, {
-      "id": "8950d759-0550-49b5-9a36-7aefbde88ce9",
+      "id": "2de3c0c8-7963-4737-a66f-4a18ad3ea90e",
       "comment": "",
       "command": "select",
       "target": "name=DormInventoryID",
       "targets": [],
       "value": "label=พัดลม"
     }, {
-      "id": "0ceb284d-d521-4a45-b36b-82d6fea68ba4",
+      "id": "81f3eb15-3886-4355-a3fa-0dbf74c455cc",
       "comment": "",
       "command": "click",
       "target": "name=RoomAllocateID",
@@ -1067,48 +978,63 @@
       ],
       "value": ""
     }, {
-      "id": "0de4482d-d1ca-4c39-a6a4-22b80400378f",
+      "id": "7e8e13ed-3896-46c4-b0a8-d7d49b2ec03c",
       "comment": "",
       "command": "select",
       "target": "name=RoomAllocateID",
       "targets": [],
-      "value": "label=A01"
+      "value": "label=A09"
     }, {
-      "id": "6444308e-d951-4db3-9f7c-450af8b274c7",
-      "comment": "",
-      "command": "click",
-      "target": "css=.MuiGrid-root:nth-child(7) .MuiButtonBase-root",
-      "targets": [
-        ["css=.MuiGrid-root:nth-child(7) .MuiButtonBase-root", "css:finder"],
-        ["xpath=(//button[@type='button'])[5]", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[7]/div/div/div/div/button", "xpath:idRelative"],
-        ["xpath=//div[7]/div/div/div/div/button", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "03da4cb3-7046-44fd-ae48-3e5863fa46ff",
+      "id": "76772269-de0c-4c5a-bd62-493fc832391f",
       "comment": "",
       "command": "mouseOver",
-      "target": "css=.MuiPickersCalendar-week:nth-child(3) > div:nth-child(7) .MuiTypography-root",
+      "target": "css=.MuiGrid-root:nth-child(7) .MuiSvgIcon-root",
       "targets": [
-        ["css=.MuiPickersCalendar-week:nth-child(3) > div:nth-child(7) .MuiTypography-root", "css:finder"],
-        ["xpath=//div[3]/div[7]/button/span/p", "xpath:position"],
-        ["xpath=//p[contains(.,'19')]", "xpath:innerText"]
+        ["css=.MuiGrid-root:nth-child(7) .MuiSvgIcon-root", "css:finder"]
       ],
       "value": ""
     }, {
-      "id": "37fdef44-8263-435f-a90b-a37a1f87b62d",
+      "id": "a4f4e0ba-a588-49a6-884d-b444b302e625",
       "comment": "",
       "command": "click",
-      "target": "css=.MuiPickersCalendar-week:nth-child(3) > div:nth-child(7) .MuiTypography-root",
+      "target": "css=.MuiGrid-root:nth-child(7) .MuiSvgIcon-root",
       "targets": [
-        ["css=.MuiPickersCalendar-week:nth-child(3) > div:nth-child(7) .MuiTypography-root", "css:finder"],
-        ["xpath=//div[3]/div[7]/button/span/p", "xpath:position"],
-        ["xpath=//p[contains(.,'19')]", "xpath:innerText"]
+        ["css=.MuiGrid-root:nth-child(7) .MuiSvgIcon-root", "css:finder"]
       ],
       "value": ""
     }, {
-      "id": "e57f004d-b783-4811-bc04-deb91a5a3ac3",
+      "id": "9996de64-f0e0-4c51-aeea-ee88f218b912",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiGrid-root:nth-child(7) .MuiSvgIcon-root",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(7) .MuiSvgIcon-root", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "f5d3f25f-e33d-4ac7-85d8-e0bfcf67637f",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiPickersCalendar-week:nth-child(5) > div:nth-child(2) .MuiTypography-root",
+      "targets": [
+        ["css=.MuiPickersCalendar-week:nth-child(5) > div:nth-child(2) .MuiTypography-root", "css:finder"],
+        ["xpath=//div[5]/div[2]/button/span/p", "xpath:position"],
+        ["xpath=//p[contains(.,'28')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b37270b5-1a60-4abe-8d0c-dd28721034c4",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiPickersCalendar-week:nth-child(5) > div:nth-child(2) .MuiTypography-root",
+      "targets": [
+        ["css=.MuiPickersCalendar-week:nth-child(5) > div:nth-child(2) .MuiTypography-root", "css:finder"],
+        ["xpath=//div[5]/div[2]/button/span/p", "xpath:position"],
+        ["xpath=//p[contains(.,'28')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5e32218c-0344-4287-9ae2-6109880c297c",
       "comment": "",
       "command": "mouseOver",
       "target": "css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label",
@@ -1119,7 +1045,7 @@
       ],
       "value": ""
     }, {
-      "id": "90fd28d3-364f-4c8b-ba43-0a1fcf1602f2",
+      "id": "02d54248-357b-4d89-8b91-dfeb2d25d268",
       "comment": "",
       "command": "click",
       "target": "css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label",
@@ -1130,7 +1056,7 @@
       ],
       "value": ""
     }, {
-      "id": "c2f1917d-1d99-41ff-836a-a50149fd9742",
+      "id": "5f2f1079-2f2a-49c6-a912-92a58792525d",
       "comment": "",
       "command": "click",
       "target": "id=TelNumber",
@@ -1143,7 +1069,7 @@
       ],
       "value": ""
     }, {
-      "id": "285bde87-9a3a-40b0-9265-31aca68c586e",
+      "id": "f70751b7-8eab-4635-9e44-e5e0ee7ee61e",
       "comment": "",
       "command": "type",
       "target": "id=TelNumber",
@@ -1156,7 +1082,7 @@
       ],
       "value": "0800485123"
     }, {
-      "id": "3feb6435-b0a6-4a75-8c2a-064cfc21cc16",
+      "id": "6775ceb1-462f-46dd-bfbe-63d13ea4ac84",
       "comment": "",
       "command": "type",
       "target": "id=TelNumber",
@@ -1167,9 +1093,9 @@
         ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[8]/div/div/div/input", "xpath:idRelative"],
         ["xpath=//div[8]/div/div/div/input", "xpath:position"]
       ],
-      "value": "080048512344"
+      "value": "080048512311"
     }, {
-      "id": "938c78b0-3f06-42bb-a7d1-8623a9953e2d",
+      "id": "7989018d-23fe-4685-80b5-0a63eac8ebc8",
       "comment": "",
       "command": "click",
       "target": "id=ProblemNote",
@@ -1182,7 +1108,7 @@
       ],
       "value": ""
     }, {
-      "id": "29b2820c-a6c9-4831-ab81-45b852bb25a1",
+      "id": "c31f9cd0-fd42-4837-8342-d437766df848",
       "comment": "",
       "command": "type",
       "target": "id=ProblemNote",
@@ -1195,20 +1121,7 @@
       ],
       "value": "พัดลมมีควันออก"
     }, {
-      "id": "d593072f-9567-4d86-83da-4fe7b7125235",
-      "comment": "",
-      "command": "mouseOver",
-      "target": "name=EntryPermissionF",
-      "targets": [
-        ["name=EntryPermissionF", "name"],
-        ["css=.MuiFormControlLabel-root:nth-child(2) #EntryPermission", "css:finder"],
-        ["xpath=(//input[@id='EntryPermission'])[2]", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[11]/label[2]/span/span/input", "xpath:idRelative"],
-        ["xpath=//label[2]/span/span/input", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "8aa1c21a-ff17-40a7-a2f9-8f82b3264881",
+      "id": "f5ac1393-0ac9-41a5-bab9-bacd7e1260c0",
       "comment": "",
       "command": "click",
       "target": "name=EntryPermissionF",
@@ -1221,20 +1134,7 @@
       ],
       "value": ""
     }, {
-      "id": "640d7e66-3c4d-49a0-ab0c-148dab5d3f81",
-      "comment": "",
-      "command": "mouseOut",
-      "target": "name=EntryPermissionF",
-      "targets": [
-        ["name=EntryPermissionF", "name"],
-        ["css=.PrivateSwitchBase-checked-55 #EntryPermission", "css:finder"],
-        ["xpath=(//input[@id='EntryPermission'])[2]", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/main/div[2]/div/div[2]/div[2]/div[11]/label[2]/span/span/input", "xpath:idRelative"],
-        ["xpath=//label[2]/span/span/input", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "2e0ec730-ff56-449d-9b8a-329e126cdddf",
+      "id": "271b91dc-1b5e-4a7e-ae37-bd0120867281",
       "comment": "",
       "command": "mouseOver",
       "target": "css=.MuiButtonBase-root:nth-child(2) > .MuiButton-label",
@@ -1246,7 +1146,7 @@
       ],
       "value": ""
     }, {
-      "id": "2e451373-67e4-40e2-bef6-afc647205acd",
+      "id": "aea1c9b9-fa17-42f0-9536-2408574f370d",
       "comment": "",
       "command": "click",
       "target": "css=.MuiButtonBase-root:nth-child(2) > .MuiButton-label",
@@ -1258,7 +1158,7 @@
       ],
       "value": ""
     }, {
-      "id": "503a936a-af0b-4035-b00a-ecb9873fba49",
+      "id": "65b8fc5a-5200-4e36-958a-a2dda43a8cef",
       "comment": "",
       "command": "mouseOut",
       "target": "css=.MuiButtonBase-root:nth-child(2) > .MuiButton-label",
@@ -1270,7 +1170,7 @@
       ],
       "value": ""
     }, {
-      "id": "afc2879b-9b1e-4a76-ac1c-ac30137f9078",
+      "id": "265ff009-25d4-46bd-9fea-c7a36bbf55f5",
       "comment": "",
       "command": "click",
       "target": "css=.MuiAlert-root",
@@ -1281,7 +1181,7 @@
       ],
       "value": ""
     }, {
-      "id": "25a7bb00-30d3-478b-83e6-9e12644e3b73",
+      "id": "80185b76-ef61-4880-89d3-4cb50fa12476",
       "comment": "",
       "command": "assertText",
       "target": "css=.MuiAlert-message",
