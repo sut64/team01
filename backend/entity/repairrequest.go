@@ -8,44 +8,6 @@ import (
 	"fmt"
 )
 
-/*type DormTenant struct {
-	gorm.Model
-	FirstName      string
-	LastName       string
-	Pid            string
-	Gender         string
-	Age            uint8
-	Email          string
-	Tel            string
-	RoomAllocates  []RoomAllocate  `gorm:"foreignKey:DormTenantID"`
-
-}*/
-
-/*type DormInventory struct {
-	gorm.Model
-	FurnitureName string
-	Amount        uint16
-
-	DormInventoryTypeID *uint
-	DormInventoryType   DormInventoryType `gorm:"references:id"`
-
-	RepairRequests []RepairRequest `gorm:"foreignKey:DormInventoryID"`
-}
-*/
-/* type RoomAllocate struct {
-	gorm.Model
-	FirstName      string
-	LastName       string
-	Number         string
-	People         int
-	Note           string
-	EntryTime      time.Time
-	RepairRequests []RepairRequest `gorm:"foreignKey:RoomAllocateID"`
-
-	DormTenantID *uint
-	DormTenant   DormTenant `gorm:"references:id"`
-} */
-
 type RepairRequest struct {
 	gorm.Model
 	TelNumber string `valid:"matches(^[0]\\d{9}$)~Tel. Number invalid pattern"` //matches(^[0][2689]\\d{8}$) ฟิกเลขหลัง 0
